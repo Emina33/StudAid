@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace StudAid.Services
 {
-    public class AppUserService : BaseCRUDService<Model.AppUser, AppUser, AppUserSearchObject,AppUserInsertRequest, AppUserInsertRequest>, IAppUserService
+    public class AppUserService : BaseCRUDService<Model.AppUser, AppUser, AppUserSearchObject,AppUserInsertRequest, AppUserUpdateRequest>, IAppUserService
     {
         //public studAidDbContext Context { get; set; }
         //public IMapper Mapper { get; set; }
@@ -50,12 +50,29 @@ namespace StudAid.Services
 
             return entity;
         }
+        public override Model.AppUser Update(int id, AppUserUpdateRequest update)
+        {
+           
+            var entity = base.Update(id,update);
+
+
+           
+
+            return entity;
+        }
         public override void BeforeInsert(AppUserInsertRequest insert, AppUser entity)
         {
             var salt = GenerateSalt();
             entity.PasswordSalt = salt;
             entity.Password = GenerateHash(salt, insert.Password);
             base.BeforeInsert(insert, entity);
+        }
+        public override void BeforeUpdate(AppUserUpdateRequest update, AppUser entity)
+        {
+            var salt = GenerateSalt();
+            entity.PasswordSalt = salt;
+            entity.Password = GenerateHash(salt, update.Password);
+            base.BeforeUpdate(update, entity);
         }
         public static string GenerateSalt()
         {
@@ -106,10 +123,7 @@ namespace StudAid.Services
             {
                 return null;
             }
-            if(!entity.Role.Contains("admin"))
-            {
-                return null;
-            }
+           
             var hash = GenerateHash(entity.PasswordSalt, password);
             if(hash != entity.Password)
             {

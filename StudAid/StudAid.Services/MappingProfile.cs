@@ -19,14 +19,21 @@ namespace StudAid.Services
             CreateMap<Location, Model.Location>();
             CreateMap<Document, Model.Document>();
             CreateMap<Reservation, Model.Reservation>();
+            CreateMap<Review, Model.Review>();
+            CreateMap<Payment, Model.Payment>();
+            CreateMap<Message, Model.Message>();
             CreateMap<CategoryInsertRequest, Category>();
             CreateMap<SubjectUpsertRequest,Subject>();
             CreateMap<AdvertInsertRequest, Advert>();
             CreateMap<AdvertUpdateRequest, Advert>();
             CreateMap<AppUserInsertRequest, AppUser>();
+            CreateMap<AppUserUpdateRequest, AppUser>();
             CreateMap<DocumentInsertRequest, Document>();
             CreateMap<LocationUpsertRequest, Location>();
             CreateMap<ReservationInsertRequest, Reservation>();
+            CreateMap<ReviewInsertRequest, Review>();
+            CreateMap<PaymentInsertRequest, Payment>();
+            CreateMap<MessageInsertRequest, Message>();
         }
     }
 }

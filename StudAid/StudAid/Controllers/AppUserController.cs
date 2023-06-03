@@ -11,7 +11,7 @@ namespace StudAid.Controllers
     [ApiController]
     [Route("[controller]")]
     [Authorize]
-    public class AppUserController : BaseCRUDController<Model.AppUser, AppUserSearchObject, AppUserInsertRequest, AppUserInsertRequest>
+    public class AppUserController : BaseCRUDController<Model.AppUser, AppUserSearchObject, AppUserInsertRequest, AppUserUpdateRequest>
     {
        // private readonly IAppUserService _Service;
 

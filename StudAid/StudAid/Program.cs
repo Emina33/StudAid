@@ -45,6 +45,9 @@ builder.Services.AddTransient<ISubjectService, SubjectService>();
 builder.Services.AddTransient<IDocumentService, DocumentService>();
 builder.Services.AddTransient<ILocationService, LocationService>();
 builder.Services.AddTransient<IReservationService, ReservationService>();
+builder.Services.AddTransient<IReviewService, ReviewService>();
+builder.Services.AddTransient<IPaymentService, PaymentService>();
+builder.Services.AddTransient<IMessageService, MessageService>();
 
 builder.Services.AddTransient<BaseState>();
 builder.Services.AddTransient<InitialAdvertState>();

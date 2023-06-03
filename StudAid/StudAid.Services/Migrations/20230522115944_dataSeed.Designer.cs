@@ -12,8 +12,8 @@ using StudAid.Services;
 namespace StudAid.Services.Migrations
 {
     [DbContext(typeof(stud_aid2Context))]
-    [Migration("20230329073208_Init")]
-    partial class Init
+    [Migration("20230522115944_dataSeed")]
+    partial class dataSeed
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -80,6 +80,9 @@ namespace StudAid.Services.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"), 1L, 1);
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("FirstName")
                         .HasMaxLength(100)
                         .IsUnicode(false)
@@ -101,6 +104,9 @@ namespace StudAid.Services.Migrations
 
                     b.Property<string>("PasswordSalt")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("ProfilePicture")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)");
@@ -173,6 +179,12 @@ namespace StudAid.Services.Migrations
                         .HasMaxLength(80)
                         .IsUnicode(false)
                         .HasColumnType("varchar(80)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("DocumentFile")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("DocumentName")
                         .HasMaxLength(70)

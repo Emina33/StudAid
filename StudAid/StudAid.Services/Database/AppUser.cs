@@ -23,6 +23,7 @@ namespace StudAid.Services
         public int? LocationId { get; set; }
         public string? Role { get; set; }
         public string? Description { get; set; }
+        public byte[]? ProfilePicture { get; set; }
 
         public virtual Location? Location { get; set; }
         public virtual ICollection<Advert> Adverts { get; set; }

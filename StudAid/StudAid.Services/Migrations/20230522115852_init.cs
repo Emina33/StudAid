@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace StudAid.Services.Migrations
 {
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -81,7 +82,9 @@ namespace StudAid.Services.Migrations
                     Password = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: true),
                     PasswordSalt = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LocationID = table.Column<int>(type: "int", nullable: true),
-                    Role = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProfilePicture = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -101,7 +104,9 @@ namespace StudAid.Services.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DocumentName = table.Column<string>(type: "varchar(70)", unicode: false, maxLength: 70, nullable: true),
                     SubjectID = table.Column<int>(type: "int", nullable: true),
-                    Author = table.Column<string>(type: "varchar(80)", unicode: false, maxLength: 80, nullable: true)
+                    Author = table.Column<string>(type: "varchar(80)", unicode: false, maxLength: 80, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DocumentFile = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
                 },
                 constraints: table =>
                 {

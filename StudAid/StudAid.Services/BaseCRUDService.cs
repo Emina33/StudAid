@@ -35,6 +35,10 @@ namespace StudAid.Services
         {
 
         }
+        public virtual void BeforeUpdate(TUpdate update, TDb entity)
+        {
+
+        }
 
         public virtual T Update(int id, TUpdate update)
         {
@@ -49,7 +53,7 @@ namespace StudAid.Services
             {
                 return null;
             }
-
+            BeforeUpdate(update, entity);
             Context.SaveChanges();
             return Mapper.Map<T>(entity);
         }
