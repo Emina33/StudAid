@@ -8,6 +8,9 @@ class User {
   String? firstName;
   String? lastName;
   String? description;
+  String? username;
+  String? password;
+  String? profilePicture;
 
   User() {}
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

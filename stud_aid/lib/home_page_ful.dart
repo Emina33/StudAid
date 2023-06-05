@@ -1,12 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:stud_aid/components/top_bar.dart';
 import 'package:stud_aid/document_page_ful.dart';
 import 'package:stud_aid/my_profile_page_ful.dart';
 import 'package:stud_aid/providers/advert_provider.dart';
 import 'package:stud_aid/providers/document_provider.dart';
+import 'package:stud_aid/providers/user_provider.dart';
 import 'package:stud_aid/register.dart';
 import 'package:stud_aid/search_page.dart';
 import 'package:provider/provider.dart';
+import 'package:stud_aid/search_page_ful.dart';
 //import 'components/advert.dart';
 import 'advertDetails.dart';
 import 'advert_details_ful.dart';
@@ -15,6 +18,7 @@ import 'document_page.dart';
 import 'models/document.dart';
 import 'main.dart';
 import 'models/advert.dart';
+import 'models/user.dart';
 import 'profile_page.dart';
 import 'utils/util.dart';
 
@@ -28,17 +32,21 @@ class HomePageNew extends StatefulWidget {
 
 class _HomePageNewState extends State<HomePageNew> {
   AdvertProvider? _advertProvider = null;
+  UserProvider? _userProvider = null;
   DocumentProvider? _documentProvider = null;
   List<Advert> data = [];
   List<Document> data2 = [];
+  List<User> data3 = [];
   TextEditingController _searchController = TextEditingController();
   @override
   void initState() {
     // TODO: implement initState
     _advertProvider = context.read<AdvertProvider>();
     _documentProvider = context.read<DocumentProvider>();
+    _userProvider = context.read<UserProvider>();
     loadData();
     loadData2();
+    loadData3();
   }
 
   Future loadData() async {
@@ -55,137 +63,167 @@ class _HomePageNewState extends State<HomePageNew> {
     });
   }
 
+  Future loadData3() async {
+    var tmpData = await _userProvider?.get(null);
+    setState(() {
+      data3 = tmpData!;
+    });
+    Authorization.id = data3
+        .firstWhere((element) => element.username == Authorization.username)
+        .userId;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: const Color.fromRGBO(238, 237, 222, 1.0),
-        appBar: AppBar(
-          backgroundColor: const Color.fromRGBO(20, 30, 39, 1.0),
-          leading: Image.asset(
-            'images/whiteHalfBetter.png',
-          ),
-          actions: [
-            TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const RootPage()),
-                  );
-                },
-                child: Text('Log in',
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: Color.fromRGBO(238, 237, 222, 1.0)))),
-            TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const RegisterPage()),
-                  );
-                },
-                child: const Text('Sign up',
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: Color.fromRGBO(238, 237, 222, 1.0))))
-          ],
-        ),
-        body: SafeArea(
-          child: Column(children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10),
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    child: TextField(
-                      controller: _searchController,
-                      onSubmitted: (value) async {
-                        var tmpData =
-                            await _advertProvider?.get({'advertname': value});
-                        setState(() {
-                          data = tmpData!;
-                        });
-                      },
-                      decoration: InputDecoration(
-                          hintText: "Search",
-                          prefixIcon: Icon(Icons.search),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(color: Colors.grey))),
+    return SafeArea(
+      child: Scaffold(
+          backgroundColor: const Color.fromRGBO(238, 237, 222, 1.0),
+          appBar: PreferredSize(
+              preferredSize: Size.fromHeight(50), child: TopBar()),
+          // appBar: AppBar(
+          //   backgroundColor: const Color.fromRGBO(20, 30, 39, 1.0),
+          //   leading: Image.asset(
+          //     'images/whiteHalfBetter.png',
+          //   ),
+          //   actions: [
+          //     TextButton(
+          //         onPressed: () {
+          //           Navigator.push(
+          //             context,
+          //             MaterialPageRoute(builder: (context) => const RootPage()),
+          //           );
+          //         },
+          //         child: Text('Log in',
+          //             style: TextStyle(
+          //                 fontSize: 18,
+          //                 color: Color.fromRGBO(238, 237, 222, 1.0)))),
+          //     TextButton(
+          //         onPressed: () {
+          //           Navigator.push(
+          //             context,
+          //             MaterialPageRoute(
+          //                 builder: (context) => const RegisterPage()),
+          //           );
+          //         },
+          //         child: const Text('Sign up',
+          //             style: TextStyle(
+          //                 fontSize: 18,
+          //                 color: Color.fromRGBO(238, 237, 222, 1.0))))
+          //   ],
+          // ),
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: Column(children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        margin: EdgeInsets.symmetric(horizontal: 10),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                        child: TextField(
+                          controller: _searchController,
+                          onSubmitted: (value) async {
+                            var tmpData = await _advertProvider
+                                ?.get({'advertname': value});
+                            setState(() {
+                              data = tmpData!;
+                            });
+                            _searchController.clear();
+                          },
+                          decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: BorderSide(
+                                    color: Color.fromRGBO(20, 30, 39, 1.0)),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: BorderSide(
+                                    color: Color.fromRGBO(20, 30, 39, 1.0)),
+                              ),
+                              hintText: "Search",
+                              prefixIcon: Icon(Icons.search),
+                              iconColor: Color.fromRGBO(20, 30, 39, 1.0),
+                              prefixIconColor: Color.fromRGBO(20, 30, 39, 1.0),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                  borderSide: BorderSide(color: Colors.grey))),
+                        ),
+                      ),
                     ),
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 10),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      child: IconButton(
+                        icon: Icon(Icons.filter_list),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const SearchPage2()),
+                          );
+                        },
+                      ),
+                    )
+                  ],
+                ),
+                /* Container(
+                  height: 40,
+                  width: 420,
+                  margin: const EdgeInsets.only(right: 30.0, left: 30.0, top: 30),
+                  decoration: const BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                              width: 1, color: Color.fromRGBO(32, 50, 57, 0.4)))),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SearchPage()),
+                            );
+                          },
+                          child: const Text('Search',
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Color.fromRGBO(32, 50, 57, 0.4)))),
+                      TextButton(
+                          onPressed: () {},
+                          child: const Text('Filter',
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Color.fromRGBO(32, 50, 57, 0.4))))
+                    ],
+                  ),
+                ), */
+
+                Container(
+                  decoration: const BoxDecoration(
+                      border: Border(
+                          top: BorderSide(
+                              width: 1,
+                              color: Color.fromRGBO(32, 50, 57, 0.4)))),
+                  child: Column(
+                    children: _buildAdvertCardList(),
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 10),
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  child: IconButton(
-                    icon: Icon(Icons.filter_list),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SearchPage()),
-                      );
-                    },
+                  margin: const EdgeInsets.only(top: 20, bottom: 10),
+                  child: Column(
+                    children: _buildDocumentCardList(),
                   ),
-                )
-              ],
+                ),
+              ]),
             ),
-            /* Container(
-              height: 40,
-              width: 420,
-              margin: const EdgeInsets.only(right: 30.0, left: 30.0, top: 30),
-              decoration: const BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(
-                          width: 1, color: Color.fromRGBO(32, 50, 57, 0.4)))),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const SearchPage()),
-                        );
-                      },
-                      child: const Text('Search',
-                          style: TextStyle(
-                              fontSize: 18,
-                              color: Color.fromRGBO(32, 50, 57, 0.4)))),
-                  TextButton(
-                      onPressed: () {},
-                      child: const Text('Filter',
-                          style: TextStyle(
-                              fontSize: 18,
-                              color: Color.fromRGBO(32, 50, 57, 0.4))))
-                ],
-              ),
-            ), */
-            SingleChildScrollView(),
-            Container(
-              decoration: const BoxDecoration(
-                  border: Border(
-                      top: BorderSide(
-                          width: 1, color: Color.fromRGBO(32, 50, 57, 0.4)))),
-              margin: const EdgeInsets.only(top: 10),
-              padding: const EdgeInsets.only(top: 20),
-              child: Column(
-                children: _buildAdvertCardList(),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 30),
-              child: Column(
-                children: _buildDocumentCardList(),
-              ),
-            ),
-          ]),
-        ),
-        bottomNavigationBar: const BottomBar());
+          ),
+          bottomNavigationBar: const BottomBar()),
+    );
   }
 
   List<Widget> _buildAdvertCardList() {
@@ -196,6 +234,9 @@ class _HomePageNewState extends State<HomePageNew> {
     List<Widget> list = data
         .map((x) => InkWell(
               onTap: () {
+                var pic = data3.firstWhere(
+                    (element) => element.userId == x.tutor,
+                    orElse: () => new User());
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -209,7 +250,8 @@ class _HomePageNewState extends State<HomePageNew> {
                 ),
                 height: 220,
                 width: 330,
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.only(left: 10, right: 10),
+                margin: const EdgeInsets.only(top: 20),
                 child: Row(children: [
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -219,10 +261,15 @@ class _HomePageNewState extends State<HomePageNew> {
                         height: 100,
                         width: 110,
                         margin: const EdgeInsets.only(left: 15, right: 15),
-                        child: Image.asset(
-                          'images/blueFullBetter.png',
-                          fit: BoxFit.scaleDown,
-                        ),
+                        child: x.tutor != null && data3.isNotEmpty
+                            ? imageFromBase64String(data3
+                                .firstWhere(
+                                    (element) => element.userId == x.tutor)
+                                .profilePicture!)
+                            : Image.asset(
+                                'images/blueFullBetter.png',
+                                fit: BoxFit.scaleDown,
+                              ),
                       ),
                       Container(
                         child: TextButton(
@@ -313,6 +360,7 @@ class _HomePageNewState extends State<HomePageNew> {
                 height: 162,
                 width: 330,
                 padding: const EdgeInsets.all(10),
+                margin: const EdgeInsets.only(bottom: 20),
                 child: Row(children: [
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,

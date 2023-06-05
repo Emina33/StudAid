@@ -5,7 +5,12 @@ import 'package:stud_aid/home_page.dart';
 import 'package:stud_aid/home_page_ful.dart';
 import 'package:stud_aid/providers/advert_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:stud_aid/providers/category_provider.dart';
 import 'package:stud_aid/providers/document_provider.dart';
+import 'package:stud_aid/providers/location_provider.dart';
+import 'package:stud_aid/providers/reservation_provider.dart';
+import 'package:stud_aid/providers/review_provider.dart';
+import 'package:stud_aid/providers/subject_provider.dart';
 import 'package:stud_aid/providers/user_provider.dart';
 import 'package:stud_aid/utils/util.dart';
 
@@ -13,7 +18,12 @@ void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => AdvertProvider()),
     ChangeNotifierProvider(create: (_) => UserProvider()),
-    ChangeNotifierProvider(create: (_) => DocumentProvider())
+    ChangeNotifierProvider(create: (_) => DocumentProvider()),
+    ChangeNotifierProvider(create: (_) => ReservationProvider()),
+    ChangeNotifierProvider(create: (_) => LocationProvider()),
+    ChangeNotifierProvider(create: (_) => CategoryProvider()),
+    ChangeNotifierProvider(create: (_) => SubjectProvider()),
+    ChangeNotifierProvider(create: (_) => ReviewProvider()),
   ], child: const MyApp()));
 }
 

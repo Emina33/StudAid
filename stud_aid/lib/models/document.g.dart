@@ -10,11 +10,13 @@ Document _$DocumentFromJson(Map<String, dynamic> json) => Document()
   ..documentId = json['documentId'] as int?
   ..documentName = json['documentName'] as String?
   ..author = json['author'] as String?
-  ..description = json['description'] as String?;
+  ..description = json['description'] as String?
+  ..documentFile = json['documentFile'] as String?;
 
 Map<String, dynamic> _$DocumentToJson(Document instance) => <String, dynamic>{
       'documentId': instance.documentId,
       'documentName': instance.documentName,
       'author': instance.author,
       'description': instance.description,
+      'documentFile': instance.documentFile,
     };

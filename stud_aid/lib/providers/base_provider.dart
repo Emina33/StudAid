@@ -59,12 +59,12 @@ abstract class BaseProvider<T> with ChangeNotifier {
     print("done $response");
     if (isValidResponseCode(response)) {
       var data = jsonDecode(response.body);
-      if (data != null) {
+      if (data != null && data != List.empty()) {
         if (data[0]["username"] == Authorization.username) {
           Authorization.id = data[0]["userId"];
         }
       }
-
+      print(Authorization.id);
       return data.map((x) => fromJson(x)).cast<T>().toList();
     } else {
       throw Exception("Exception... handle this gracefully");

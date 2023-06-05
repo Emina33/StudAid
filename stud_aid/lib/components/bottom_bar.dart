@@ -34,8 +34,7 @@ class _BottomBarState extends State<BottomBar> {
     } else if (index == 2) {
       Navigator.push(
         context,
-        MaterialPageRoute(
-            builder: (context) => MyProfilePage2(Authorization.id)),
+        MaterialPageRoute(builder: (context) => MyProfilePage2(0)),
       );
     }
   }
