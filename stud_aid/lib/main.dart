@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:stud_aid/providers/category_provider.dart';
 import 'package:stud_aid/providers/document_provider.dart';
 import 'package:stud_aid/providers/location_provider.dart';
+import 'package:stud_aid/providers/message_provider.dart';
 import 'package:stud_aid/providers/reservation_provider.dart';
 import 'package:stud_aid/providers/review_provider.dart';
 import 'package:stud_aid/providers/subject_provider.dart';
@@ -24,6 +25,7 @@ void main() {
     ChangeNotifierProvider(create: (_) => CategoryProvider()),
     ChangeNotifierProvider(create: (_) => SubjectProvider()),
     ChangeNotifierProvider(create: (_) => ReviewProvider()),
+    ChangeNotifierProvider(create: (_) => MessageProvider()),
   ], child: const MyApp()));
 }
 

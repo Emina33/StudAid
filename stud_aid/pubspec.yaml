@@ -40,13 +40,20 @@ dependencies:
   intl: ^0.18.0
   flutter_rating_bar: ^4.0.1
   filter_list: ^1.0.2
-  image_picker: ^0.7.2+1
+  image_picker: ^0.8.7+5
   file_picker: 3.0.0
   path_provider: ^2.0.15
   permission_handler: ^10.2.0
   pdf: ^3.8.4
   http_auth: ^1.0.1
   shared_preferences: ^2.1.1
+  flutter_chat_types: ^3.4.5
+  bubble: ^1.2.1
+  webview_flutter: ^3.0.4
+  flutter_paypal: ^0.0.7
+  flutter_chat_ui: ^1.6.8
+  grouped_list: ^5.1.2
+  web_socket_channel: ^2.4.0
 
 dev_dependencies:
   flutter_test:

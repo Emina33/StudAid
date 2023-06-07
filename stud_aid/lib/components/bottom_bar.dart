@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:stud_aid/chat3.dart';
 import 'package:stud_aid/chat_list.dart';
 import 'package:stud_aid/home_page_ful.dart';
 import 'package:stud_aid/main.dart';
 import 'package:stud_aid/my_profile_page.dart';
+import 'package:stud_aid/newChat.dart';
 import 'package:stud_aid/search_page.dart';
 import 'package:stud_aid/utils/util.dart';
 
@@ -29,7 +31,7 @@ class _BottomBarState extends State<BottomBar> {
     } else if (index == 1) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const ChatListPage()),
+        MaterialPageRoute(builder: (context) => const ChatPage3()),
       );
     } else if (index == 2) {
       Navigator.push(

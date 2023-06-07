@@ -32,7 +32,7 @@ class _EditProfilePageState extends State<EditProfilePage>
   Future pickImage() async {
     try {
       final ImagePicker picker = ImagePicker();
-      final image = await ImagePicker().getImage(source: ImageSource.gallery);
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (image == null) return;
       final imageTemp = File(image.path);
       final imageTemp2 = File(image.path).readAsBytesSync();

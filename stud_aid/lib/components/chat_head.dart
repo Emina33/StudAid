@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:stud_aid/chat.dart';
 
+import '../chat_ful.dart';
+
 class ChatHead extends StatefulWidget {
   const ChatHead({super.key});
 
@@ -31,7 +33,7 @@ class _ChatHeadState extends State<ChatHead> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const ChatPage()),
+                            builder: (context) => const ChatPage2()),
                       );
                     },
                     child: const Text(
