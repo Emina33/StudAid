@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stud_aid/advertDetails.dart';
-import 'package:stud_aid/document_page.dart';
+
 import 'package:stud_aid/profile_page.dart';
 
 class Document extends StatefulWidget {
@@ -50,13 +50,7 @@ class _DocumentState extends State<Document> {
                     Container(
                       padding: const EdgeInsets.only(top: 11),
                       child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const DocumentPage()),
-                          );
-                        },
+                        onPressed: () {},
                         style: ElevatedButton.styleFrom(
                             shape: const StadiumBorder(),
                             primary: const Color.fromRGBO(20, 30, 39, 1.0),

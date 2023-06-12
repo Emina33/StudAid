@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:stud_aid/components/alertDialog.dart';
+import 'package:stud_aid/components/loadingScreen.dart';
 import 'package:stud_aid/components/top_bar.dart';
 import 'package:stud_aid/document_page_ful.dart';
 import 'package:stud_aid/my_profile_page_ful.dart';
@@ -7,14 +9,14 @@ import 'package:stud_aid/providers/advert_provider.dart';
 import 'package:stud_aid/providers/document_provider.dart';
 import 'package:stud_aid/providers/user_provider.dart';
 import 'package:stud_aid/register.dart';
-import 'package:stud_aid/search_page.dart';
+
 import 'package:provider/provider.dart';
 import 'package:stud_aid/search_page_ful.dart';
 //import 'components/advert.dart';
 import 'advertDetails.dart';
 import 'advert_details_ful.dart';
 import 'components/bottom_bar.dart';
-import 'document_page.dart';
+
 import 'models/document.dart';
 import 'main.dart';
 import 'models/advert.dart';
@@ -32,10 +34,13 @@ class HomePageNew extends StatefulWidget {
 
 class _HomePageNewState extends State<HomePageNew> {
   AdvertProvider? _advertProvider = null;
+  bool loading = true;
   UserProvider? _userProvider = null;
   DocumentProvider? _documentProvider = null;
   List<Advert> data = [];
+  List<Advert> dataShow = [];
   List<Document> data2 = [];
+  List<Document> data2Show = [];
   List<User> data3 = [];
   TextEditingController _searchController = TextEditingController();
   @override
@@ -44,22 +49,44 @@ class _HomePageNewState extends State<HomePageNew> {
     _advertProvider = context.read<AdvertProvider>();
     _documentProvider = context.read<DocumentProvider>();
     _userProvider = context.read<UserProvider>();
-    loadData();
-    loadData2();
+
     loadData3();
   }
 
-  Future loadData() async {
-    var tmpData = await _advertProvider?.get(null);
+  void filterData(String filter) {
     setState(() {
-      data = tmpData!;
+      dataShow = data
+          .where(
+              (element) => element.advertName!.toLowerCase().contains(filter))
+          .toList();
+      data2Show = data2
+          .where(
+              (element) => element.documentName!.toLowerCase().contains(filter))
+          .toList();
     });
+  }
+
+  Future loadData() async {
+    if (Authorization.id != null) {
+      var tmpData = await _advertProvider?.getRecommended(Authorization.id!);
+      setState(() {
+        data = tmpData!;
+        dataShow = tmpData;
+      });
+    } else {
+      var tmpData = await _advertProvider?.get(null);
+      setState(() {
+        data = tmpData!;
+        dataShow = tmpData;
+      });
+    }
   }
 
   Future loadData2() async {
     var tmpData = await _documentProvider?.get(null);
     setState(() {
       data2 = tmpData!;
+      data2Show = tmpData;
     });
   }
 
@@ -68,9 +95,21 @@ class _HomePageNewState extends State<HomePageNew> {
     setState(() {
       data3 = tmpData!;
     });
-    Authorization.id = data3
-        .firstWhere((element) => element.username == Authorization.username)
-        .userId;
+    if (data3.length != 0 &&
+        data3
+                .firstWhere(
+                    (element) => element.username == Authorization.username)
+                .userId !=
+            null) {
+      Authorization.id = data3
+          .firstWhere((element) => element.username == Authorization.username)
+          .userId;
+    }
+    loadData();
+    loadData2();
+    setState(() {
+      loading = false;
+    });
   }
 
   @override
@@ -112,65 +151,68 @@ class _HomePageNewState extends State<HomePageNew> {
           //   ],
           // ),
           body: SafeArea(
-            child: SingleChildScrollView(
-              child: Column(children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 10),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                        child: TextField(
-                          controller: _searchController,
-                          onSubmitted: (value) async {
-                            var tmpData = await _advertProvider
-                                ?.get({'advertname': value});
-                            setState(() {
-                              data = tmpData!;
-                            });
-                            _searchController.clear();
-                          },
-                          decoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20),
-                                borderSide: BorderSide(
-                                    color: Color.fromRGBO(20, 30, 39, 1.0)),
+            child: loading
+                ? const LoadingScreen()
+                : SingleChildScrollView(
+                    child: Column(children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Container(
+                              margin: EdgeInsets.symmetric(horizontal: 10),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 10),
+                              child: TextField(
+                                controller: _searchController,
+                                onSubmitted: (value) {
+                                  filterData(value);
+                                  _searchController.clear();
+                                },
+                                decoration: InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      borderSide: BorderSide(
+                                          color:
+                                              Color.fromRGBO(20, 30, 39, 1.0)),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      borderSide: BorderSide(
+                                          color:
+                                              Color.fromRGBO(20, 30, 39, 1.0)),
+                                    ),
+                                    hintText: "Search",
+                                    prefixIcon: Icon(Icons.search),
+                                    iconColor: Color.fromRGBO(20, 30, 39, 1.0),
+                                    prefixIconColor:
+                                        Color.fromRGBO(20, 30, 39, 1.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(30),
+                                        borderSide:
+                                            BorderSide(color: Colors.grey))),
                               ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20),
-                                borderSide: BorderSide(
-                                    color: Color.fromRGBO(20, 30, 39, 1.0)),
-                              ),
-                              hintText: "Search",
-                              prefixIcon: Icon(Icons.search),
-                              iconColor: Color.fromRGBO(20, 30, 39, 1.0),
-                              prefixIconColor: Color.fromRGBO(20, 30, 39, 1.0),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide: BorderSide(color: Colors.grey))),
-                        ),
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 10),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
+                            child: IconButton(
+                              icon: Icon(Icons.filter_list),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const SearchPage2()),
+                                );
+                              },
+                            ),
+                          )
+                        ],
                       ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                      child: IconButton(
-                        icon: Icon(Icons.filter_list),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const SearchPage2()),
-                          );
-                        },
-                      ),
-                    )
-                  ],
-                ),
-                /* Container(
+                      /* Container(
                   height: 40,
                   width: 420,
                   margin: const EdgeInsets.only(right: 30.0, left: 30.0, top: 30),
@@ -203,24 +245,24 @@ class _HomePageNewState extends State<HomePageNew> {
                   ),
                 ), */
 
-                Container(
-                  decoration: const BoxDecoration(
-                      border: Border(
-                          top: BorderSide(
-                              width: 1,
-                              color: Color.fromRGBO(32, 50, 57, 0.4)))),
-                  child: Column(
-                    children: _buildAdvertCardList(),
+                      Container(
+                        decoration: const BoxDecoration(
+                            border: Border(
+                                top: BorderSide(
+                                    width: 1,
+                                    color: Color.fromRGBO(32, 50, 57, 0.4)))),
+                        child: Column(
+                          children: _buildAdvertCardList(),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 20, bottom: 10),
+                        child: Column(
+                          children: _buildDocumentCardList(),
+                        ),
+                      ),
+                    ]),
                   ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 20, bottom: 10),
-                  child: Column(
-                    children: _buildDocumentCardList(),
-                  ),
-                ),
-              ]),
-            ),
           ),
           bottomNavigationBar: const BottomBar()),
     );
@@ -228,21 +270,12 @@ class _HomePageNewState extends State<HomePageNew> {
 
   List<Widget> _buildAdvertCardList() {
     if (data.length == 0) {
-      return [Text("Loading...")];
+      return [Text("")];
     }
 
-    List<Widget> list = data
+    List<Widget> list = dataShow
         .map((x) => InkWell(
-              onTap: () {
-                var pic = data3.firstWhere(
-                    (element) => element.userId == x.tutor,
-                    orElse: () => new User());
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => AdvertDetailsFul(x.advertId!)),
-                );
-              },
+              onTap: () {},
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
@@ -261,7 +294,13 @@ class _HomePageNewState extends State<HomePageNew> {
                         height: 100,
                         width: 110,
                         margin: const EdgeInsets.only(left: 15, right: 15),
-                        child: x.tutor != null && data3.isNotEmpty
+                        child: x.tutor != null &&
+                                data3.isNotEmpty &&
+                                data3
+                                        .firstWhere((element) =>
+                                            element.userId == x.tutor)
+                                        .profilePicture! !=
+                                    ""
                             ? imageFromBase64String(data3
                                 .firstWhere(
                                     (element) => element.userId == x.tutor)
@@ -310,11 +349,27 @@ class _HomePageNewState extends State<HomePageNew> {
                             padding: const EdgeInsets.only(top: 50),
                             child: ElevatedButton(
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const BookPage()),
-                                );
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //       builder: (context) => const BookPage()),
+                                // );
+                                if (x.tutor == Authorization.id) {
+                                  showAlertDialog(
+                                      context,
+                                      "You can't book your own class!",
+                                      "Warning");
+                                }
+                                // var pic = data3.firstWhere(
+                                //     (element) => element.userId == x.tutor,
+                                //     orElse: () => new User());
+                                if (x.tutor != Authorization.id)
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            AdvertDetailsFul(x.advertId!)),
+                                  );
                               },
                               style: ElevatedButton.styleFrom(
                                   shape: const StadiumBorder(),
@@ -340,18 +395,12 @@ class _HomePageNewState extends State<HomePageNew> {
 
   List<Widget> _buildDocumentCardList() {
     if (data2.length == 0) {
-      return [Text("Loading...")];
+      return [Text("")];
     }
 
-    List<Widget> list = data2
+    List<Widget> list = data2Show
         .map((x) => InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => DocumentPage2(x.documentId!)),
-                );
-              },
+              onTap: () {},
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
@@ -396,7 +445,7 @@ class _HomePageNewState extends State<HomePageNew> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              const DocumentPage()),
+                                              DocumentPage2(x.documentId!)),
                                     );
                                   },
                                   style: ElevatedButton.styleFrom(

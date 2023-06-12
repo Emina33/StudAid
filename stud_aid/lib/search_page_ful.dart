@@ -9,6 +9,7 @@ import 'package:filter_list/filter_list.dart';
 import 'components/bottom_bar.dart';
 import 'components/slider.dart';
 import 'components/top_bar.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 
 class SearchPage2 extends StatefulWidget {
   const SearchPage2({super.key});
@@ -26,6 +27,19 @@ class _SearchPage2State extends State<SearchPage2> {
   List<bool> boolCit = [false, false, false, false, false, false, false];
   LocationProvider? _locationProvider = null;
   RangeValues _currentRangeValues = const RangeValues(40, 80);
+  static const List<String> cities = [
+    "Živinice",
+    "Mostar",
+    "Visoko",
+    "Sarajevo",
+    "Zenica",
+    "Travnik",
+    "Tuzla"
+  ];
+  static const List<String> categories = [
+    "Science",
+    "Languages",
+  ];
   @override
   void initState() {
     // TODO: implement initState
@@ -88,7 +102,7 @@ class _SearchPage2State extends State<SearchPage2> {
                   children: [
                     TextButton(
                         onPressed: () {},
-                        child: const Text('Filter',
+                        child: Text(categories[0],
                             style: TextStyle(
                                 fontSize: 18,
                                 color: Color.fromRGBO(32, 50, 57, 0.4))))
@@ -108,7 +122,7 @@ class _SearchPage2State extends State<SearchPage2> {
                       ),
                       CheckboxListTile(
                         activeColor: Color.fromRGBO(32, 50, 57, 1),
-                        title: const Text("Science",
+                        title: Text(categories[1],
                             style: TextStyle(
                                 fontSize: 18,
                                 color: Color.fromRGBO(32, 50, 57, 0.4))),
@@ -145,7 +159,7 @@ class _SearchPage2State extends State<SearchPage2> {
                       ),
                       CheckboxListTile(
                         activeColor: Color.fromRGBO(32, 50, 57, 1),
-                        title: const Text("Živinice",
+                        title: Text(cities[0],
                             style: TextStyle(
                                 fontSize: 18,
                                 color: Color.fromRGBO(32, 50, 57, 0.4))),
@@ -160,7 +174,7 @@ class _SearchPage2State extends State<SearchPage2> {
                       ),
                       CheckboxListTile(
                         activeColor: Color.fromRGBO(32, 50, 57, 1),
-                        title: const Text("Mostar",
+                        title: Text(cities[1],
                             style: TextStyle(
                                 fontSize: 18,
                                 color: Color.fromRGBO(32, 50, 57, 0.4))),
@@ -175,7 +189,7 @@ class _SearchPage2State extends State<SearchPage2> {
                       ),
                       CheckboxListTile(
                         activeColor: Color.fromRGBO(32, 50, 57, 1),
-                        title: const Text("Visoko",
+                        title: Text(cities[2],
                             style: TextStyle(
                                 fontSize: 18,
                                 color: Color.fromRGBO(32, 50, 57, 0.4))),
@@ -190,7 +204,7 @@ class _SearchPage2State extends State<SearchPage2> {
                       ),
                       CheckboxListTile(
                         activeColor: Color.fromRGBO(32, 50, 57, 1),
-                        title: const Text("Sarajevo",
+                        title: Text(cities[3],
                             style: TextStyle(
                                 fontSize: 18,
                                 color: Color.fromRGBO(32, 50, 57, 0.4))),
@@ -205,7 +219,7 @@ class _SearchPage2State extends State<SearchPage2> {
                       ),
                       CheckboxListTile(
                         activeColor: Color.fromRGBO(32, 50, 57, 1),
-                        title: const Text("Zenica",
+                        title: Text(cities[4],
                             style: TextStyle(
                                 fontSize: 18,
                                 color: Color.fromRGBO(32, 50, 57, 0.4))),
@@ -220,7 +234,7 @@ class _SearchPage2State extends State<SearchPage2> {
                       ),
                       CheckboxListTile(
                         activeColor: Color.fromRGBO(32, 50, 57, 1),
-                        title: const Text("Travnik",
+                        title: Text(cities[5],
                             style: TextStyle(
                                 fontSize: 18,
                                 color: Color.fromRGBO(32, 50, 57, 0.4))),
@@ -235,7 +249,7 @@ class _SearchPage2State extends State<SearchPage2> {
                       ),
                       CheckboxListTile(
                         activeColor: Color.fromRGBO(32, 50, 57, 1),
-                        title: const Text("Tuzla",
+                        title: Text(cities[6],
                             style: TextStyle(
                                 fontSize: 18,
                                 color: Color.fromRGBO(32, 50, 57, 0.4))),

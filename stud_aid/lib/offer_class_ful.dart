@@ -1,13 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:stud_aid/components/alertDialog.dart';
+import 'package:stud_aid/providers/advert_provider.dart';
 import 'package:stud_aid/providers/category_provider.dart';
 import 'package:stud_aid/providers/location_provider.dart';
+import 'package:stud_aid/providers/subject_provider.dart';
+import 'package:stud_aid/utils/util.dart';
 
 import 'components/bottom_bar.dart';
 import 'components/top_bar.dart';
 import 'models/category.dart';
 import 'models/location.dart';
+import 'models/subject.dart';
 
 class OfferClassPage2 extends StatefulWidget {
   const OfferClassPage2({super.key});
@@ -19,10 +24,13 @@ class OfferClassPage2 extends StatefulWidget {
 class _OfferClassPage2State extends State<OfferClassPage2> {
   CategoryProvider? _categoryProvider = null;
   List<Category> data = [];
+  SubjectProvider? _subjectProvider = null;
+  AdvertProvider? _advertProvider = null;
+  List<Subject> dataSubjects = [];
   List<String> dataString = [];
   static const List<String> categories = ["Science", "Languages"];
   static const List<String> cities = [
-    "Donji Vakuf",
+    "Živinice",
     "Mostar",
     "Visoko",
     "Sarajevo",
@@ -34,17 +42,49 @@ class _OfferClassPage2State extends State<OfferClassPage2> {
   String selectedLocation = cities.first;
   String selectedCategory = categories.first;
   String selectedSubject = subjects.first;
-
+  final timeRule = RegExp(r'(([01]?[0-9]|2[0-3]):[0-5][0-9],){1,8}');
   List<Location> data2 = [];
   List<String?> data2String = [];
   LocationProvider? _locationProvider = null;
+  final TextEditingController nameController = new TextEditingController();
+  final TextEditingController authorController = new TextEditingController();
+  final TextEditingController priceController = new TextEditingController();
+  final TextEditingController timeController = new TextEditingController();
+  bool Validate() {
+    if (nameController.text == "") {
+      showAlertDialog(context, "Write the advert name", "Warning");
+      return false;
+    }
+    if (priceController.text == "") {
+      showAlertDialog(context, "Write the price of a class", "Warning");
+      return false;
+    }
+    if (int.tryParse(priceController.text) == null) {
+      showAlertDialog(context, "Price must be a number", "Warning");
+      return false;
+    }
+    if (timeController.text == "") {
+      showAlertDialog(context, "Write the time you are available", "Warning");
+      return false;
+    }
+    if (!timeRule.hasMatch("${timeController.text},")) {
+      showAlertDialog(
+          context, "The acceptable format is e.g 10:00,11:00", "Warning");
+      return false;
+    }
+    return true;
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     _categoryProvider = context.read<CategoryProvider>();
     _locationProvider = context.read<LocationProvider>();
+    _subjectProvider = context.read<SubjectProvider>();
+    _advertProvider = context.read<AdvertProvider>();
     loadData();
     loadData2();
+    loadData3();
   }
 
   Future loadData() async {
@@ -67,6 +107,13 @@ class _OfferClassPage2State extends State<OfferClassPage2> {
     });
     setState(() {
       data2String = data2.map((e) => e.city).toList();
+    });
+  }
+
+  Future loadData3() async {
+    var tmpData = await _subjectProvider?.get(null);
+    setState(() {
+      dataSubjects = tmpData!;
     });
   }
 
@@ -99,66 +146,64 @@ class _OfferClassPage2State extends State<OfferClassPage2> {
                         textAlign: TextAlign.center,
                       ),
                     ),
+                    // SizedBox(
+                    //     width: 300.0,
+                    //     height: 50.0,
+                    //     child: DropdownButton<String>(
+                    //       isExpanded: true,
+                    //       hint: const Text("Category"),
+                    //       value: selectedCategory,
+                    //       icon: const Icon(Icons.arrow_drop_down),
+                    //       elevation: 16,
+                    //       style: const TextStyle(
+                    //           color: Color.fromRGBO(20, 30, 39, 1.0),
+                    //           fontSize: 20),
+                    //       underline: Container(
+                    //         height: 1,
+                    //         color: Color.fromRGBO(20, 30, 39, 1.0),
+                    //       ),
+                    //       onChanged: (String? value) {
+                    //         // This is called when the user selects an item.
+                    //         setState(() {
+                    //           selectedCategory = value!;
+                    //         });
+                    //       },
+                    //       items: categories
+                    //           .map<DropdownMenuItem<String>>((String value) {
+                    //         return DropdownMenuItem<String>(
+                    //           value: value,
+                    //           child: Text(value),
+                    //         );
+                    //       }).toList(),
+                    //     )),
                     SizedBox(
-                        width: 300.0,
-                        height: 50.0,
-                        child: DropdownButton<String>(
-                          isExpanded: true,
-                          hint: const Text("Category"),
-                          value: selectedCategory,
-                          icon: const Icon(Icons.arrow_drop_down),
-                          elevation: 16,
-                          style: const TextStyle(
-                              color: Color.fromRGBO(20, 30, 39, 1.0),
-                              fontSize: 20),
-                          underline: Container(
-                            height: 1,
-                            color: Color.fromRGBO(20, 30, 39, 1.0),
+                      width: 300.0,
+                      height: 50.0,
+                      child: TextField(
+                        controller: nameController,
+                        cursorColor: const Color.fromRGBO(20, 30, 39, 1.0),
+                        decoration: const InputDecoration(
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromRGBO(20, 30, 39, 1.0)),
                           ),
-                          onChanged: (String? value) {
-                            // This is called when the user selects an item.
-                            setState(() {
-                              selectedCategory = value!;
-                            });
-                          },
-                          items: categories
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                        )),
-                    SizedBox(
-                        width: 300.0,
-                        height: 50.0,
-                        child: DropdownButton<String>(
-                          isExpanded: true,
-                          hint: const Text("City"),
-                          value: selectedLocation,
-                          icon: const Icon(Icons.arrow_drop_down),
-                          elevation: 16,
-                          style: const TextStyle(
-                              color: Color.fromRGBO(20, 30, 39, 1.0),
-                              fontSize: 20),
-                          underline: Container(
-                            height: 1,
-                            color: Color.fromRGBO(20, 30, 39, 1.0),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromRGBO(20, 30, 39, 1.0)),
                           ),
-                          onChanged: (String? value) {
-                            // This is called when the user selects an item.
-                            setState(() {
-                              selectedLocation = value!;
-                            });
-                          },
-                          items: cities
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                        )),
+                          border: UnderlineInputBorder(),
+                          labelText: 'Advert name',
+                          labelStyle:
+                              TextStyle(color: Color.fromRGBO(20, 30, 39, 1.0)),
+                          isDense: true,
+                        ),
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Color.fromRGBO(20, 30, 39, 1.0)),
+                      ),
+                    ),
+
                     SizedBox(
                         width: 300.0,
                         height: 50.0,
@@ -189,12 +234,13 @@ class _OfferClassPage2State extends State<OfferClassPage2> {
                             );
                           }).toList(),
                         )),
-                    const SizedBox(
+                    SizedBox(
                       width: 300.0,
                       height: 50.0,
                       child: TextField(
+                        controller: priceController,
                         cursorColor: Color.fromRGBO(20, 30, 39, 1.0),
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: ("Enter a price for a single lesson"),
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
@@ -216,12 +262,13 @@ class _OfferClassPage2State extends State<OfferClassPage2> {
                             color: Color.fromRGBO(20, 30, 39, 1.0)),
                       ),
                     ),
-                    const SizedBox(
+                    SizedBox(
                       width: 300.0,
                       height: 50.0,
                       child: TextField(
+                        controller: timeController,
                         cursorColor: Color.fromRGBO(20, 30, 39, 1.0),
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: ("e.g. 10:00, 11:00, 12:00"),
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
@@ -245,7 +292,7 @@ class _OfferClassPage2State extends State<OfferClassPage2> {
                     ),
                     Container(
                       width: 300,
-                      child: Row(
+                      child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             SizedBox(
@@ -374,7 +421,34 @@ class _OfferClassPage2State extends State<OfferClassPage2> {
                     Container(
                       margin: const EdgeInsets.only(top: 50),
                       child: TextButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            if (Validate()) {
+                              if (dataSubjects != null &&
+                                  dataSubjects.length > 0) {
+                                int? num = dataSubjects
+                                    .firstWhere((element) =>
+                                        element.subjectName == selectedSubject)
+                                    .subjectId;
+                                ;
+                                Object advertNew = {
+                                  "advertName": nameController.text,
+                                  "availableTime": timeController.text,
+                                  "price": int.parse(priceController.text),
+                                  "tutor": Authorization.id,
+                                  "subjectId": num,
+                                  "date": 1
+                                };
+                                await _advertProvider?.insert(advertNew);
+                                showAlertDialog(
+                                    context,
+                                    "You have successfully added an advert",
+                                    "Success");
+                                nameController.clear();
+                                timeController.clear();
+                                priceController.clear();
+                              }
+                            }
+                          },
                           child: const Text(
                             'Done',
                             style: TextStyle(

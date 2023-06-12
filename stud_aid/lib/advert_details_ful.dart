@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stud_aid/PaypalPayment.dart';
-import 'package:stud_aid/home_page.dart';
 import 'package:stud_aid/models/advert.dart';
 import 'package:stud_aid/models/reservation.dart';
 import 'package:stud_aid/payment_page.dart';
@@ -10,7 +9,9 @@ import 'package:stud_aid/providers/advert_provider.dart';
 import 'package:stud_aid/providers/reservation_provider.dart';
 import 'package:stud_aid/review_page.dart';
 import 'package:flutter_paypal/flutter_paypal.dart';
+import 'package:stud_aid/utils/util.dart';
 import 'advertDetails.dart';
+import 'components/alertDialog.dart';
 import 'components/bottom_bar.dart';
 import 'components/top_bar.dart';
 
@@ -26,8 +27,8 @@ class AdvertDetailsFul extends StatefulWidget {
 class _AdvertDetailsFulState extends State<AdvertDetailsFul> {
   AdvertProvider? _advertProvider = null;
   Advert? advert = null;
-  late ReservationProvider _reservationProvider;
-  late Reservation? reservation = null;
+  ReservationProvider? _reservationProvider = null;
+  Reservation? reservation = null;
   String? selectedTime = 'unselected';
   @override
   @override
@@ -43,6 +44,33 @@ class _AdvertDetailsFulState extends State<AdvertDetailsFul> {
     setState(() {
       advert = tmpData!.firstWhere((element) => element.advertId == widget.id);
     });
+  }
+
+  Future changeAvailableTime(int id) async {
+    String? newTime = advert!.availableTime != null &&
+            advert!.availableTime!.lastIndexOf(',') ==
+                (advert!.availableTime!.length - 1)
+        ? advert!.availableTime?.replaceAll("$selectedTime,", "")
+        : advert!.availableTime?.replaceAll("$selectedTime", "");
+    if (advert != null) {
+      Object advertNew = {
+        "advertName": advert!.advertName,
+        "availableTime": newTime,
+        "price": advert!.price,
+        "tutor": advert!.tutor,
+        "subjectId": advert!.subjectId,
+        "date": 1
+      };
+      await _advertProvider?.update(id, advertNew);
+    }
+  }
+
+  bool Validate() {
+    if (selectedTime == "unselected") {
+      showAlertDialog(context, "Please select a time", "Warning");
+      return false;
+    }
+    return true;
   }
 
   Future insertData() async {}
@@ -83,8 +111,26 @@ class _AdvertDetailsFulState extends State<AdvertDetailsFul> {
                   children: _buildAvailableTime(advert),
                 ),
                 Container(
+                  margin: const EdgeInsets.only(top: 30),
+                  child: selectedTime == "unselected"
+                      ? const Text(
+                          'Click a time to select',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 18,
+                              color: Color.fromRGBO(20, 30, 39, 1.0)),
+                        )
+                      : Text(
+                          'Selected time: ${selectedTime}',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 18,
+                              color: Color.fromRGBO(20, 30, 39, 1.0)),
+                        ),
+                ),
+                Container(
                   width: 270,
-                  margin: const EdgeInsets.only(top: 80),
+                  margin: const EdgeInsets.only(top: 20),
                   child: ElevatedButton(
                     onPressed: () /*async*/ {
                       setState(() {
@@ -92,12 +138,7 @@ class _AdvertDetailsFulState extends State<AdvertDetailsFul> {
                         reservation?.userId = 2;
                         reservation?.selectedTime = selectedTime;
                       });
-                      Object reservation2 = {
-                        "advertId": widget.id,
-                        "userId": 2,
-                        "selectedTime": selectedTime
-                      };
-                      //await _reservationProvider.insert(reservation2);
+
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -112,10 +153,10 @@ class _AdvertDetailsFulState extends State<AdvertDetailsFul> {
                                 transactions: const [
                                   {
                                     "amount": {
-                                      "total": '1.00',
+                                      "total": '10.00',
                                       "currency": "USD",
                                       "details": {
-                                        "subtotal": '1.00',
+                                        "subtotal": '10.00',
                                         "shipping": '0',
                                         "shipping_discount": 0
                                       }
@@ -129,9 +170,9 @@ class _AdvertDetailsFulState extends State<AdvertDetailsFul> {
                                     "item_list": {
                                       "items": [
                                         {
-                                          "name": "A demo product",
+                                          "name": "A tutoring session",
                                           "quantity": 1,
-                                          "price": '1.00',
+                                          "price": '10.00',
                                           "currency": "USD"
                                         }
                                       ],
@@ -154,6 +195,26 @@ class _AdvertDetailsFulState extends State<AdvertDetailsFul> {
                                     "Contact us for any questions on your order.",
                                 onSuccess: (Map params) async {
                                   print("onSuccess: $params");
+                                  if (selectedTime != "unselected") {
+                                    setState(() {
+                                      reservation?.advertId = widget.id;
+                                      reservation?.userId = 2;
+                                      reservation?.selectedTime = selectedTime;
+                                    });
+                                    Object reservation2 = {
+                                      "advertId": widget.id,
+                                      "userId": Authorization.id,
+                                      "selectedTime": selectedTime
+                                    };
+
+                                    await _reservationProvider
+                                        ?.insert(reservation2);
+                                    showAlertDialog(
+                                        context,
+                                        "You have successfully made a reservation!",
+                                        "Success");
+                                    changeAvailableTime(widget.id);
+                                  }
                                 },
                                 onError: (error) {
                                   print("onError: $error");
@@ -168,13 +229,50 @@ class _AdvertDetailsFulState extends State<AdvertDetailsFul> {
                         primary: const Color.fromRGBO(20, 30, 39, 1.0),
                         minimumSize: Size(170, 45)),
                     child: Text(
-                      'Confirm time : ${selectedTime}',
+                      'Confirm and pay now',
                       style: TextStyle(fontSize: 20),
+                      textAlign: TextAlign.center,
                     ),
                   ),
-                )
+                ),
+                Container(
+                  width: 270,
+                  margin: const EdgeInsets.only(top: 20),
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      if (selectedTime != "unselected") {
+                        setState(() {
+                          reservation?.advertId = widget.id;
+                          reservation?.userId = 2;
+                          reservation?.selectedTime = selectedTime;
+                        });
+                        Object reservation2 = {
+                          "advertId": widget.id,
+                          "userId": Authorization.id,
+                          "selectedTime": selectedTime
+                        };
+
+                        await _reservationProvider?.insert(reservation2);
+                        showAlertDialog(
+                            context,
+                            "You have successfully made a reservation!",
+                            "Success");
+                        changeAvailableTime(widget.id);
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                        shape: const StadiumBorder(),
+                        primary: const Color.fromRGBO(20, 30, 39, 1.0),
+                        minimumSize: Size(170, 45)),
+                    child: Text(
+                      'Confirm and pay later',
+                      style: TextStyle(fontSize: 20),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
               ]),
-            )
+            ),
           ]),
           bottomNavigationBar: const BottomBar()),
     );
@@ -182,7 +280,7 @@ class _AdvertDetailsFulState extends State<AdvertDetailsFul> {
 
   List<Widget> _buildAvailableTime(Advert? item) {
     if (item == null) {
-      return [Text("Loading...")];
+      return [Text("")];
     }
     var timetable = item.availableTime!.split(',');
     List<Widget> list = timetable

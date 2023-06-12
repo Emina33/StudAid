@@ -11,6 +11,7 @@ class User {
   String? username;
   String? password;
   String? profilePicture;
+  int? locationId;
 
   User() {}
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:stud_aid/providers/document_provider.dart';
 import 'package:stud_aid/providers/subject_provider.dart';
+import 'components/alertDialog.dart';
 import 'components/bottom_bar.dart';
 import 'dart:io';
 
@@ -49,6 +50,28 @@ class _UploadPage2State extends State<UploadPage2> {
     });
   }
 
+  bool Validate() {
+    if (nameController.text == "") {
+      showAlertDialog(context, "Write the document name", "Warning");
+      return false;
+    }
+    if (authorController.text == "") {
+      showAlertDialog(context, "Write the name of the author", "Warning");
+      return false;
+    }
+    if (descriptionController.text == "") {
+      showAlertDialog(context,
+          "Write a short content description of the document", "Warning");
+      return false;
+    }
+    if (fileString == "") {
+      showAlertDialog(context, "Select a document", "Warning");
+      return false;
+    }
+
+    return true;
+  }
+
   Future pickFile() async {
     try {
       //final file = await FilePicker.platform.pickFiles();
@@ -81,7 +104,7 @@ class _UploadPage2State extends State<UploadPage2> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          resizeToAvoidBottomInset: false,
+          resizeToAvoidBottomInset: true,
           backgroundColor: const Color.fromRGBO(238, 237, 222, 1.0),
           appBar: PreferredSize(
               preferredSize: Size.fromHeight(50), child: TopBar()),
@@ -112,11 +135,23 @@ class _UploadPage2State extends State<UploadPage2> {
                       child: TextField(
                         controller: nameController,
                         decoration: InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromRGBO(20, 30, 39, 1.0)),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromRGBO(20, 30, 39, 1.0)),
+                            ),
+                            labelStyle: TextStyle(
+                                color: Color.fromRGBO(20, 30, 39, 1.0)),
                             border: UnderlineInputBorder(),
                             labelText: 'Document name',
                             isDense: true,
-                            contentPadding: EdgeInsets.all(8)),
+                            contentPadding:
+                                EdgeInsets.only(right: 8, top: 8, bottom: 8)),
                         textAlign: TextAlign.left,
+                        cursorColor: Color.fromRGBO(20, 30, 39, 1.0),
                         style: TextStyle(fontSize: 20),
                       ),
                     ),
@@ -127,10 +162,22 @@ class _UploadPage2State extends State<UploadPage2> {
                         controller: authorController,
                         decoration: InputDecoration(
                             border: UnderlineInputBorder(),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromRGBO(20, 30, 39, 1.0)),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromRGBO(20, 30, 39, 1.0)),
+                            ),
+                            labelStyle: TextStyle(
+                                color: Color.fromRGBO(20, 30, 39, 1.0)),
                             labelText: 'Author',
                             isDense: true,
-                            contentPadding: EdgeInsets.all(8)),
+                            contentPadding:
+                                EdgeInsets.only(right: 8, top: 8, bottom: 8)),
                         textAlign: TextAlign.left,
+                        cursorColor: Color.fromRGBO(20, 30, 39, 1.0),
                         style: TextStyle(fontSize: 20),
                       ),
                     ),
@@ -144,8 +191,9 @@ class _UploadPage2State extends State<UploadPage2> {
                           icon: const Icon(Icons.arrow_drop_down),
                           elevation: 16,
                           style: const TextStyle(
-                              color: Color.fromRGBO(20, 30, 39, 1.0),
-                              fontSize: 20),
+                            color: Color.fromRGBO(20, 30, 39, 1.0),
+                            fontSize: 20,
+                          ),
                           underline: Container(
                             height: 1,
                             color: Color.fromRGBO(20, 30, 39, 1.0),
@@ -207,7 +255,7 @@ class _UploadPage2State extends State<UploadPage2> {
                         'Description',
                         style: TextStyle(
                             fontSize: 20,
-                            color: Color.fromRGBO(32, 50, 57, 0.4)),
+                            color: Color.fromRGBO(20, 30, 39, 1.0)),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -222,6 +270,8 @@ class _UploadPage2State extends State<UploadPage2> {
                           height: double.infinity,
                           width: double.infinity,
                           child: TextField(
+                            autofocus: false,
+                            cursorColor: Color.fromRGBO(20, 30, 39, 1.0),
                             controller: descriptionController,
                             decoration: InputDecoration(
                               fillColor: Colors.white,
@@ -244,18 +294,32 @@ class _UploadPage2State extends State<UploadPage2> {
                       margin: const EdgeInsets.only(top: 15),
                       child: TextButton(
                           onPressed: () async {
-                            int? selected = data
-                                .firstWhere((element) =>
-                                    element.subjectName == selectedSubject)
-                                .subjectId;
-                            Object document = {
-                              "documentName": nameController.text,
-                              "subjectId": selected,
-                              "author": authorController.text,
-                              "description": descriptionController.text,
-                              "documentFile": fileString
-                            };
-                            await _documentProvider?.insert(document);
+                            if (Validate()) {
+                              int? selected = data
+                                  .firstWhere((element) =>
+                                      element.subjectName == selectedSubject)
+                                  .subjectId;
+                              Object document = {
+                                "documentName": nameController.text,
+                                "subjectId": selected,
+                                "author": authorController.text,
+                                "description": descriptionController.text,
+                                "documentFile": fileString
+                              };
+                              await _documentProvider?.insert(document);
+                              showAlertDialog(
+                                  context,
+                                  "You have successfully added a document.",
+                                  "Success");
+                              nameController.clear();
+                              authorController.clear();
+                              descriptionController.clear();
+                              setState(() {
+                                file = null;
+                              });
+                            }
+
+                            //Navigator.pop(context);
                           },
                           child: const Text(
                             'Done',
@@ -270,4 +334,50 @@ class _UploadPage2State extends State<UploadPage2> {
           bottomNavigationBar: const BottomBar()),
     );
   }
+
+  // showAlertDialog(BuildContext context) {
+  //   // set up the button
+  //   Widget okButton = TextButton(
+  //     child: Text(
+  //       "OK",
+  //       style: TextStyle(color: Color.fromRGBO(20, 30, 39, 1.0)),
+  //       textAlign: TextAlign.center,
+  //     ),
+  //     onPressed: () {
+  //       Navigator.pop(context);
+  //     },
+  //   );
+
+  //   // set up the AlertDialog
+  //   AlertDialog alert = AlertDialog(
+  //     backgroundColor: const Color.fromRGBO(238, 237, 222, 1.0),
+  //     shape: RoundedRectangleBorder(
+  //         borderRadius: BorderRadius.all(Radius.circular(32.0))),
+  //     title: Text(
+  //       "Success",
+  //       style: TextStyle(fontSize: 20),
+  //       textAlign: TextAlign.center,
+  //     ),
+  //     content: Container(
+  //       height: 50,
+  //       margin: EdgeInsets.only(top: 20),
+  //       alignment: Alignment.center,
+  //       child: Text(
+  //         "You have succesfully added a document.",
+  //         textAlign: TextAlign.center,
+  //       ),
+  //     ),
+  //     actions: [
+  //       okButton,
+  //     ],
+  //   );
+
+  //   // show the dialog
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return alert;
+  //     },
+  //   );
+  // }
 }

@@ -9,6 +9,7 @@ class Advert {
   double? price;
   String? availableTime;
   int? tutor;
+  int? subjectId;
 
   Advert() {}
   factory Advert.fromJson(Map<String, dynamic> json) => _$AdvertFromJson(json);

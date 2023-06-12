@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:stud_aid/chat3.dart';
-import 'package:stud_aid/chat_list.dart';
 import 'package:stud_aid/home_page_ful.dart';
 import 'package:stud_aid/main.dart';
-import 'package:stud_aid/my_profile_page.dart';
+
 import 'package:stud_aid/newChat.dart';
-import 'package:stud_aid/search_page.dart';
+
 import 'package:stud_aid/utils/util.dart';
 
+import '../chat_list_ful.dart';
 import '../my_profile_page_ful.dart';
 
 class BottomBar extends StatefulWidget {
@@ -31,7 +31,7 @@ class _BottomBarState extends State<BottomBar> {
     } else if (index == 1) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const ChatPage3()),
+        MaterialPageRoute(builder: (context) => const ChatList2()),
       );
     } else if (index == 2) {
       Navigator.push(
@@ -44,7 +44,7 @@ class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      selectedItemColor: const Color.fromRGBO(20, 30, 39, 1.0),
+      selectedItemColor: Color.fromRGBO(103, 101, 78, 1),
       onTap: _onItemTapped,
       currentIndex: _selectedIndex,
       items: const <BottomNavigationBarItem>[

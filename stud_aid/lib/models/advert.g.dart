@@ -11,7 +11,8 @@ Advert _$AdvertFromJson(Map<String, dynamic> json) => Advert()
   ..advertName = json['advertName'] as String?
   ..price = (json['price'] as num?)?.toDouble()
   ..availableTime = json['availableTime'] as String?
-  ..tutor = json['tutor'] as int?;
+  ..tutor = json['tutor'] as int?
+  ..subjectId = json['subjectId'] as int?;
 
 Map<String, dynamic> _$AdvertToJson(Advert instance) => <String, dynamic>{
       'advertId': instance.advertId,
@@ -19,4 +20,5 @@ Map<String, dynamic> _$AdvertToJson(Advert instance) => <String, dynamic>{
       'price': instance.price,
       'availableTime': instance.availableTime,
       'tutor': instance.tutor,
+      'subjectId': instance.subjectId,
     };

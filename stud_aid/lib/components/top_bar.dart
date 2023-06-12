@@ -13,6 +13,7 @@ class _TopBarState extends State<TopBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 80,
       padding: EdgeInsets.only(right: 15, left: 15),
       color: const Color.fromRGBO(20, 30, 39, 1.0),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
