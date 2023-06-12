@@ -131,65 +131,77 @@ namespace StudAid.Services
             }
             return Mapper.Map<Model.AppUser>(entity);
         }
-        static object isLocked = new object();
-        static MLContext mLContext = null;
-        static ITransformer model = null;
-        public List<Model.Advert> Recommend(int id)
-        {
-            lock (isLocked)
-            {
-                if (mLContext == null)
-                {
-                    mLContext = new MLContext();
-                    var tmpData = Context.Reservations.ToList();
-                    var data = new List<AdvertEntry>();
-                    foreach (var item in tmpData)
-                    {
-                        data.Add(new AdvertEntry()
-                        {
-                            AdvertID = (uint)item.AdvertId,
-                            UserID = (uint)item.UserId
-                        });
-                    }
-                    var traindata = mLContext.Data.LoadFromEnumerable(data);
-                    //STEP 3: Your data is already encoded so all you need to do is specify options for MatrxiFactorizationTrainer with a few extra hyperparameters
-                    //        LossFunction, Alpa, Lambda and a few others like K and C as shown below and call the trainer.
-                    MatrixFactorizationTrainer.Options options = new MatrixFactorizationTrainer.Options();
-                    options.MatrixColumnIndexColumnName = nameof(AdvertEntry.AdvertID);
-                    options.MatrixRowIndexColumnName = nameof(AdvertEntry.UserID);
-                    options.LabelColumnName = "Label";
-                    options.LossFunction = MatrixFactorizationTrainer.LossFunctionType.SquareLossOneClass;
-                    options.Alpha = 0.01;
-                    options.Lambda = 0.025;
-                    // For better results use the following parameters
-                    options.NumberOfIterations = 100;
-                    options.C = 0.00001;
+        //static object isLocked = new object();
+        
+       
+        //public List<Model.Advert> Recommend(int id)
+        //{
+        //    try
+        //    {
+        //        if (mLContext == null)
+        //        {
+        //            mLContext = new MLContext();
+        //            var tmpData = Context.Reservations.Include("Advert").ToList();
+        //            var data = new List<AdvertEntry>();
+        //            foreach (var item in tmpData)
+        //            {
+        //                data.Add(new AdvertEntry()
+        //                {
+        //                    AdvertID = (uint)item.AdvertId,
+        //                    UserID = (uint)item.UserId,
+        //                    TutorID = (uint)item.Advert.Tutor,
+        //                });
+        //            }
+        //            var traindata = mLContext.Data.LoadFromEnumerable(data);
+        //            //STEP 3: Your data is already encoded so all you need to do is specify options for MatrxiFactorizationTrainer with a few extra hyperparameters
+        //            //        LossFunction, Alpa, Lambda and a few others like K and C as shown below and call the trainer.
+        //            MatrixFactorizationTrainer.Options options = new MatrixFactorizationTrainer.Options();
+        //            options.MatrixColumnIndexColumnName = nameof(AdvertEntry.AdvertID);
+        //            options.MatrixRowIndexColumnName = nameof(AdvertEntry.UserID);
+        //            options.LabelColumnName = "Label";
+        //            options.LossFunction = MatrixFactorizationTrainer.LossFunctionType.SquareLossOneClass;
+        //            options.Alpha = 0.01;
+        //            options.Lambda = 0.025;
+        //            // For better results use the following parameters
+        //            options.NumberOfIterations = 100;
+        //            options.C = 0.00001;
 
 
-                    var est = mLContext.Recommendation().Trainers.MatrixFactorization(options);
+        //            var est = mLContext.Recommendation().Trainers.MatrixFactorization(options);
 
 
-                    model = est.Fit(traindata);
-                }
-            }
+        //            model = est.Fit(traindata);
+        //        }
+        //        //}
 
-            var allItems = Context.Adverts.Where(x => x.AdvertId != id);
-            var predictionResult = new List<Tuple<Advert, float>>();
-            foreach (var item in allItems)
-            {
-                var predictionEngine = mLContext.Model.CreatePredictionEngine<AdvertEntry, PredictionLevel>(model);
-                var prediction = predictionEngine.Predict(new AdvertEntry()
-                {
-                    UserID = (uint)id,
-                    AdvertID = (uint)item.AdvertId
-                });
-                predictionResult.Add(new Tuple<Advert, float>(item, prediction.Score));
-            }
-            var finalResult = predictionResult.OrderByDescending(x => x.Item2)
-                .Select(x => x.Item1).Take(3).ToList();
+        //        var allItems = Context.Adverts.Where(x => x.AdvertId != id);
+        //        var predictionResult = new List<Tuple<Advert, float>>();
+        //        foreach (var item in allItems)
+        //        {
+        //            var predictionEngine = mLContext.Model.CreatePredictionEngine<AdvertEntry, PredictionLevel>(model);
+        //            var prediction = predictionEngine.Predict(new AdvertEntry()
+        //            {
+        //                UserID = (uint)id,
+        //                AdvertID = (uint)item.AdvertId
+        //            });
+        //            predictionResult.Add(new Tuple<Advert, float>(item, prediction.Score));
+        //        }
+        //        var finalResult = predictionResult.OrderByDescending(x => x.Item2)
+        //            .Select(x => x.Item1).Take(3).ToList();
 
-            return Mapper.Map<List<Model.Advert>>(finalResult);
-        }
+        //        return Mapper.Map<List<Model.Advert>>(finalResult);
+
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        return new List<Model.Advert>();
+        //    }
+
+        //    //lock (isLocked)
+        //    //{
+
+
+        //}
 
         //public IEnumerable<Model.AppUser> Get()
         //{
@@ -204,20 +216,138 @@ namespace StudAid.Services
         //    var result = Context.AppUsers.Find(id);
         //    return Mapper.Map<Model.AppUser>(result);
         //}
+        //}
+        static MLContext? mlContext = null;
+        static ITransformer? model = null;
+        //static ITransformer modelNew = null;
+
+        public List<Model.Advert> Recommend(int id)
+        {
+
+            
+
+            var allAdverts = Context.Adverts.ToList();
+            var trainedModel = ModelTrainer(id);
+
+            var predictionResult = new List<Tuple<Advert, float>>();
+            foreach (var advert in allAdverts)
+            {
+                
+                //if (advert.SubjectId != null && advert.Tutor != null && mlContext != null && trainedModel != null)
+                //{
+                    var predictionEngine = mlContext.Model.CreatePredictionEngine<ReservationEntry, PredictionLevel>(trainedModel);
+
+                    var prediction = predictionEngine.Predict(new ReservationEntry()
+                    {
+                        UserID = (uint)id,
+                        AdvertID = (uint)advert.AdvertId,
+                        SubjectId = (uint)advert.SubjectId,
+                        TutorId = (uint)advert.Tutor,
+                    });
+                    predictionResult.Add(new Tuple<Advert, float>(advert, prediction.Score));
+
+                //}
+
+               
+
+            }
+
+            //var finalResult = predictionResult.OrderByDescending(o => o.Item2).Select(s => s.Item1).Take(3).ToList();
+            
+            var finalResult = predictionResult?.OrderByDescending(o => o.Item2).Select(s => s.Item1).ToList();
+
+            //AdvertService advertService = new(Context, Mapper, null);
+            //foreach (var item in finalResult)
+            //{
+            //    var advert = advertService.GetById(item.AdvertId);
+            //    item.Product = Mapper.Map<Product>(product);
+            //}
+            
+
+            return Mapper.Map<List<Model.Advert>>(finalResult);
+        }
+
+        public ITransformer ModelTrainer(int id)
+        {
+            if (mlContext == null)
+            {
+                mlContext = new MLContext();
+
+                //ReservationService reservationService = new(Context, Mapper);
+                
+                //ReservationSearchObject reservationSearchObject = new();
+                //reservationSearchObject.UserId = id;
+                var allAdverts = Context.Adverts.ToList();
+                // var reservations = reservationService.Get(reservationSearchObject).ToList();
+                var reservations = Context.Reservations.ToList();
+
+                var data = new List<ReservationEntry>();
+               
+                    foreach (var advert in allAdverts)
+                    {
+                        foreach (var reservation in reservations)
+                        {
+                            if (advert.AdvertId == reservation.AdvertId && reservation.UserId == id && advert.Tutor != null && advert.SubjectId != null)
+                            {
+                                data.Add(new ReservationEntry()
+                                {
+                                    UserID = (uint)id,
+                                    AdvertID = (uint)reservation.AdvertId,
+                                    SubjectId = (uint)advert.SubjectId,
+                                    TutorId = (uint)advert.Tutor,
+
+                                });
+                            }
+
+                        }
+
+
+
+
+
+                    }
+                
+                
+                
+                var trainData = mlContext.Data.LoadFromEnumerable(data);
+
+                MatrixFactorizationTrainer.Options options = new()
+                {
+                    MatrixColumnIndexColumnName = nameof(ReservationEntry.UserID),
+                    MatrixRowIndexColumnName = nameof(ReservationEntry.AdvertID),
+                    LabelColumnName = "Label",
+                    LossFunction = MatrixFactorizationTrainer.LossFunctionType.SquareLossOneClass,
+                    Alpha = 0.01,
+                    Lambda = 0.025
+                };
+                // For better results use the following parameters
+                //options.NumberOfIterations = 100;
+                //options.C = 0.00001;
+
+                var est = mlContext.Recommendation().Trainers.MatrixFactorization(options);
+
+                model = est.Fit(trainData);
+            }
+            
+                return model;
+            
+            
+        }
     }
     public class PredictionLevel
     {
         public float Score { get; set; }
     }
 
-    public class AdvertEntry
+    public class ReservationEntry
     {
         [KeyType(count: 10)]
         public uint AdvertID { get; set; }
 
         [KeyType(count: 10)]
         public uint UserID { get; set; }
-
+        public uint SubjectId { get; set; }
+        public uint TutorId { get; set; }
         public float Label { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using StudAid.Model.Requests;
+using StudAid.Model.SearchObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;

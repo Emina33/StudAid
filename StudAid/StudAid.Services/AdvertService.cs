@@ -65,16 +65,12 @@ namespace StudAid.Services
         {
             return base.Get(search);
         }
-        public override IQueryable<Advert> AddFilter(IQueryable<Advert> query, AdvertSearchObject search = null)
+        public override IQueryable<Advert> AddFilter(IQueryable<Advert> query, AdvertSearchObject? search)
         {
             var filteredQuery = base.AddFilter(query, search);
-            if(search?.Price != null)
+            if(search?.Price != null || !string.IsNullOrWhiteSpace(search?.AdvertName))
             {
-                filteredQuery = filteredQuery.Where(s => s.Price == search.Price);
-            }
-            if (!string.IsNullOrWhiteSpace(search?.AdvertName))
-            {
-                filteredQuery = filteredQuery.Where(s => s.AdvertName.Contains(search.AdvertName));
+                filteredQuery = filteredQuery.Where(s => s.Price == search.Price || s.AdvertName.Contains(search.AdvertName));
             }
             return filteredQuery;
         }

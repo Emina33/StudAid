@@ -17,7 +17,7 @@ namespace StudAid.Controllers
         [HttpGet]
         public virtual IEnumerable<T> Get([FromQuery]TSearch search = null)
         {
-            return Service.Get();
+            return Service.Get(search);
         }
         [HttpGet("{id}")]
         public virtual T GetById(int id)

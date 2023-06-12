@@ -15,15 +15,18 @@ namespace StudAid.Controllers
     {
        // private readonly IAppUserService _Service;
 
-        public IAppUserService Service { get; set; }
+        public IAppUserService AppUserService { get; set; }
 
         public AppUserController(IAppUserService service)
-            : base(service) { }
+            : base(service) { 
+        AppUserService = service;
+        }
+        
         [HttpGet("{id}/Recommend")]
-
+        [AllowAnonymous]
         public List<Model.Advert> Recommend(int id)
         {
-            var result = Service.Recommend(id);
+            var result = AppUserService.Recommend(id);
 
             return result;
         }

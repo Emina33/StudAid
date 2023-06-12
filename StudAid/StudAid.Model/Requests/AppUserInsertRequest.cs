@@ -17,5 +17,6 @@ namespace StudAid.Model.Requests
         public string Password { get; set; }
         public string Role { get; set; }
         public string Description { get; set; }
+        public int LocationId { get; set; }
     }
 }

@@ -32,7 +32,7 @@ namespace StudAid.Services
             return Mapper.Map<IList<T>>(list);
         }
 
-        public virtual IQueryable<TDb> AddInclude(IQueryable<TDb> query, TSearch search = null)
+        public virtual IQueryable<TDb> AddInclude(IQueryable<TDb> query, TSearch? search = null)
         {
             return query;
         }

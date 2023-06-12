@@ -16,5 +16,6 @@ namespace StudAid.Model.Requests
         public string Role { get; set; }
         public string Description { get; set; }
         public byte[] ProfilePicture { get; set; }
+        public int LocationId { get; set; }
     }
 }

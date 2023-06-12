@@ -20,7 +20,8 @@ namespace StudAid.Filters
             }
             else
             {
-                context.ModelState.AddModelError("ERROR", "Greška na serveru");
+                //context.ModelState.AddModelError("ERROR", "Greška na serveru");
+                context.ModelState.AddModelError("ERROR", context.Exception.ToString());
                 context.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             }
 
