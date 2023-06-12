@@ -12,6 +12,7 @@ namespace StudAid.Services
     {
         Model.Advert Activate(int id);
         List<string> AllowedActions(int id);
-       
+        List<Model.Advert> Recommend(int id);
+
     }
 }

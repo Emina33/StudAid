@@ -22,14 +22,7 @@ namespace StudAid.Controllers
         AppUserService = service;
         }
         
-        [HttpGet("{id}/Recommend")]
-        [AllowAnonymous]
-        public List<Model.Advert> Recommend(int id)
-        {
-            var result = AppUserService.Recommend(id);
-
-            return result;
-        }
+       
         //[Authorize("johndoe1")]
         //public override Model.AppUser Insert([FromBody] AppUserInsertRequest insert)
         //{

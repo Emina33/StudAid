@@ -15,12 +15,12 @@ using System.Threading.Tasks;
 
 namespace StudAid.Services
 {
-    public class AppUserService : BaseCRUDService<Model.AppUser, AppUser, AppUserSearchObject,AppUserInsertRequest, AppUserUpdateRequest>, IAppUserService
+    public class AppUserService : BaseCRUDService<Model.AppUser, AppUser, AppUserSearchObject, AppUserInsertRequest, AppUserUpdateRequest>, IAppUserService
     {
         //public studAidDbContext Context { get; set; }
         //public IMapper Mapper { get; set; }
         public AppUserService(stud_aid2Context context, IMapper mapper)
-            :base(context,mapper)
+            : base(context, mapper)
         {
             //Context = context;
             //Mapper = mapper;
@@ -52,11 +52,11 @@ namespace StudAid.Services
         }
         public override Model.AppUser Update(int id, AppUserUpdateRequest update)
         {
-           
-            var entity = base.Update(id,update);
+
+            var entity = base.Update(id, update);
 
 
-           
+
 
             return entity;
         }
@@ -100,7 +100,7 @@ namespace StudAid.Services
         public override IQueryable<AppUser> AddFilter(IQueryable<AppUser> query, AppUserSearchObject search = null)
         {
             var filteredQuery = base.AddFilter(query, search);
-           
+
             if (!string.IsNullOrWhiteSpace(search?.FirstName))
             {
                 filteredQuery = filteredQuery.Where(s => s.FirstName.Contains(search.FirstName));
@@ -119,21 +119,21 @@ namespace StudAid.Services
         public Model.AppUser Login(string username, string password)
         {
             var entity = Context.AppUsers.FirstOrDefault(x => x.Username == username);
-            if(entity == null)
+            if (entity == null)
             {
                 return null;
             }
-           
+
             var hash = GenerateHash(entity.PasswordSalt, password);
-            if(hash != entity.Password)
+            if (hash != entity.Password)
             {
                 return null;
             }
             return Mapper.Map<Model.AppUser>(entity);
         }
         //static object isLocked = new object();
-        
-       
+
+
         //public List<Model.Advert> Recommend(int id)
         //{
         //    try
@@ -217,137 +217,5 @@ namespace StudAid.Services
         //    return Mapper.Map<Model.AppUser>(result);
         //}
         //}
-        static MLContext? mlContext = null;
-        static ITransformer? model = null;
-        //static ITransformer modelNew = null;
-
-        public List<Model.Advert> Recommend(int id)
-        {
-
-            
-
-            var allAdverts = Context.Adverts.ToList();
-            var trainedModel = ModelTrainer(id);
-
-            var predictionResult = new List<Tuple<Advert, float>>();
-            foreach (var advert in allAdverts)
-            {
-                
-                //if (advert.SubjectId != null && advert.Tutor != null && mlContext != null && trainedModel != null)
-                //{
-                    var predictionEngine = mlContext.Model.CreatePredictionEngine<ReservationEntry, PredictionLevel>(trainedModel);
-
-                    var prediction = predictionEngine.Predict(new ReservationEntry()
-                    {
-                        UserID = (uint)id,
-                        AdvertID = (uint)advert.AdvertId,
-                        SubjectId = (uint)advert.SubjectId,
-                        TutorId = (uint)advert.Tutor,
-                    });
-                    predictionResult.Add(new Tuple<Advert, float>(advert, prediction.Score));
-
-                //}
-
-               
-
-            }
-
-            //var finalResult = predictionResult.OrderByDescending(o => o.Item2).Select(s => s.Item1).Take(3).ToList();
-            
-            var finalResult = predictionResult?.OrderByDescending(o => o.Item2).Select(s => s.Item1).ToList();
-
-            //AdvertService advertService = new(Context, Mapper, null);
-            //foreach (var item in finalResult)
-            //{
-            //    var advert = advertService.GetById(item.AdvertId);
-            //    item.Product = Mapper.Map<Product>(product);
-            //}
-            
-
-            return Mapper.Map<List<Model.Advert>>(finalResult);
-        }
-
-        public ITransformer ModelTrainer(int id)
-        {
-            if (mlContext == null)
-            {
-                mlContext = new MLContext();
-
-                //ReservationService reservationService = new(Context, Mapper);
-                
-                //ReservationSearchObject reservationSearchObject = new();
-                //reservationSearchObject.UserId = id;
-                var allAdverts = Context.Adverts.ToList();
-                // var reservations = reservationService.Get(reservationSearchObject).ToList();
-                var reservations = Context.Reservations.ToList();
-
-                var data = new List<ReservationEntry>();
-               
-                    foreach (var advert in allAdverts)
-                    {
-                        foreach (var reservation in reservations)
-                        {
-                            if (advert.AdvertId == reservation.AdvertId && reservation.UserId == id && advert.Tutor != null && advert.SubjectId != null)
-                            {
-                                data.Add(new ReservationEntry()
-                                {
-                                    UserID = (uint)id,
-                                    AdvertID = (uint)reservation.AdvertId,
-                                    SubjectId = (uint)advert.SubjectId,
-                                    TutorId = (uint)advert.Tutor,
-
-                                });
-                            }
-
-                        }
-
-
-
-
-
-                    }
-                
-                
-                
-                var trainData = mlContext.Data.LoadFromEnumerable(data);
-
-                MatrixFactorizationTrainer.Options options = new()
-                {
-                    MatrixColumnIndexColumnName = nameof(ReservationEntry.UserID),
-                    MatrixRowIndexColumnName = nameof(ReservationEntry.AdvertID),
-                    LabelColumnName = "Label",
-                    LossFunction = MatrixFactorizationTrainer.LossFunctionType.SquareLossOneClass,
-                    Alpha = 0.01,
-                    Lambda = 0.025
-                };
-                // For better results use the following parameters
-                //options.NumberOfIterations = 100;
-                //options.C = 0.00001;
-
-                var est = mlContext.Recommendation().Trainers.MatrixFactorization(options);
-
-                model = est.Fit(trainData);
-            }
-            
-                return model;
-            
-            
-        }
-    }
-    public class PredictionLevel
-    {
-        public float Score { get; set; }
-    }
-
-    public class ReservationEntry
-    {
-        [KeyType(count: 10)]
-        public uint AdvertID { get; set; }
-
-        [KeyType(count: 10)]
-        public uint UserID { get; set; }
-        public uint SubjectId { get; set; }
-        public uint TutorId { get; set; }
-        public float Label { get; set; }
     }
 }

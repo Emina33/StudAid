@@ -12,6 +12,6 @@ namespace StudAid.Services
     public interface IAppUserService : ICRUDService<Model.AppUser, AppUserSearchObject, AppUserInsertRequest, AppUserUpdateRequest>
     {
         Model.AppUser Login(string username, string password);
-        List<Model.Advert> Recommend(int id);
+       
     }
 }
