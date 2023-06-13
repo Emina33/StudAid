@@ -1,0 +1,37 @@
+version: '3'
+services:
+#mssql docker
+  studaid-sql:
+    image:  mcr.microsoft.com/mssql/server:2019-latest
+    restart: unless-stopped
+    environment:
+      - SA_USERNAME=sa
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=2634Studaid2634
+      - MSSQL_PID=Developer
+    ports:
+      - 1401:1433
+    expose:
+        - 1433
+    networks:
+      - studaidnet2023
+
+  studaid-api:
+    restart: unless-stopped
+    build:
+      context: .
+    environment:
+      - ConnectionStrings:stud_aid2=Server=studaid-sql,1433;Database=stud_aid2;User=sa;Password=2634Studaid2634;ConnectRetryCount=0
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - 5090:5090
+    networks:
+      - studaidnet2023
+    links:
+      - studaid-sql
+    depends_on:
+      - studaid-sql
+      
+networks:
+  studaidnet2023:
+    driver: bridge 
