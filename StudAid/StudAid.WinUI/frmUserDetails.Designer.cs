@@ -43,6 +43,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.txtConfirmPass = new System.Windows.Forms.TextBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.txtDescription = new System.Windows.Forms.TextBox();
+            this.lblDescription = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
@@ -134,6 +136,7 @@
             // 
             this.txtPass.Location = new System.Drawing.Point(38, 311);
             this.txtPass.Name = "txtPass";
+            this.txtPass.PasswordChar = '*';
             this.txtPass.Size = new System.Drawing.Size(185, 27);
             this.txtPass.TabIndex = 9;
             // 
@@ -150,6 +153,7 @@
             // 
             this.txtConfirmPass.Location = new System.Drawing.Point(281, 311);
             this.txtConfirmPass.Name = "txtConfirmPass";
+            this.txtConfirmPass.PasswordChar = '*';
             this.txtConfirmPass.Size = new System.Drawing.Size(185, 27);
             this.txtConfirmPass.TabIndex = 11;
             // 
@@ -157,11 +161,30 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
+            // txtDescription
+            // 
+            this.txtDescription.Location = new System.Drawing.Point(281, 161);
+            this.txtDescription.Multiline = true;
+            this.txtDescription.Name = "txtDescription";
+            this.txtDescription.Size = new System.Drawing.Size(185, 58);
+            this.txtDescription.TabIndex = 13;
+            // 
+            // lblDescription
+            // 
+            this.lblDescription.AutoSize = true;
+            this.lblDescription.Location = new System.Drawing.Point(281, 125);
+            this.lblDescription.Name = "lblDescription";
+            this.lblDescription.Size = new System.Drawing.Size(88, 20);
+            this.lblDescription.TabIndex = 14;
+            this.lblDescription.Text = "Description:";
+            // 
             // frmUserDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(509, 400);
+            this.Controls.Add(this.lblDescription);
+            this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txtConfirmPass);
             this.Controls.Add(this.label5);
@@ -200,5 +223,7 @@
         private Label label6;
         private TextBox txtConfirmPass;
         private ErrorProvider errorProvider;
+        private Label lblDescription;
+        private TextBox txtDescription;
     }
 }

@@ -98,8 +98,8 @@ namespace StudAid.Services
             foreach (var advert in allAdverts)
             {
 
-                //if (advert.SubjectId != null && advert.Tutor != null && mlContext != null && trainedModel != null)
-                //{
+                if (advert.SubjectId != null && advert.Tutor != null && mlContext != null && trainedModel != null)
+                {
                 var predictionEngine = mlContext.Model.CreatePredictionEngine<ReservationEntry, PredictionLevel>(trainedModel);
 
                 var prediction = predictionEngine.Predict(new ReservationEntry()
@@ -111,7 +111,7 @@ namespace StudAid.Services
                 });
                 predictionResult.Add(new Tuple<Advert, float>(advert, prediction.Score));
 
-                //}
+                }
 
 
 
@@ -193,8 +193,10 @@ namespace StudAid.Services
 
                 model = est.Fit(trainData);
             }
-
+            if(model!=null)
             return model;
+            else
+                return null;
 
 
         }

@@ -34,7 +34,7 @@ namespace StudAid.WinUI
             var searchObject = new AppUserSearchObject();
             searchObject.FirstName = txtFirstName.Text;
             searchObject.LastName = txtLastName.Text;           
-            var list = await AppUserService.Get<List<AppUser>>();
+            var list = await AppUserService.Get<List<AppUser>>(searchObject);
             dataGridView1.DataSource = list;
             //var entity = await AppUserService.GetById<AppUser>(1);
             //entity.FirstName = "NewBl";

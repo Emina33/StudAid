@@ -30,6 +30,8 @@ namespace StudAid.WinUI
                 txtLastName.Text = User.LastName;
                 txtUsername.Text = User.Username;
                 txtRole.Text = User.Role;
+                txtDescription.Text = User.Description;
+                
             }
         }
 
@@ -39,36 +41,127 @@ namespace StudAid.WinUI
             {
                 if (User == null)
                 {
-                    AppUserInsertRequest insertRequest = new AppUserInsertRequest()
+                    if(Validate())
                     {
-                        FirstName = txtFirstName.Text,
-                        LastName = txtLastName.Text,
-                        Username = txtUsername.Text,
-                        Role = txtRole.Text,
-                        Password = txtPass.Text
-                    };
-                    if (txtPass.Text == txtConfirmPass.Text)
-                    {
-                        var user = await AppUserService.Post<AppUser>(insertRequest);
+                        AppUserInsertRequest insertRequest = new AppUserInsertRequest()
+                        {
+                            FirstName = txtFirstName.Text,
+                            LastName = txtLastName.Text,
+                            Username = txtUsername.Text,
+                            Role = txtRole.Text,
+                            Password = txtPass.Text,
+                            LocationId = 1,
+                            Description = txtDescription.Text,
+                        };
+                        if (txtPass.Text == txtConfirmPass.Text)
+                        {
+                            var user = await AppUserService.Post<AppUser>(insertRequest);
+                        }
                     }
+                   
                 }
                 else
                 {
-                    AppUserInsertRequest updateRequest = new AppUserInsertRequest()
+                    if(Validate())
                     {
-                        FirstName = txtFirstName.Text,
-                        LastName = txtLastName.Text,
-                        Role = txtRole.Text,
-                        Username = txtUsername.Text,
-                        //Password = txtPass.Text
-                    };
-                    User = await AppUserService.Put<AppUser>(User.UserId, updateRequest);
+                        AppUserUpdateRequest updateRequest = new AppUserUpdateRequest()
+                        {
+                            FirstName = txtFirstName.Text,
+                            LastName = txtLastName.Text,
+                            Role = txtRole.Text,
+                            Password = txtPass.Text,
+                            LocationId = 1,
+                            Description = txtDescription.Text,
+                            ProfilePicture = User.ProfilePicture,
+                        };
+                        User = await AppUserService.Put<AppUser>( updateRequest,User.UserId);
+                    }
+                    
                 }
             }
             
            
             
             
+        }
+        public bool Validate()
+        {
+            if (string.IsNullOrWhiteSpace(txtFirstName.Text))
+            {
+                
+                txtFirstName.Focus();
+                errorProvider.SetError(txtFirstName, "First name should not be left blank!");
+                return false;
+            }
+            else
+            {
+                
+                errorProvider.SetError(txtFirstName, "");
+            }
+            if (string.IsNullOrWhiteSpace(txtLastName.Text))
+            {
+
+                txtFirstName.Focus();
+                errorProvider.SetError(txtLastName, "Last name should not be left blank!");
+                return false;
+            }
+            else
+            {
+               
+                errorProvider.SetError(txtLastName, "");
+            }
+            if (string.IsNullOrWhiteSpace(txtUsername.Text))
+            {
+
+                txtFirstName.Focus();
+                errorProvider.SetError(txtUsername, "Username should not be left blank!");
+                return false;
+            }
+            else
+            {
+                
+                errorProvider.SetError(txtUsername, "");
+            }
+            if (string.IsNullOrWhiteSpace(txtPass.Text))
+            {
+
+                txtFirstName.Focus();
+                errorProvider.SetError(txtPass, "Password should not be left blank!");
+                return false;
+            }
+            else
+            {
+                
+                errorProvider.SetError(txtPass, "");
+            }
+            if (txtPass.Text != txtConfirmPass.Text)
+            {
+
+                txtFirstName.Focus();
+                errorProvider.SetError(txtPass, "Passwords should match!");
+                errorProvider.SetError(txtConfirmPass, "Passwords should match!");
+                return false;
+            }
+            else
+            {
+
+                errorProvider.SetError(txtPass, "");
+                errorProvider.SetError(txtConfirmPass, "");
+            }
+            if (string.IsNullOrWhiteSpace(txtDescription.Text))
+            {
+
+                txtFirstName.Focus();
+                errorProvider.SetError(txtDescription, "Description should not be left blank!");
+                return false;
+            }
+            else
+            {
+                
+                errorProvider.SetError(txtDescription, "");
+            }
+
+            return true;
         }
 
         private void txtFirstName_Validating(object sender, CancelEventArgs e)

@@ -28,7 +28,7 @@ namespace StudAid.WinUI
             var searchObject = new DocumentSearchObject();
             searchObject.DocumentName = txtDocumentName.Text;
             searchObject.Author = txtAuthor.Text;
-            var list = await DocumentService.Get<List<Document>>();
+            var list = await DocumentService.Get<List<Document>>(searchObject);
             dataGridView1.DataSource=list;
         }
 
