@@ -15,12 +15,12 @@ import 'package:stud_aid/offer_class_ful.dart';
 import 'package:stud_aid/providers/advert_provider.dart';
 import 'package:stud_aid/providers/location_provider.dart';
 import 'package:stud_aid/providers/reservation_provider.dart';
+import 'package:stud_aid/providers/review_provider.dart';
 import 'package:stud_aid/providers/user_provider.dart';
 import 'package:stud_aid/upload_file_ful.dart';
 import 'package:stud_aid/utils/fileStorage.dart';
 import 'package:stud_aid/utils/util.dart';
 
-import 'advertDetails.dart';
 import 'advert_details_ful.dart';
 import 'components/loadingScreen.dart';
 import 'components/top_bar.dart';
@@ -28,6 +28,7 @@ import 'models/advert.dart';
 import 'components/bottom_bar.dart';
 import 'models/location.dart';
 import 'models/reservation.dart';
+import 'models/review.dart';
 import 'offer_class.dart';
 
 class MyProfilePage2 extends StatefulWidget {
@@ -157,6 +158,8 @@ class _MyProfilePage2State extends State<MyProfilePage2> {
   List<Advert> data = [];
   UserProvider? _userProvider = null;
   List<User> data2 = [];
+  ReviewProvider? _reviewProvider = null;
+  List<Review> reviews = [];
   List<Reservation> data3 = [];
   List<int> advertIds = [];
   User? user = null;
@@ -167,6 +170,7 @@ class _MyProfilePage2State extends State<MyProfilePage2> {
     _advertProvider = context.read<AdvertProvider>();
     _locationProvider = context.read<LocationProvider>();
     _reservationProvider = context.read<ReservationProvider>();
+    _reviewProvider = context.read<ReviewProvider>();
     loadData();
   }
 
@@ -187,6 +191,7 @@ class _MyProfilePage2State extends State<MyProfilePage2> {
     loadData2();
     loadData3();
     loadData4();
+    loadData5();
   }
 
   Future loadData2() async {
@@ -222,6 +227,17 @@ class _MyProfilePage2State extends State<MyProfilePage2> {
     });
     setState(() {
       loading = false;
+    });
+  }
+
+  Future loadData5() async {
+    var tmpData = await _reviewProvider?.get(null);
+    setState(() {
+      if (tmpData != null && user != null) {
+        reviews = tmpData
+            .where((element) => element.reviewer == user!.userId)
+            .toList();
+      }
     });
   }
 
@@ -378,6 +394,27 @@ class _MyProfilePage2State extends State<MyProfilePage2> {
                                                 fontSize: 18,
                                                 color: Color.fromRGBO(
                                                     32, 50, 57, 1)))))),
+                        Container(
+                          margin: const EdgeInsets.only(
+                              left: 30, right: 30, top: 10, bottom: 15),
+                          child: const Text('Reviews',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  color: Color.fromRGBO(32, 50, 57, 0.8))),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(left: 30, bottom: 10),
+                          child: reviews.isNotEmpty
+                              ? SingleChildScrollView(
+                                  child:
+                                      Column(children: _buildReviewCardList()),
+                                )
+                              : Text("User has no reviews",
+                                  style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Color.fromRGBO(32, 50, 57, 0.8))),
+                        ),
                         Container(
                           margin: const EdgeInsets.only(
                               right: 30, left: 30, bottom: 15, top: 15),
@@ -588,6 +625,52 @@ class _MyProfilePage2State extends State<MyProfilePage2> {
                   width: 0,
                   margin: const EdgeInsets.only(left: 15, right: 15),
                   child: const Text(""))))
+          .cast<Widget>()
+          .toList();
+    }
+
+    if (user == null) {
+      list = data
+          .map((e) => Container(
+                child: Text(""),
+              ))
+          .cast<Widget>()
+          .toList();
+    }
+    return list;
+  }
+
+  List<Widget> _buildReviewCardList() {
+    if (data.length == 0) {
+      return [Text("")];
+    }
+    List<Widget> list = [];
+    if (user != null) {
+      list = reviews
+          .map((x) => Container(
+                margin: EdgeInsets.only(bottom: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      "${x.reviewStars} stars     ",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 18,
+                          color: Color.fromRGBO(32, 50, 57, 0.8)),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width - 130,
+                      child: Text(
+                        "Review: ${x.reviewText}",
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Color.fromRGBO(32, 50, 57, 0.8)),
+                      ),
+                    ),
+                  ],
+                ),
+              ))
           .cast<Widget>()
           .toList();
     }

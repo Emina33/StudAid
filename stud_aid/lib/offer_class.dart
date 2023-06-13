@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:stud_aid/components/advert.dart';
 import 'package:stud_aid/components/bottom_bar.dart';
 import 'package:stud_aid/components/chat_head.dart';
 

@@ -11,9 +11,9 @@ import 'package:stud_aid/providers/user_provider.dart';
 import 'package:stud_aid/register.dart';
 
 import 'package:provider/provider.dart';
+import 'package:stud_aid/review_list.dart';
 import 'package:stud_aid/search_page_ful.dart';
-//import 'components/advert.dart';
-import 'advertDetails.dart';
+
 import 'advert_details_ful.dart';
 import 'components/bottom_bar.dart';
 
@@ -21,7 +21,6 @@ import 'models/document.dart';
 import 'main.dart';
 import 'models/advert.dart';
 import 'models/user.dart';
-import 'profile_page.dart';
 import 'utils/util.dart';
 
 class HomePageNew extends StatefulWidget {
@@ -95,7 +94,7 @@ class _HomePageNewState extends State<HomePageNew> {
     setState(() {
       data3 = tmpData!;
     });
-    if (data3.length != 0 &&
+    if (data3.isNotEmpty &&
         data3
                 .firstWhere(
                     (element) => element.username == Authorization.username)
@@ -119,37 +118,6 @@ class _HomePageNewState extends State<HomePageNew> {
           backgroundColor: const Color.fromRGBO(238, 237, 222, 1.0),
           appBar: PreferredSize(
               preferredSize: Size.fromHeight(50), child: TopBar()),
-          // appBar: AppBar(
-          //   backgroundColor: const Color.fromRGBO(20, 30, 39, 1.0),
-          //   leading: Image.asset(
-          //     'images/whiteHalfBetter.png',
-          //   ),
-          //   actions: [
-          //     TextButton(
-          //         onPressed: () {
-          //           Navigator.push(
-          //             context,
-          //             MaterialPageRoute(builder: (context) => const RootPage()),
-          //           );
-          //         },
-          //         child: Text('Log in',
-          //             style: TextStyle(
-          //                 fontSize: 18,
-          //                 color: Color.fromRGBO(238, 237, 222, 1.0)))),
-          //     TextButton(
-          //         onPressed: () {
-          //           Navigator.push(
-          //             context,
-          //             MaterialPageRoute(
-          //                 builder: (context) => const RegisterPage()),
-          //           );
-          //         },
-          //         child: const Text('Sign up',
-          //             style: TextStyle(
-          //                 fontSize: 18,
-          //                 color: Color.fromRGBO(238, 237, 222, 1.0))))
-          //   ],
-          // ),
           body: SafeArea(
             child: loading
                 ? const LoadingScreen()
@@ -212,39 +180,22 @@ class _HomePageNewState extends State<HomePageNew> {
                           )
                         ],
                       ),
-                      /* Container(
-                  height: 40,
-                  width: 420,
-                  margin: const EdgeInsets.only(right: 30.0, left: 30.0, top: 30),
-                  decoration: const BoxDecoration(
-                      border: Border(
-                          bottom: BorderSide(
-                              width: 1, color: Color.fromRGBO(32, 50, 57, 0.4)))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const SearchPage()),
-                            );
-                          },
-                          child: const Text('Search',
+                      Container(
+                        child: TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ReviewList()),
+                              );
+                            },
+                            child: const Text(
+                              'Click here to review users',
                               style: TextStyle(
-                                  fontSize: 18,
-                                  color: Color.fromRGBO(32, 50, 57, 0.4)))),
-                      TextButton(
-                          onPressed: () {},
-                          child: const Text('Filter',
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  color: Color.fromRGBO(32, 50, 57, 0.4))))
-                    ],
-                  ),
-                ), */
-
+                                  fontSize: 20,
+                                  color: Color.fromRGBO(20, 30, 39, 1.0)),
+                            )),
+                      ),
                       Container(
                         decoration: const BoxDecoration(
                             border: Border(

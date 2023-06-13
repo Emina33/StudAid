@@ -9,6 +9,7 @@ class Document {
   String? author;
   String? description;
   String? documentFile;
+  int? subjectId;
   Document() {}
   factory Document.fromJson(Map<String, dynamic> json) =>
       _$DocumentFromJson(json);

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:stud_aid/chat.dart';
 
 import '../chat_ful.dart';
 

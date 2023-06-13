@@ -106,6 +106,7 @@ class _RootPageState extends State<RootPage> {
               width: 300.0,
               height: 50.0,
               child: TextField(
+                obscureText: true,
                 controller: _passwordController,
                 decoration: const InputDecoration(
                     enabledBorder: UnderlineInputBorder(
@@ -138,6 +139,7 @@ class _RootPageState extends State<RootPage> {
                     await _userProvider.get();
 
                     if (_userProvider.get() != null) {
+                      Navigator.of(context).pop();
                       Navigator.push(
                         context,
                         MaterialPageRoute(

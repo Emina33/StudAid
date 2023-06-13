@@ -27,6 +27,8 @@ class EditProfilePage extends StatefulWidget {
 class _EditProfilePageState extends State<EditProfilePage>
     with SingleTickerProviderStateMixin {
   final TextEditingController passwordController = new TextEditingController();
+  final TextEditingController confirmPassController =
+      new TextEditingController();
   final TextEditingController aboutController = new TextEditingController();
   final TextEditingController firstNameController = new TextEditingController();
   final TextEditingController lastNameController = new TextEditingController();
@@ -103,6 +105,7 @@ class _EditProfilePageState extends State<EditProfilePage>
           orElse: () => new User());
       aboutController.text = user!.description!;
       passwordController.text = Authorization.password!;
+      confirmPassController.text = Authorization.password!;
       firstNameController.text = user!.firstName!;
       lastNameController.text = user!.lastName!;
       imageString = user!.profilePicture!;
@@ -110,6 +113,31 @@ class _EditProfilePageState extends State<EditProfilePage>
     setState(() {
       loading = false;
     });
+  }
+
+  bool Validate() {
+    if (aboutController.text == "") {
+      showAlertDialog(context, "Description can't be empty", "Warning");
+      return false;
+    }
+    if (firstNameController.text == "") {
+      showAlertDialog(context, "First name field can't be empty", "Warning");
+      return false;
+    }
+    if (lastNameController.text == "") {
+      showAlertDialog(context, "Last name field can't be empty", "Warning");
+      return false;
+    }
+    if (passwordController.text == "") {
+      showAlertDialog(context, "Password can't be empty", "Warning");
+      return false;
+    }
+    if (passwordController.text != confirmPassController.text) {
+      showAlertDialog(context, "Passwords don't match", "Warning");
+      return false;
+    }
+
+    return true;
   }
 
   @override
@@ -424,7 +452,7 @@ class _EditProfilePageState extends State<EditProfilePage>
                               width: double.infinity,
                               child: TextField(
                                 cursorColor: Color.fromRGBO(20, 30, 39, 1.0),
-                                controller: passwordController,
+                                controller: confirmPassController,
                                 decoration: InputDecoration(
                                   fillColor: Colors.white,
                                   focusedBorder: OutlineInputBorder(
@@ -445,27 +473,29 @@ class _EditProfilePageState extends State<EditProfilePage>
                           margin: const EdgeInsets.only(top: 30),
                           child: TextButton(
                               onPressed: () async {
-                                if (data.isNotEmpty) {
-                                  var locationId = data
-                                      .firstWhere((element) =>
-                                          element.city == locationSelected)
-                                      .locationId;
-                                  Object appUserUpdate = {
-                                    "firstName": firstNameController.text,
-                                    "lastName": lastNameController.text,
-                                    "role": "basic user",
-                                    "password": passwordController.text,
-                                    "description": aboutController.text,
-                                    "profilePicture": imageString,
-                                    "locationId": locationId,
-                                  };
-                                  if (_userProvider != null && user != null)
-                                    await _userProvider?.update(
-                                        user!.userId!, appUserUpdate);
-                                  showAlertDialog(
-                                      context,
-                                      "You have successfully updated your profile.",
-                                      "Success");
+                                if (Validate()) {
+                                  if (data.isNotEmpty) {
+                                    var locationId = data
+                                        .firstWhere((element) =>
+                                            element.city == locationSelected)
+                                        .locationId;
+                                    Object appUserUpdate = {
+                                      "firstName": firstNameController.text,
+                                      "lastName": lastNameController.text,
+                                      "role": "basic user",
+                                      "password": passwordController.text,
+                                      "description": aboutController.text,
+                                      "profilePicture": imageString,
+                                      "locationId": locationId,
+                                    };
+                                    if (_userProvider != null && user != null)
+                                      await _userProvider?.update(
+                                          user!.userId!, appUserUpdate);
+                                    showAlertDialog(
+                                        context,
+                                        "You have successfully updated your profile.",
+                                        "Success");
+                                  }
                                 }
                               },
                               child: const Text(

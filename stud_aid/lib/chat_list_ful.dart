@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stud_aid/chat3.dart';
+import 'package:stud_aid/components/loadingScreen.dart';
 import 'package:stud_aid/providers/message_provider.dart';
 import 'package:stud_aid/providers/user_provider.dart';
 import 'package:stud_aid/utils/util.dart';
@@ -25,6 +26,7 @@ class _ChatList2State extends State<ChatList2> {
   List<User> data2 = [];
   List<int> all = [];
   List<User> unique = [];
+  bool loading = true;
   @override
   void initState() {
     // TODO: implement initState
@@ -64,6 +66,9 @@ class _ChatList2State extends State<ChatList2> {
         data2 = tmpData;
       });
     }
+    setState(() {
+      loading = false;
+    });
   }
 
   @override
@@ -74,37 +79,40 @@ class _ChatList2State extends State<ChatList2> {
           backgroundColor: const Color.fromRGBO(238, 237, 222, 1.0),
           appBar: PreferredSize(
               preferredSize: Size.fromHeight(50), child: TopBar()),
-          body: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Container(
-                  margin: const EdgeInsets.all(30),
-                  decoration: const BoxDecoration(
-                      border: Border(
-                          bottom: BorderSide(
-                              width: 1,
-                              color: Color.fromRGBO(32, 50, 57, 0.4)))),
-                  child: const Text(
-                    'Chats',
-                    style: TextStyle(
-                        fontSize: 25, color: Color.fromRGBO(20, 30, 39, 1.0)),
-                    textAlign: TextAlign.center,
+          body: loading
+              ? LoadingScreen()
+              : SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.all(30),
+                        decoration: const BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                                    width: 1,
+                                    color: Color.fromRGBO(32, 50, 57, 0.4)))),
+                        child: const Text(
+                          'Chats',
+                          style: TextStyle(
+                              fontSize: 25,
+                              color: Color.fromRGBO(20, 30, 39, 1.0)),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Column(
+                        children: _buildChatCardList(),
+                      )
+                    ],
                   ),
                 ),
-                Column(
-                  children: _buildChatCardList(),
-                )
-              ],
-            ),
-          ),
           bottomNavigationBar: const BottomBar()),
     );
   }
 
   List<Widget> _buildChatCardList() {
     if (data2.length == 0) {
-      return [Text("Loading...")];
+      return [Text("")];
     }
 
     List<Widget> list = data2
