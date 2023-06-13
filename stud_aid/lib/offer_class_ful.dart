@@ -28,7 +28,12 @@ class _OfferClassPage2State extends State<OfferClassPage2> {
   AdvertProvider? _advertProvider = null;
   List<Subject> dataSubjects = [];
   List<String> dataString = [];
-  static const List<String> categories = ["Science", "Languages"];
+  static const List<String> categories = [
+    "Science",
+    "Languages",
+    "Arts and humanities",
+    "Health oriented education"
+  ];
   static const List<String> cities = [
     "Živinice",
     "Mostar",
@@ -36,9 +41,23 @@ class _OfferClassPage2State extends State<OfferClassPage2> {
     "Sarajevo",
     "Zenica",
     "Travnik",
-    "Tuzla"
+    "Tuzla",
+    "Ilijaš",
+    "Konjic",
+    "Jablanica",
+    "Banja Luka",
+    "Unselected",
+    "Livno",
   ];
-  static const List<String> subjects = ["Biology"];
+  static const List<String> subjects = [
+    "Biology",
+    "Chemistry",
+    "English language",
+    "Pencil drawing",
+    "Music",
+    "First aid",
+    "Algebra"
+  ];
   String selectedLocation = cities.first;
   String selectedCategory = categories.first;
   String selectedSubject = subjects.first;

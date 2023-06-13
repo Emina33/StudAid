@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stud_aid/components/alertDialog.dart';
 import 'package:stud_aid/home_page_ful.dart';
-import 'package:stud_aid/main.dart';
 import 'package:stud_aid/providers/user_provider.dart';
 import 'package:stud_aid/utils/util.dart';
 
@@ -35,13 +34,15 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Future loadData2() async {
     var tmpData = await _userProvider?.get(null);
-    setState(() {
-      if (tmpData != null) {
-        data = tmpData;
+    if (mounted) {
+      setState(() {
+        if (tmpData != null) {
+          data = tmpData;
+        }
+      });
+      for (var i = 0; i < data.length; i++) {
+        dataStrings.add(data[i].username!);
       }
-    });
-    for (var i = 0; i < data.length; i++) {
-      dataStrings.add(data[i].username!);
     }
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stud_aid/advert_details_ful.dart';
+import 'package:stud_aid/components/alertDialog.dart';
 import 'package:stud_aid/home_page_ful.dart';
 import 'package:stud_aid/providers/advert_provider.dart';
 import 'package:provider/provider.dart';
@@ -61,6 +62,18 @@ class _RootPageState extends State<RootPage> {
   late UserProvider _userProvider;
   @override
   Widget build(BuildContext context) {
+    bool Validate() {
+      if (_usernameController.text == "") {
+        showAlertDialog(context, "Fill the username field", "Warning");
+        return false;
+      }
+      if (_passwordController.text == "") {
+        showAlertDialog(context, "Write the password", "Warning");
+        return false;
+      }
+      return true;
+    }
+
     _userProvider = Provider.of<UserProvider>(context, listen: false);
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -134,17 +147,21 @@ class _RootPageState extends State<RootPage> {
               child: ElevatedButton(
                 onPressed: () async {
                   try {
-                    Authorization.username = _usernameController.text;
-                    Authorization.password = _passwordController.text;
-                    await _userProvider.get();
+                    Authorization.username = "";
+                    Authorization.password = "";
+                    if (Validate()) {
+                      Authorization.username = _usernameController.text;
+                      Authorization.password = _passwordController.text;
+                      await _userProvider.get();
 
-                    if (_userProvider.get() != null) {
-                      Navigator.of(context).pop();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const HomePageNew()),
-                      );
+                      if (_userProvider.get() != null) {
+                        Navigator.of(context).pop();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HomePageNew()),
+                        );
+                      }
                     }
                   } catch (e) {
                     showDialog(
@@ -175,6 +192,10 @@ class _RootPageState extends State<RootPage> {
               margin: const EdgeInsets.only(top: 10),
               child: TextButton(
                   onPressed: () {
+                    Authorization.username = "admin";
+                    Authorization.password = "test";
+                    _usernameController.clear();
+                    _passwordController.clear();
                     Navigator.push(
                       context,
                       MaterialPageRoute(

@@ -59,7 +59,13 @@ class _EditProfilePageState extends State<EditProfilePage>
     "Sarajevo",
     "Zenica",
     "Travnik",
-    "Tuzla"
+    "Tuzla",
+    "Ilijaš",
+    "Konjic",
+    "Jablanica",
+    "Banja Luka",
+    "Unselected",
+    "Livno"
   ];
   UserProvider? _userProvider = null;
   User? user = null;

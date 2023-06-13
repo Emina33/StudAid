@@ -25,7 +25,15 @@ class UploadPage2 extends StatefulWidget {
 class _UploadPage2State extends State<UploadPage2> {
   File? file;
   String fileString = "";
-  static const List<String> subjects = ["Biology"];
+  static const List<String> subjects = [
+    "Biology",
+    "Chemistry",
+    "English language",
+    "Pencil drawing",
+    "Music",
+    "First aid",
+    "Algebra"
+  ];
   String selectedSubject = subjects.first;
   final TextEditingController nameController = new TextEditingController();
   final TextEditingController authorController = new TextEditingController();

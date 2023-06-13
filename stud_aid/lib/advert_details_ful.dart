@@ -31,7 +31,6 @@ class _AdvertDetailsFulState extends State<AdvertDetailsFul> {
   @override
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _advertProvider = context.read<AdvertProvider>();
     loadData();
@@ -120,8 +119,8 @@ class _AdvertDetailsFulState extends State<AdvertDetailsFul> {
                                 color: Color.fromRGBO(20, 30, 39, 1.0)),
                           )
                         : Text(
-                            'Selected time: ${selectedTime}',
-                            style: TextStyle(
+                            'Selected time: $selectedTime',
+                            style: const TextStyle(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 18,
                                 color: Color.fromRGBO(20, 30, 39, 1.0)),
@@ -131,7 +130,7 @@ class _AdvertDetailsFulState extends State<AdvertDetailsFul> {
                     width: 270,
                     margin: const EdgeInsets.only(top: 20),
                     child: ElevatedButton(
-                      onPressed: () /*async*/ {
+                      onPressed: () async {
                         setState(() {
                           reservation?.advertId = widget.id;
                           reservation?.userId = 2;

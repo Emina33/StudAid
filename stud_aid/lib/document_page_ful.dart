@@ -7,6 +7,7 @@ import 'package:stud_aid/providers/document_provider.dart';
 import 'package:stud_aid/utils/fileStorage.dart';
 import 'package:stud_aid/utils/util.dart';
 
+import 'components/alertDialog.dart';
 import 'components/bottom_bar.dart';
 import 'components/top_bar.dart';
 import 'models/document.dart';
@@ -96,6 +97,10 @@ class _DocumentPage2State extends State<DocumentPage2> {
 
                           FileStorage.writeCounter(String.fromCharCodes(s),
                               "${document!.documentName!}.txt");
+                          showAlertDialog(
+                              context,
+                              "You have successfully downloaded this document",
+                              "Success");
                         }
                       },
                       style: ElevatedButton.styleFrom(

@@ -29,7 +29,6 @@ import 'components/bottom_bar.dart';
 import 'models/location.dart';
 import 'models/reservation.dart';
 import 'models/review.dart';
-import 'offer_class.dart';
 
 class MyProfilePage2 extends StatefulWidget {
   int? id;
@@ -184,7 +183,7 @@ class _MyProfilePage2State extends State<MyProfilePage2> {
             orElse: () => new User());
         Authorization.id = user!.userId;
       } else {
-        user = tmpData?.firstWhere((element) => element.userId == widget.id,
+        user = tmpData.firstWhere((element) => element.userId == widget.id,
             orElse: () => new User());
       }
     });

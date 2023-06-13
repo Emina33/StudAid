@@ -35,7 +35,7 @@ class SearchPage2 extends StatefulWidget {
 class _SearchPage2State extends State<SearchPage2> {
   CategoryProvider? _categoryProvider = null;
   List<Category> data = [];
-  List<bool> boolCat = [false, false];
+  List<bool> boolCat = [false, false, false, false];
   AdvertProvider? _advertProvider = null;
   List<Advert> adverts = [];
   UserProvider? _userProvider = null;
@@ -50,7 +50,21 @@ class _SearchPage2State extends State<SearchPage2> {
   List<int> selectedCities = [];
   List<int> selectedSubjects = [];
   List<int> selectedLocations = [];
-  List<bool> boolCit = [false, false, false, false, false, false, false];
+  List<bool> boolCit = [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+  ];
   LocationProvider? _locationProvider = null;
   RangeValues _currentRangeValues = const RangeValues(0, 40);
   bool clicked = false;
@@ -61,11 +75,19 @@ class _SearchPage2State extends State<SearchPage2> {
     "Sarajevo",
     "Zenica",
     "Travnik",
-    "Tuzla"
+    "Tuzla",
+    "Ilijaš",
+    "Konjic",
+    "Jablanica",
+    "Banja Luka",
+    "Unselected",
+    "Livno"
   ];
   static const List<String> categories = [
     "Science",
     "Languages",
+    "Arts and humanities",
+    "Health oriented education"
   ];
   @override
   void initState() {
@@ -287,6 +309,36 @@ class _SearchPage2State extends State<SearchPage2> {
                               controlAffinity: ListTileControlAffinity
                                   .leading, //  <-- leading Checkbox
                             ),
+                            CheckboxListTile(
+                              activeColor: Color.fromRGBO(32, 50, 57, 1),
+                              title: Text(categories[2],
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Color.fromRGBO(32, 50, 57, 0.4))),
+                              value: boolCat[2],
+                              onChanged: (newValue) {
+                                setState(() {
+                                  boolCat[2] = !boolCat[2];
+                                });
+                              },
+                              controlAffinity: ListTileControlAffinity
+                                  .leading, //  <-- leading Checkbox
+                            ),
+                            CheckboxListTile(
+                              activeColor: Color.fromRGBO(32, 50, 57, 1),
+                              title: Text(categories[3],
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Color.fromRGBO(32, 50, 57, 0.4))),
+                              value: boolCat[3],
+                              onChanged: (newValue) {
+                                setState(() {
+                                  boolCat[3] = !boolCat[3];
+                                });
+                              },
+                              controlAffinity: ListTileControlAffinity
+                                  .leading, //  <-- leading Checkbox
+                            ),
                             const Text(
                               'Cities',
                               style: TextStyle(
@@ -394,6 +446,96 @@ class _SearchPage2State extends State<SearchPage2> {
                               onChanged: (newValue) {
                                 setState(() {
                                   boolCit[6] = !boolCit[6];
+                                });
+                              },
+                              controlAffinity: ListTileControlAffinity
+                                  .leading, //  <-- leading Checkbox
+                            ),
+                            CheckboxListTile(
+                              activeColor: Color.fromRGBO(32, 50, 57, 1),
+                              title: Text(cities[7],
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Color.fromRGBO(32, 50, 57, 0.4))),
+                              value: boolCit[7],
+                              onChanged: (newValue) {
+                                setState(() {
+                                  boolCit[7] = !boolCit[7];
+                                });
+                              },
+                              controlAffinity: ListTileControlAffinity
+                                  .leading, //  <-- leading Checkbox
+                            ),
+                            CheckboxListTile(
+                              activeColor: Color.fromRGBO(32, 50, 57, 1),
+                              title: Text(cities[8],
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Color.fromRGBO(32, 50, 57, 0.4))),
+                              value: boolCit[8],
+                              onChanged: (newValue) {
+                                setState(() {
+                                  boolCit[8] = !boolCit[8];
+                                });
+                              },
+                              controlAffinity: ListTileControlAffinity
+                                  .leading, //  <-- leading Checkbox
+                            ),
+                            CheckboxListTile(
+                              activeColor: Color.fromRGBO(32, 50, 57, 1),
+                              title: Text(cities[9],
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Color.fromRGBO(32, 50, 57, 0.4))),
+                              value: boolCit[9],
+                              onChanged: (newValue) {
+                                setState(() {
+                                  boolCit[9] = !boolCit[9];
+                                });
+                              },
+                              controlAffinity: ListTileControlAffinity
+                                  .leading, //  <-- leading Checkbox
+                            ),
+                            CheckboxListTile(
+                              activeColor: Color.fromRGBO(32, 50, 57, 1),
+                              title: Text(cities[10],
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Color.fromRGBO(32, 50, 57, 0.4))),
+                              value: boolCit[10],
+                              onChanged: (newValue) {
+                                setState(() {
+                                  boolCit[10] = !boolCit[10];
+                                });
+                              },
+                              controlAffinity: ListTileControlAffinity
+                                  .leading, //  <-- leading Checkbox
+                            ),
+                            CheckboxListTile(
+                              activeColor: Color.fromRGBO(32, 50, 57, 1),
+                              title: Text(cities[11],
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Color.fromRGBO(32, 50, 57, 0.4))),
+                              value: boolCit[11],
+                              onChanged: (newValue) {
+                                setState(() {
+                                  boolCit[11] = !boolCit[11];
+                                });
+                              },
+                              controlAffinity: ListTileControlAffinity
+                                  .leading, //  <-- leading Checkbox
+                            ),
+                            CheckboxListTile(
+                              activeColor: Color.fromRGBO(32, 50, 57, 1),
+                              title: Text(cities[12],
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Color.fromRGBO(32, 50, 57, 0.4))),
+                              value: boolCit[12],
+                              onChanged: (newValue) {
+                                setState(() {
+                                  boolCit[12] = !boolCit[12];
                                 });
                               },
                               controlAffinity: ListTileControlAffinity
