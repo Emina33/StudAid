@@ -51,10 +51,10 @@ dependencies:
   bubble: ^1.2.1
   webview_flutter: ^3.0.4
   flutter_paypal: ^0.0.7
-  flutter_chat_ui: ^1.6.8
+  flutter_chat_ui:
   grouped_list: ^5.1.2
   web_socket_channel: ^2.4.0
-  flutter_native_splash: ^2.3.1
+  flutter_native_splash:
   loading_indicator: ^3.1.0
   dropdown_button2: ^2.1.3
 
