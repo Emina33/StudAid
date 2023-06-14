@@ -24,8 +24,8 @@ showAlertDialog(BuildContext context, String text, String? title) {
       textAlign: TextAlign.center,
     ),
     content: Container(
-      height: 50,
-      margin: EdgeInsets.only(top: 20),
+      height: 75,
+      margin: EdgeInsets.only(top: 10),
       alignment: Alignment.center,
       child: Text(
         text,

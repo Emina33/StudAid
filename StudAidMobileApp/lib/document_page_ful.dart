@@ -96,27 +96,19 @@ class _DocumentPage2State extends State<DocumentPage2> {
                       onPressed: () async {
                         if (document != null &&
                             document?.documentFile != null) {
-                          // var s = dataFromBase64String(document!.documentFile!);
-
-                          // FileStorage.writeCounter(String.fromCharCodes(s),
-                          //     "${document!.documentName!}.pdf");
                           var status = await Permission.storage.status;
                           if (!status.isGranted) {
                             // If not we will ask for permission first
                             await Permission.storage.request();
                           } else if (status.isGranted) {
-                            // final file = File(
-                            //     "/storage/emulated/0/Download/${document!.documentName!}.txt");
-                            // await file.writeAsBytes(
-                            //     dataFromBase64String(document!.documentFile!));
-                            // showAlertDialog(
-                            //     context,
-                            //     "You have successfully downloaded this document",
-                            //     "Success");
                             var bytes = base64Decode(document!.documentFile!);
                             final file = File(
                                 "/storage/emulated/0/Download/${document!.documentName!}.pdf");
                             await file.writeAsBytes(bytes.buffer.asUint8List());
+                            showAlertDialog(
+                                context,
+                                "You have successfully downloaded this document",
+                                "Success");
                           }
                         }
                       },

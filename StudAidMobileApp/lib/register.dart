@@ -22,6 +22,9 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController usernameController = new TextEditingController();
   final TextEditingController confirmPassController =
       new TextEditingController();
+  final regexPass =
+      RegExp(r'(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}');
+  final regexUsername = RegExp(r'[A-Za-z][A-Za-z0-9_]{4,29}');
   UserProvider? _userProvider = null;
   List<User> data = [];
   List<String> dataStrings = [];
@@ -59,12 +62,26 @@ class _RegisterPageState extends State<RegisterPage> {
       showAlertDialog(context, "Fill username field", "Warning");
       return false;
     }
+    if (!regexUsername.hasMatch(usernameController.text)) {
+      showAlertDialog(
+          context,
+          "Username must start with a letter, has minimum 5 characters and can't contain any special characters",
+          "Warning");
+      return false;
+    }
     if (dataStrings.contains(usernameController.text)) {
       showAlertDialog(context, "Username already exists", "Warning");
       return false;
     }
     if (passwordController.text == "") {
       showAlertDialog(context, "Write your chosen password", "Warning");
+      return false;
+    }
+    if (!regexPass.hasMatch(passwordController.text)) {
+      showAlertDialog(
+          context,
+          "Password must contain minimum eight characters, at least one letter, one number and one special character",
+          "Warning");
       return false;
     }
     if (passwordController.text != confirmPassController.text) {
