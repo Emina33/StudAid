@@ -89,7 +89,7 @@ class _ReviewListState extends State<ReviewList> {
     }
 
     List<Widget> list = users
-        .map((x) => x.userId != Authorization.id
+        .map((x) => x.userId != Authorization.id && x.userId != 1
             ? InkWell(
                 onTap: () {
                   Navigator.push(

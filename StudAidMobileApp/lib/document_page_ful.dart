@@ -1,7 +1,10 @@
+import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:stud_aid/providers/document_provider.dart';
 import 'package:stud_aid/utils/fileStorage.dart';
@@ -90,17 +93,31 @@ class _DocumentPage2State extends State<DocumentPage2> {
                     margin:
                         const EdgeInsets.only(top: 50.0, right: 100, left: 100),
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         if (document != null &&
                             document?.documentFile != null) {
-                          var s = dataFromBase64String(document!.documentFile!);
+                          // var s = dataFromBase64String(document!.documentFile!);
 
-                          FileStorage.writeCounter(String.fromCharCodes(s),
-                              "${document!.documentName!}.txt");
-                          showAlertDialog(
-                              context,
-                              "You have successfully downloaded this document",
-                              "Success");
+                          // FileStorage.writeCounter(String.fromCharCodes(s),
+                          //     "${document!.documentName!}.pdf");
+                          var status = await Permission.storage.status;
+                          if (!status.isGranted) {
+                            // If not we will ask for permission first
+                            await Permission.storage.request();
+                          } else if (status.isGranted) {
+                            // final file = File(
+                            //     "/storage/emulated/0/Download/${document!.documentName!}.txt");
+                            // await file.writeAsBytes(
+                            //     dataFromBase64String(document!.documentFile!));
+                            // showAlertDialog(
+                            //     context,
+                            //     "You have successfully downloaded this document",
+                            //     "Success");
+                            var bytes = base64Decode(document!.documentFile!);
+                            final file = File(
+                                "/storage/emulated/0/Download/${document!.documentName!}.pdf");
+                            await file.writeAsBytes(bytes.buffer.asUint8List());
+                          }
                         }
                       },
                       style: ElevatedButton.styleFrom(
