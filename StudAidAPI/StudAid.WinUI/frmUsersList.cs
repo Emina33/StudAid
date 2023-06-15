@@ -23,28 +23,17 @@ namespace StudAid.WinUI
             dataGridView1.AutoGenerateColumns = false;
         }
 
-        private void textBox4_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private async void btnShow_Click(object sender, EventArgs e)
         {
  
             var searchObject = new AppUserSearchObject();
             searchObject.FirstName = txtFirstName.Text;
-            searchObject.LastName = txtLastName.Text;           
+            searchObject.LastName = txtLastName.Text;
+            searchObject.Username = txtUsername.Text;
             var list = await AppUserService.Get<List<AppUser>>(searchObject);
             dataGridView1.DataSource = list;
-            //var entity = await AppUserService.GetById<AppUser>(1);
-            //entity.FirstName = "NewBl";
-            //var updated = await AppUserService.Put<AppUser>(entity, entity.UserId);
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {

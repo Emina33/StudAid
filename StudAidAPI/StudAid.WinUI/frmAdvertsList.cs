@@ -21,16 +21,6 @@ namespace StudAid.WinUI
             dataGridView1.AutoGenerateColumns = false;
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private async void btnShow_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private async void btnShow_Click_1(object sender, EventArgs e)
         {
             int a;

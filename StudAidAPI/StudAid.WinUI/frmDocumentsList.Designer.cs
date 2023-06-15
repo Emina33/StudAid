@@ -30,7 +30,6 @@
         {
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.txtAuthor = new System.Windows.Forms.TextBox();
-            this.txtSubject = new System.Windows.Forms.TextBox();
             this.txtDocumentName = new System.Windows.Forms.TextBox();
             this.btnShow = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -52,25 +51,14 @@
             this.textBox4.Size = new System.Drawing.Size(125, 20);
             this.textBox4.TabIndex = 19;
             this.textBox4.Text = "Document search:";
-            this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             // 
             // txtAuthor
             // 
-            this.txtAuthor.Location = new System.Drawing.Point(459, 53);
+            this.txtAuthor.Location = new System.Drawing.Point(266, 53);
             this.txtAuthor.Name = "txtAuthor";
             this.txtAuthor.PlaceholderText = "Author:";
             this.txtAuthor.Size = new System.Drawing.Size(179, 27);
             this.txtAuthor.TabIndex = 18;
-            this.txtAuthor.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
-            // 
-            // txtSubject
-            // 
-            this.txtSubject.Location = new System.Drawing.Point(260, 53);
-            this.txtSubject.Name = "txtSubject";
-            this.txtSubject.PlaceholderText = "Subject:";
-            this.txtSubject.Size = new System.Drawing.Size(179, 27);
-            this.txtSubject.TabIndex = 17;
-            this.txtSubject.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // txtDocumentName
             // 
@@ -80,11 +68,10 @@
             this.txtDocumentName.Size = new System.Drawing.Size(179, 27);
             this.txtDocumentName.TabIndex = 16;
             this.txtDocumentName.Tag = "";
-            this.txtDocumentName.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // btnShow
             // 
-            this.btnShow.Location = new System.Drawing.Point(658, 51);
+            this.btnShow.Location = new System.Drawing.Point(476, 52);
             this.btnShow.Name = "btnShow";
             this.btnShow.Size = new System.Drawing.Size(94, 29);
             this.btnShow.TabIndex = 15;
@@ -105,7 +92,6 @@
             this.dataGridView1.RowTemplate.Height = 29;
             this.dataGridView1.Size = new System.Drawing.Size(703, 283);
             this.dataGridView1.TabIndex = 14;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // DocumentName
             // 
@@ -138,7 +124,6 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.txtAuthor);
-            this.Controls.Add(this.txtSubject);
             this.Controls.Add(this.txtDocumentName);
             this.Controls.Add(this.btnShow);
             this.Controls.Add(this.dataGridView1);
@@ -153,7 +138,6 @@
         #endregion
         private TextBox textBox4;
         private TextBox txtAuthor;
-        private TextBox txtSubject;
         private TextBox txtDocumentName;
         private Button btnShow;
         private DataGridView dataGridView1;

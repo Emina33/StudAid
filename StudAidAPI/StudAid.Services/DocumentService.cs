@@ -26,7 +26,11 @@ namespace StudAid.Services
             {
                 filteredQuery = filteredQuery.Where(s => s.DocumentName.StartsWith(search.DocumentName));
             }
-            
+            if (!string.IsNullOrEmpty(search?.Author))
+            {
+                filteredQuery = filteredQuery.Where(s => s.Author.StartsWith(search.Author));
+            }
+
             return filteredQuery;
         }
         public override IQueryable<Document> AddInclude(IQueryable<Document> query, DocumentSearchObject search = null)
