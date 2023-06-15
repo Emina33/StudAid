@@ -300,20 +300,13 @@ class _HomePageNewState extends State<HomePageNew> {
                             padding: const EdgeInsets.only(top: 50),
                             child: ElevatedButton(
                               onPressed: () {
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //       builder: (context) => const BookPage()),
-                                // );
                                 if (x.tutor == Authorization.id) {
                                   showAlertDialog(
                                       context,
                                       "You can't book your own class!",
                                       "Warning");
                                 }
-                                // var pic = data3.firstWhere(
-                                //     (element) => element.userId == x.tutor,
-                                //     orElse: () => new User());
+
                                 if (x.tutor != Authorization.id)
                                   Navigator.push(
                                     context,

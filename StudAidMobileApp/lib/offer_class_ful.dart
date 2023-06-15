@@ -165,36 +165,6 @@ class _OfferClassPage2State extends State<OfferClassPage2> {
                         textAlign: TextAlign.center,
                       ),
                     ),
-                    // SizedBox(
-                    //     width: 300.0,
-                    //     height: 50.0,
-                    //     child: DropdownButton<String>(
-                    //       isExpanded: true,
-                    //       hint: const Text("Category"),
-                    //       value: selectedCategory,
-                    //       icon: const Icon(Icons.arrow_drop_down),
-                    //       elevation: 16,
-                    //       style: const TextStyle(
-                    //           color: Color.fromRGBO(20, 30, 39, 1.0),
-                    //           fontSize: 20),
-                    //       underline: Container(
-                    //         height: 1,
-                    //         color: Color.fromRGBO(20, 30, 39, 1.0),
-                    //       ),
-                    //       onChanged: (String? value) {
-                    //         // This is called when the user selects an item.
-                    //         setState(() {
-                    //           selectedCategory = value!;
-                    //         });
-                    //       },
-                    //       items: categories
-                    //           .map<DropdownMenuItem<String>>((String value) {
-                    //         return DropdownMenuItem<String>(
-                    //           value: value,
-                    //           child: Text(value),
-                    //         );
-                    //       }).toList(),
-                    //     )),
                     SizedBox(
                       width: 300.0,
                       height: 50.0,
@@ -222,7 +192,6 @@ class _OfferClassPage2State extends State<OfferClassPage2> {
                             color: Color.fromRGBO(20, 30, 39, 1.0)),
                       ),
                     ),
-
                     SizedBox(
                         width: 300.0,
                         height: 50.0,
@@ -309,49 +278,6 @@ class _OfferClassPage2State extends State<OfferClassPage2> {
                             color: Color.fromRGBO(20, 30, 39, 1.0)),
                       ),
                     ),
-
-                    // Container(
-                    //   margin: const EdgeInsets.only(top: 30, bottom: 30),
-                    //   decoration: const BoxDecoration(
-                    //       border: Border(
-                    //           bottom: BorderSide(
-                    //               width: 1,
-                    //               color: Color.fromRGBO(32, 50, 57, 0.4)))),
-                    //   child: const Text(
-                    //     'Additional information',
-                    //     style: TextStyle(
-                    //         fontSize: 20, color: Color.fromRGBO(32, 50, 57, 0.4)),
-                    //     textAlign: TextAlign.center,
-                    //   ),
-                    // ),
-                    // Container(
-                    //     height: 150,
-                    //     width: 300,
-                    //     decoration: BoxDecoration(
-                    //       borderRadius: BorderRadius.circular(10),
-                    //       color: const Color.fromRGBO(32, 50, 57, 0.1),
-                    //     ),
-                    //     child: Container(
-                    //       height: double.infinity,
-                    //       width: double.infinity,
-                    //       child: TextField(
-                    //         decoration: InputDecoration(
-                    //           fillColor: Colors.white,
-                    //           focusedBorder: OutlineInputBorder(
-                    //             borderSide: const BorderSide(
-                    //                 color: Colors.transparent, width: 2.0),
-                    //             borderRadius: BorderRadius.circular(25.0),
-                    //           ),
-                    //           enabledBorder: OutlineInputBorder(
-                    //             borderSide: const BorderSide(
-                    //                 color: Colors.transparent, width: 2.0),
-                    //             borderRadius: BorderRadius.circular(25.0),
-                    //           ),
-                    //         ),
-                    //         keyboardType: TextInputType.multiline,
-                    //         maxLines: null,
-                    //       ),
-                    //     )),
                     Container(
                       margin: const EdgeInsets.only(top: 50),
                       child: TextButton(

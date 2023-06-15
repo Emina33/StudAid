@@ -592,9 +592,6 @@ class _MyProfilePage2State extends State<MyProfilePage2> {
                                           "You can't book your own class!",
                                           "Warning");
                                     }
-                                    // var pic = data3.firstWhere(
-                                    //     (element) => element.userId == x.tutor,
-                                    //     orElse: () => new User());
                                     if (x.tutor != Authorization.id)
                                       Navigator.push(
                                         context,

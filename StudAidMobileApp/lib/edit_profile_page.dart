@@ -289,22 +289,6 @@ class _EditProfilePageState extends State<EditProfilePage>
                                           fontSize: 20),
                                     ),
                                   ))
-                              // TextField(
-                              //   //"${user?.firstName == null ? "" : user?.firstName} ${user?.lastName == null ? "" : user?.lastName}",
-                              //   controller: firstNameController,
-                              //   style: TextStyle(
-                              //       fontSize: 25,
-                              //       color: Color.fromRGBO(20, 30, 39, 1.0)),
-                              //   textAlign: TextAlign.center,
-                              // ),
-                              // TextField(
-                              //   //"${user?.firstName == null ? "" : user?.firstName} ${user?.lastName == null ? "" : user?.lastName}",
-                              //   controller: lastNameController,
-                              //   style: TextStyle(
-                              //       fontSize: 25,
-                              //       color: Color.fromRGBO(20, 30, 39, 1.0)),
-                              //   textAlign: TextAlign.center,
-                              // ),
                             ],
                           ),
                         ),

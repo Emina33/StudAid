@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stud_aid/models/advert.dart';
 import 'package:stud_aid/models/reservation.dart';
-import 'package:stud_aid/payment_page.dart';
 import 'package:stud_aid/providers/advert_provider.dart';
 import 'package:stud_aid/providers/reservation_provider.dart';
 import 'package:stud_aid/review_page.dart';

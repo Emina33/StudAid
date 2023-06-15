@@ -136,19 +136,6 @@ class _ChatPage3State extends State<ChatPage3> {
                                   color: const Color.fromRGBO(20, 30, 39, 1.0),
                                   fontWeight: FontWeight.w500)),
                         ));
-                //           ?
-                // return Card(
-                //   elevation: 8,
-                //   child: Padding(
-                //     padding: const EdgeInsets.all(12),
-                //     child: Align(
-                //       alignment: data[index].sender == Authorization.id
-                //           ? Alignment.centerRight
-                //           : Alignment.centerLeft,
-                //       child: Text(data[index].content!),
-                //     ),
-                //   ),
-                // );
               },
             )),
             Container(
