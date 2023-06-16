@@ -25,6 +25,10 @@ namespace StudAid.Services
             {
                 filteredQuery = filteredQuery.Where(s => s.Country.StartsWith(search.Country));
             }
+            if (!string.IsNullOrEmpty(search?.City))
+            {
+                filteredQuery = filteredQuery.Where(s => s.City.StartsWith(search.City));
+            }
 
             return filteredQuery;
         }

@@ -17,36 +17,20 @@ namespace StudAid.Services
 {
     public class AppUserService : BaseCRUDService<Model.AppUser, AppUser, AppUserSearchObject, AppUserInsertRequest, AppUserUpdateRequest>, IAppUserService
     {
-        //public studAidDbContext Context { get; set; }
-        //public IMapper Mapper { get; set; }
+    
         public AppUserService(stud_aid2Context context, IMapper mapper)
             : base(context, mapper)
         {
-            //Context = context;
-            //Mapper = mapper;
+      
         }
         public override Model.AppUser Insert(AppUserInsertRequest insert)
         {
-            //zakomentarisano za vise v vise vezu
-            //if (insert.Password != insert.PasswordPotvrda)
-            //{
-            //    throw new UserException("Password and confirmation must be the same");
-            //}
+           
 
             var entity = base.Insert(insert);
 
 
-            //foreach (var ulogaId in insert.UlogeIdList)
-            //{
-            //    Database.KorisniciUloge korisniciUloge = new Database.KorisniciUloge();
-            //    korisniciUloge.UlogaId = ulogaId;
-            //    korisniciUloge.KorisnikId = entity.KorisnikId;
-            //    korisniciUloge.DatumIzmjene = DateTime.Now;
-
-            //    Context.KorisniciUloges.Add(korisniciUloge);
-            //}
-
-            //Context.SaveChanges();
+           
 
             return entity;
         }
@@ -76,12 +60,7 @@ namespace StudAid.Services
         }
         public static string GenerateSalt()
         {
-            //RNGCryptoServiceProvider provider = new RNGCryptoServiceProvider();
-            //var byteArray = new byte[16];
-            //provider.GetBytes(byteArray);
-
-
-            //return Convert.ToBase64String(byteArray);
+        
             return Convert.ToBase64String(new byte[16]);
         }
         public static string GenerateHash(string salt, string password)
@@ -131,91 +110,6 @@ namespace StudAid.Services
             }
             return Mapper.Map<Model.AppUser>(entity);
         }
-        //static object isLocked = new object();
-
-
-        //public List<Model.Advert> Recommend(int id)
-        //{
-        //    try
-        //    {
-        //        if (mLContext == null)
-        //        {
-        //            mLContext = new MLContext();
-        //            var tmpData = Context.Reservations.Include("Advert").ToList();
-        //            var data = new List<AdvertEntry>();
-        //            foreach (var item in tmpData)
-        //            {
-        //                data.Add(new AdvertEntry()
-        //                {
-        //                    AdvertID = (uint)item.AdvertId,
-        //                    UserID = (uint)item.UserId,
-        //                    TutorID = (uint)item.Advert.Tutor,
-        //                });
-        //            }
-        //            var traindata = mLContext.Data.LoadFromEnumerable(data);
-        //            //STEP 3: Your data is already encoded so all you need to do is specify options for MatrxiFactorizationTrainer with a few extra hyperparameters
-        //            //        LossFunction, Alpa, Lambda and a few others like K and C as shown below and call the trainer.
-        //            MatrixFactorizationTrainer.Options options = new MatrixFactorizationTrainer.Options();
-        //            options.MatrixColumnIndexColumnName = nameof(AdvertEntry.AdvertID);
-        //            options.MatrixRowIndexColumnName = nameof(AdvertEntry.UserID);
-        //            options.LabelColumnName = "Label";
-        //            options.LossFunction = MatrixFactorizationTrainer.LossFunctionType.SquareLossOneClass;
-        //            options.Alpha = 0.01;
-        //            options.Lambda = 0.025;
-        //            // For better results use the following parameters
-        //            options.NumberOfIterations = 100;
-        //            options.C = 0.00001;
-
-
-        //            var est = mLContext.Recommendation().Trainers.MatrixFactorization(options);
-
-
-        //            model = est.Fit(traindata);
-        //        }
-        //        //}
-
-        //        var allItems = Context.Adverts.Where(x => x.AdvertId != id);
-        //        var predictionResult = new List<Tuple<Advert, float>>();
-        //        foreach (var item in allItems)
-        //        {
-        //            var predictionEngine = mLContext.Model.CreatePredictionEngine<AdvertEntry, PredictionLevel>(model);
-        //            var prediction = predictionEngine.Predict(new AdvertEntry()
-        //            {
-        //                UserID = (uint)id,
-        //                AdvertID = (uint)item.AdvertId
-        //            });
-        //            predictionResult.Add(new Tuple<Advert, float>(item, prediction.Score));
-        //        }
-        //        var finalResult = predictionResult.OrderByDescending(x => x.Item2)
-        //            .Select(x => x.Item1).Take(3).ToList();
-
-        //        return Mapper.Map<List<Model.Advert>>(finalResult);
-
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        return new List<Model.Advert>();
-        //    }
-
-        //    //lock (isLocked)
-        //    //{
-
-
-        //}
-
-        //public IEnumerable<Model.AppUser> Get()
-        //{
-
-        //    var result = Context.AppUsers.ToList();
-
-        //    return Mapper.Map<List<Model.AppUser>>(result);
-        //}
-
-        //public Model.AppUser GetById(int id)
-        //{
-        //    var result = Context.AppUsers.Find(id);
-        //    return Mapper.Map<Model.AppUser>(result);
-        //}
-        //}
+       
     }
 }

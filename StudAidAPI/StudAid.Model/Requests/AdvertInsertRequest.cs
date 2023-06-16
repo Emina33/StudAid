@@ -6,8 +6,6 @@ namespace StudAid.Model.Requests
 {
     public class AdvertInsertRequest
     {
-        public int AdvertId { get; set; }
-
         public string AdvertName { get; set; }
 
         public string AvailableTime { get; set; }

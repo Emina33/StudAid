@@ -6,7 +6,6 @@ namespace StudAid.Model.Requests
 {
     public class SubjectUpsertRequest
     {
-        public int SubjectId { get; set; }
 
         public string SubjectName { get; set; }
         public int? CategoryId { get; set; }

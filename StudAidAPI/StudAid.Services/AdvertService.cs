@@ -22,19 +22,17 @@ namespace StudAid.Services
             : base(context, mapper)
         {
             BaseState = baseState;
-            //Context = context;
-            //Mapper = mapper;
+            
         }
         public override Model.Advert Insert(AdvertInsertRequest insert)
         {
-            //return base.Insert(insert);
             var state = BaseState.CreateState("initial");
             return state.Insert(insert);
         }
 
         public override Model.Advert Update(int id, AdvertUpdateRequest update)
         {
-            //return base.Update(id, update);
+            
             var advert = Context.Adverts.Find(id);
 
             var state = BaseState.CreateState(advert.StateMachine);
@@ -78,17 +76,14 @@ namespace StudAid.Services
 
 
 
-        //public override IEnumerable<Advert> Get(AdvertSearchObject search = null)
-        //{
-        //    return base.Get(search);
-        //}
-        static MLContext? mlContext = null;
-        static ITransformer? model = null;
-        //static ITransformer modelNew = null;
+        static object isLocked = new object();
+        static MLContext mlContext = null;
+        static ITransformer model = null;
+       
 
         public List<Model.Advert> Recommend(int id)
         {
-
+            
 
 
             var allAdverts = Context.Adverts.ToList();
@@ -112,91 +107,82 @@ namespace StudAid.Services
                 predictionResult.Add(new Tuple<Advert, float>(advert, prediction.Score));
 
                 }
-
-
-
+                else
+                {
+                    predictionResult.Add(new Tuple<Advert, float>(advert, 0));
+                }
             }
 
-            //var finalResult = predictionResult.OrderByDescending(o => o.Item2).Select(s => s.Item1).Take(3).ToList();
+            
 
             var finalResult = predictionResult?.OrderByDescending(o => o.Item2).Select(s => s.Item1).ToList();
-
-            //AdvertService advertService = new(Context, Mapper, null);
-            //foreach (var item in finalResult)
-            //{
-            //    var advert = advertService.GetById(item.AdvertId);
-            //    item.Product = Mapper.Map<Product>(product);
-            //}
-
 
             return Mapper.Map<List<Model.Advert>>(finalResult);
         }
 
         public ITransformer ModelTrainer(int id)
         {
-            if (mlContext == null)
+            lock (isLocked)
             {
-                mlContext = new MLContext();
-
-                //ReservationService reservationService = new(Context, Mapper);
-
-                //ReservationSearchObject reservationSearchObject = new();
-                //reservationSearchObject.UserId = id;
-                var allAdverts = Context.Adverts.ToList();
-                // var reservations = reservationService.Get(reservationSearchObject).ToList();
-                var reservations = Context.Reservations.ToList();
-
-                var data = new List<ReservationEntry>();
-
-                foreach (var advert in allAdverts)
+                if (mlContext == null)
                 {
-                    foreach (var reservation in reservations)
-                    {
-                        if (advert.AdvertId == reservation.AdvertId && reservation.UserId == id && advert.Tutor != null && advert.SubjectId != null)
-                        {
-                            data.Add(new ReservationEntry()
-                            {
-                                UserID = (uint)id,
-                                AdvertID = (uint)reservation.AdvertId,
-                                SubjectId = (uint)advert.SubjectId,
-                                TutorId = (uint)advert.Tutor,
+                    mlContext = new MLContext();
 
-                            });
+
+                    var allAdverts = Context.Adverts.ToList();
+
+                    var reservations = Context.Reservations.ToList();
+
+                    var data = new List<ReservationEntry>();
+
+                    foreach (var advert in allAdverts)
+                    {
+                        foreach (var reservation in reservations)
+                        {
+                            if (advert.AdvertId == reservation.AdvertId && reservation.UserId == id && advert.Tutor != null && advert.SubjectId != null)
+                            {
+                                data.Add(new ReservationEntry()
+                                {
+                                    UserID = (uint)id,
+                                    AdvertID = (uint)reservation.AdvertId,
+                                    SubjectId = (uint)advert.SubjectId,
+                                    TutorId = (uint)advert.Tutor,
+
+                                });
+                            }
+
                         }
+
+
+
+
 
                     }
 
 
 
+                    var trainData = mlContext.Data.LoadFromEnumerable(data);
+
+                    MatrixFactorizationTrainer.Options options = new()
+                    {
+                        MatrixColumnIndexColumnName = nameof(ReservationEntry.UserID),
+                        MatrixRowIndexColumnName = nameof(ReservationEntry.AdvertID),
+                        LabelColumnName = "Label",
+                        LossFunction = MatrixFactorizationTrainer.LossFunctionType.SquareLossOneClass,
+                        Alpha = 0.01,
+                        Lambda = 0.025
+                    };
 
 
+                    var est = mlContext.Recommendation().Trainers.MatrixFactorization(options);
+
+                    model = est.Fit(trainData);
                 }
-
-
-
-                var trainData = mlContext.Data.LoadFromEnumerable(data);
-
-                MatrixFactorizationTrainer.Options options = new()
-                {
-                    MatrixColumnIndexColumnName = nameof(ReservationEntry.UserID),
-                    MatrixRowIndexColumnName = nameof(ReservationEntry.AdvertID),
-                    LabelColumnName = "Label",
-                    LossFunction = MatrixFactorizationTrainer.LossFunctionType.SquareLossOneClass,
-                    Alpha = 0.01,
-                    Lambda = 0.025
-                };
-                // For better results use the following parameters
-                //options.NumberOfIterations = 100;
-                //options.C = 0.00001;
-
-                var est = mlContext.Recommendation().Trainers.MatrixFactorization(options);
-
-                model = est.Fit(trainData);
+                if (model != null)
+                    return model;
+                else
+                    return null;
             }
-            if(model!=null)
-            return model;
-            else
-                return null;
 
 
         }

@@ -19,7 +19,6 @@ namespace StudAid.Services
         public override IQueryable<Payment> AddFilter(IQueryable<Payment> query, PaymentSearchObject search = null)
         {
             var filteredQuery = base.AddFilter(query, search);
-            Console.WriteLine("Idemoooooo");
 
 
             return filteredQuery;

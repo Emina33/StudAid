@@ -20,7 +20,7 @@ namespace StudAid.Services
         public override IQueryable<Reservation> AddFilter(IQueryable<Reservation> query, ReservationSearchObject search = null)
         {
             var filteredQuery = base.AddFilter(query, search);
-            Console.WriteLine("Idemoooooo");
+           
             
            
             return filteredQuery;
