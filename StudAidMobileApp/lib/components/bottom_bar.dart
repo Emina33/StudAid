@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stud_aid/chat3.dart';
 import 'package:stud_aid/home_page_ful.dart';
 import 'package:stud_aid/main.dart';
+import 'package:stud_aid/previous_reservations.dart';
 
 import 'package:stud_aid/utils/util.dart';
 
@@ -36,6 +37,11 @@ class _BottomBarState extends State<BottomBar> {
         context,
         MaterialPageRoute(builder: (context) => MyProfilePage2(0)),
       );
+    } else if (index == 3) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const PreviousReservations()),
+      );
     }
   }
 
@@ -44,6 +50,7 @@ class _BottomBarState extends State<BottomBar> {
     return BottomNavigationBar(
       selectedItemColor: Color.fromRGBO(103, 101, 78, 1),
       onTap: _onItemTapped,
+      type: BottomNavigationBarType.fixed,
       currentIndex: _selectedIndex,
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
@@ -57,6 +64,10 @@ class _BottomBarState extends State<BottomBar> {
         BottomNavigationBarItem(
           icon: Icon(Icons.person_pin_rounded),
           label: 'Profile',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.book),
+          label: 'Reservations',
         ),
       ],
       backgroundColor: const Color.fromRGBO(224, 221, 170, 1.0),

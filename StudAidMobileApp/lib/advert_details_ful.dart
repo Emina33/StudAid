@@ -130,97 +130,99 @@ class _AdvertDetailsFulState extends State<AdvertDetailsFul> {
                     margin: const EdgeInsets.only(top: 20),
                     child: ElevatedButton(
                       onPressed: () async {
-                        setState(() {
-                          reservation?.advertId = widget.id;
-                          reservation?.userId = 2;
-                          reservation?.selectedTime = selectedTime;
-                        });
+                        if (Validate()) {
+                          setState(() {
+                            reservation?.advertId = widget.id;
+                            reservation?.userId = 2;
+                            reservation?.selectedTime = selectedTime;
+                          });
 
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => UsePaypal(
-                                  sandboxMode: true,
-                                  clientId:
-                                      "AW1TdvpSGbIM5iP4HJNI5TyTmwpY9Gv9dYw8_8yW5lYIbCqf326vrkrp0ce9TAqjEGMHiV3OqJM_aRT0",
-                                  secretKey:
-                                      "EHHtTDjnmTZATYBPiGzZC_AZUfMpMAzj2VZUeqlFUrRJA_C0pQNCxDccB5qoRQSEdcOnnKQhycuOWdP9",
-                                  returnURL: "https://samplesite.com/return",
-                                  cancelURL: "https://samplesite.com/cancel",
-                                  transactions: const [
-                                    {
-                                      "amount": {
-                                        "total": '10.00',
-                                        "currency": "USD",
-                                        "details": {
-                                          "subtotal": '10.00',
-                                          "shipping": '0',
-                                          "shipping_discount": 0
-                                        }
-                                      },
-                                      "description":
-                                          "The payment transaction description.",
-                                      // "payment_options": {
-                                      //   "allowed_payment_method":
-                                      //       "INSTANT_FUNDING_SOURCE"
-                                      // },
-                                      "item_list": {
-                                        "items": [
-                                          {
-                                            "name": "A tutoring session",
-                                            "quantity": 1,
-                                            "price": '10.00',
-                                            "currency": "USD"
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => UsePaypal(
+                                    sandboxMode: true,
+                                    clientId:
+                                        "AW1TdvpSGbIM5iP4HJNI5TyTmwpY9Gv9dYw8_8yW5lYIbCqf326vrkrp0ce9TAqjEGMHiV3OqJM_aRT0",
+                                    secretKey:
+                                        "EHHtTDjnmTZATYBPiGzZC_AZUfMpMAzj2VZUeqlFUrRJA_C0pQNCxDccB5qoRQSEdcOnnKQhycuOWdP9",
+                                    returnURL: "https://samplesite.com/return",
+                                    cancelURL: "https://samplesite.com/cancel",
+                                    transactions: const [
+                                      {
+                                        "amount": {
+                                          "total": '10.00',
+                                          "currency": "USD",
+                                          "details": {
+                                            "subtotal": '10.00',
+                                            "shipping": '0',
+                                            "shipping_discount": 0
                                           }
-                                        ],
-
-                                        // shipping address is not required though
-                                        "shipping_address": {
-                                          "recipient_name": "Jane Foster",
-                                          "line1": "Travis County",
-                                          "line2": "",
-                                          "city": "Austin",
-                                          "country_code": "US",
-                                          "postal_code": "73301",
-                                          "phone": "+00000000",
-                                          "state": "Texas"
                                         },
-                                      }
-                                    }
-                                  ],
-                                  note:
-                                      "Contact us for any questions on your order.",
-                                  onSuccess: (Map params) async {
-                                    print("onSuccess: $params");
-                                    if (selectedTime != "unselected") {
-                                      setState(() {
-                                        reservation?.advertId = widget.id;
-                                        reservation?.userId = 2;
-                                        reservation?.selectedTime =
-                                            selectedTime;
-                                      });
-                                      Object reservation2 = {
-                                        "advertId": widget.id,
-                                        "userId": Authorization.id,
-                                        "selectedTime": selectedTime
-                                      };
+                                        "description":
+                                            "The payment transaction description.",
+                                        // "payment_options": {
+                                        //   "allowed_payment_method":
+                                        //       "INSTANT_FUNDING_SOURCE"
+                                        // },
+                                        "item_list": {
+                                          "items": [
+                                            {
+                                              "name": "A tutoring session",
+                                              "quantity": 1,
+                                              "price": '10.00',
+                                              "currency": "USD"
+                                            }
+                                          ],
 
-                                      await _reservationProvider
-                                          ?.insert(reservation2);
-                                      showAlertDialog(
-                                          context,
-                                          "You have successfully made a reservation!",
-                                          "Success");
-                                      changeAvailableTime(widget.id);
-                                    }
-                                  },
-                                  onError: (error) {
-                                    print("onError: $error");
-                                  },
-                                  onCancel: (params) {
-                                    print('cancelled: $params');
-                                  })),
-                        );
+                                          // shipping address is not required though
+                                          "shipping_address": {
+                                            "recipient_name": "Jane Foster",
+                                            "line1": "Travis County",
+                                            "line2": "",
+                                            "city": "Austin",
+                                            "country_code": "US",
+                                            "postal_code": "73301",
+                                            "phone": "+00000000",
+                                            "state": "Texas"
+                                          },
+                                        }
+                                      }
+                                    ],
+                                    note:
+                                        "Contact us for any questions on your order.",
+                                    onSuccess: (Map params) async {
+                                      print("onSuccess: $params");
+                                      if (Validate()) {
+                                        setState(() {
+                                          reservation?.advertId = widget.id;
+                                          reservation?.userId = 2;
+                                          reservation?.selectedTime =
+                                              selectedTime;
+                                        });
+                                        Object reservation2 = {
+                                          "advertId": widget.id,
+                                          "userId": Authorization.id,
+                                          "selectedTime": selectedTime
+                                        };
+
+                                        await _reservationProvider
+                                            ?.insert(reservation2);
+                                        showAlertDialog(
+                                            context,
+                                            "You have successfully made a reservation!",
+                                            "Success");
+                                        changeAvailableTime(widget.id);
+                                      }
+                                    },
+                                    onError: (error) {
+                                      print("onError: $error");
+                                    },
+                                    onCancel: (params) {
+                                      print('cancelled: $params');
+                                    })),
+                          );
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                           shape: const StadiumBorder(),
@@ -238,7 +240,7 @@ class _AdvertDetailsFulState extends State<AdvertDetailsFul> {
                     margin: const EdgeInsets.only(top: 20, bottom: 20),
                     child: ElevatedButton(
                       onPressed: () async {
-                        if (selectedTime != "unselected") {
+                        if (Validate()) {
                           setState(() {
                             reservation?.advertId = widget.id;
                             reservation?.userId = 2;

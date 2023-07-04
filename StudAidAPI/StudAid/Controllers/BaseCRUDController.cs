@@ -26,5 +26,12 @@ namespace StudAid.Controllers
 
             return result;
         }
+        [HttpDelete("{id}")]
+        public virtual T Delete(int id)
+        {
+            var result = ((ICRUDService<T, TSearch, TInsert, TUpdate>)this.Service).Delete(id);
+
+            return result;
+        }
     }
 }

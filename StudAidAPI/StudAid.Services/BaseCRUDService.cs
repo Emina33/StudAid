@@ -57,5 +57,35 @@ namespace StudAid.Services
             Context.SaveChanges();
             return Mapper.Map<T>(entity);
         }
+        public virtual void BeforeDelete(TDb dbentity)
+        {
+
+        }
+        public virtual void AfterDelete(TDb dbentity)
+        {
+
+        }
+        public virtual T? Delete(int id)
+        {
+            var set = Context.Set<TDb>();
+
+            var dbentity = set.Find(id);
+
+            if (dbentity == null)
+            {
+                return null;
+            }
+
+            var deletedEntity = dbentity;
+
+            BeforeDelete(deletedEntity);
+
+            set.Remove(dbentity);
+            AfterDelete(deletedEntity);
+
+            Context.SaveChanges();
+
+            return Mapper.Map<T>(deletedEntity);
+        }
     }
 }

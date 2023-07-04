@@ -35,11 +35,15 @@
             this.newUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.documentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.advertsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.subjectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.locationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addNewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.advertsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -50,7 +54,9 @@
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.appUsersToolStripMenuItem,
             this.documentsToolStripMenuItem,
-            this.advertsToolStripMenuItem});
+            this.advertsToolStripMenuItem,
+            this.subjectsToolStripMenuItem,
+            this.locationsToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Padding = new System.Windows.Forms.Padding(8, 3, 0, 3);
@@ -98,6 +104,51 @@
             this.listToolStripMenuItem.Text = "Search";
             this.listToolStripMenuItem.Click += new System.EventHandler(this.listToolStripMenuItem_Click);
             // 
+            // advertsToolStripMenuItem
+            // 
+            this.advertsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.searchToolStripMenuItem1});
+            this.advertsToolStripMenuItem.Name = "advertsToolStripMenuItem";
+            this.advertsToolStripMenuItem.Size = new System.Drawing.Size(73, 24);
+            this.advertsToolStripMenuItem.Text = "Adverts";
+            // 
+            // searchToolStripMenuItem1
+            // 
+            this.searchToolStripMenuItem1.Name = "searchToolStripMenuItem1";
+            this.searchToolStripMenuItem1.Size = new System.Drawing.Size(136, 26);
+            this.searchToolStripMenuItem1.Text = "Search";
+            this.searchToolStripMenuItem1.Click += new System.EventHandler(this.searchToolStripMenuItem1_Click);
+            // 
+            // subjectsToolStripMenuItem
+            // 
+            this.subjectsToolStripMenuItem.Name = "subjectsToolStripMenuItem";
+            this.subjectsToolStripMenuItem.Size = new System.Drawing.Size(78, 24);
+            this.subjectsToolStripMenuItem.Text = "Subjects";
+            this.subjectsToolStripMenuItem.Click += new System.EventHandler(this.subjectsToolStripMenuItem_Click);
+            // 
+            // locationsToolStripMenuItem
+            // 
+            this.locationsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addNewToolStripMenuItem,
+            this.searchToolStripMenuItem2});
+            this.locationsToolStripMenuItem.Name = "locationsToolStripMenuItem";
+            this.locationsToolStripMenuItem.Size = new System.Drawing.Size(86, 24);
+            this.locationsToolStripMenuItem.Text = "Locations";
+            // 
+            // addNewToolStripMenuItem
+            // 
+            this.addNewToolStripMenuItem.Name = "addNewToolStripMenuItem";
+            this.addNewToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.addNewToolStripMenuItem.Text = "Add new";
+            this.addNewToolStripMenuItem.Click += new System.EventHandler(this.addNewToolStripMenuItem_Click);
+            // 
+            // searchToolStripMenuItem2
+            // 
+            this.searchToolStripMenuItem2.Name = "searchToolStripMenuItem2";
+            this.searchToolStripMenuItem2.Size = new System.Drawing.Size(224, 26);
+            this.searchToolStripMenuItem2.Text = "Search";
+            this.searchToolStripMenuItem2.Click += new System.EventHandler(this.searchToolStripMenuItem2_Click);
+            // 
             // statusStrip
             // 
             this.statusStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -115,21 +166,6 @@
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
             this.toolStripStatusLabel.Size = new System.Drawing.Size(49, 20);
             this.toolStripStatusLabel.Text = "Status";
-            // 
-            // advertsToolStripMenuItem
-            // 
-            this.advertsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.searchToolStripMenuItem1});
-            this.advertsToolStripMenuItem.Name = "advertsToolStripMenuItem";
-            this.advertsToolStripMenuItem.Size = new System.Drawing.Size(73, 24);
-            this.advertsToolStripMenuItem.Text = "Adverts";
-            // 
-            // searchToolStripMenuItem1
-            // 
-            this.searchToolStripMenuItem1.Name = "searchToolStripMenuItem1";
-            this.searchToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
-            this.searchToolStripMenuItem1.Text = "Search";
-            this.searchToolStripMenuItem1.Click += new System.EventHandler(this.searchToolStripMenuItem1_Click);
             // 
             // mdiMain
             // 
@@ -165,6 +201,10 @@
         private ToolStripMenuItem listToolStripMenuItem;
         private ToolStripMenuItem advertsToolStripMenuItem;
         private ToolStripMenuItem searchToolStripMenuItem1;
+        private ToolStripMenuItem locationsToolStripMenuItem;
+        private ToolStripMenuItem addNewToolStripMenuItem;
+        private ToolStripMenuItem searchToolStripMenuItem2;
+        private ToolStripMenuItem subjectsToolStripMenuItem;
     }
 }
 

@@ -32,6 +32,26 @@ namespace StudAid.WinUI
             dataGridView1.DataSource=list;
         }
 
-       
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var item = dataGridView1.SelectedRows[0].DataBoundItem as Document;
+            frmDocumentDetails frm = new frmDocumentDetails(item);
+            frm.ShowDialog();
+        }
+
+        private void txtAuthor_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtDocumentName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -43,20 +43,30 @@ namespace StudAid.WinUI
                 {
                     if(Validate())
                     {
-                        AppUserInsertRequest insertRequest = new AppUserInsertRequest()
+                        try
                         {
-                            FirstName = txtFirstName.Text,
-                            LastName = txtLastName.Text,
-                            Username = txtUsername.Text,
-                            Role = txtRole.Text,
-                            Password = txtPass.Text,
-                            LocationId = 1,
-                            Description = txtDescription.Text,
-                        };
-                        if (txtPass.Text == txtConfirmPass.Text)
-                        {
-                            var user = await AppUserService.Post<AppUser>(insertRequest);
+                            AppUserInsertRequest insertRequest = new AppUserInsertRequest()
+                            {
+                                FirstName = txtFirstName.Text,
+                                LastName = txtLastName.Text,
+                                Username = txtUsername.Text,
+                                Role = txtRole.Text,
+                                Password = txtPass.Text,
+                                LocationId = 11,
+                                Description = txtDescription.Text,
+                            };
+                            if (txtPass.Text == txtConfirmPass.Text)
+                            {
+                                var user = await AppUserService.Post<AppUser>(insertRequest);
+                                MessageBox.Show("You have successfully added a user");
+                            }
                         }
+                        catch (Exception ex)
+                        {
+
+                            MessageBox.Show("Something went wrong");
+                        }
+                        
                     }
                    
                 }
@@ -64,17 +74,27 @@ namespace StudAid.WinUI
                 {
                     if(Validate())
                     {
-                        AppUserUpdateRequest updateRequest = new AppUserUpdateRequest()
+                        try
                         {
-                            FirstName = txtFirstName.Text,
-                            LastName = txtLastName.Text,
-                            Role = txtRole.Text,
-                            Password = txtPass.Text,
-                            LocationId = 1,
-                            Description = txtDescription.Text,
-                            ProfilePicture = User.ProfilePicture,
-                        };
-                        User = await AppUserService.Put<AppUser>( updateRequest,User.UserId);
+                            AppUserUpdateRequest updateRequest = new AppUserUpdateRequest()
+                            {
+                                FirstName = txtFirstName.Text,
+                                LastName = txtLastName.Text,
+                                Role = txtRole.Text,
+                                Password = txtPass.Text,
+                                LocationId = 11,
+                                Description = txtDescription.Text,
+                                ProfilePicture = User.ProfilePicture,
+                            };
+                            User = await AppUserService.Put<AppUser>(updateRequest, User.UserId);
+                            MessageBox.Show("You have successfully updated a user");
+                        }
+                        catch (Exception ex)
+                        {
+
+                            MessageBox.Show("Something went wrong");
+                        }
+                       
                     }
                     
                 }
@@ -101,7 +121,7 @@ namespace StudAid.WinUI
             if (string.IsNullOrWhiteSpace(txtLastName.Text))
             {
 
-                txtFirstName.Focus();
+                txtLastName.Focus();
                 errorProvider.SetError(txtLastName, "Last name should not be left blank!");
                 return false;
             }
@@ -113,7 +133,7 @@ namespace StudAid.WinUI
             if (string.IsNullOrWhiteSpace(txtUsername.Text))
             {
 
-                txtFirstName.Focus();
+                txtUsername.Focus();
                 errorProvider.SetError(txtUsername, "Username should not be left blank!");
                 return false;
             }
@@ -125,7 +145,7 @@ namespace StudAid.WinUI
             if (string.IsNullOrWhiteSpace(txtPass.Text))
             {
 
-                txtFirstName.Focus();
+                txtPass.Focus();
                 errorProvider.SetError(txtPass, "Password should not be left blank!");
                 return false;
             }
@@ -137,7 +157,7 @@ namespace StudAid.WinUI
             if (txtPass.Text != txtConfirmPass.Text)
             {
 
-                txtFirstName.Focus();
+                txtConfirmPass.Focus();
                 errorProvider.SetError(txtPass, "Passwords should match!");
                 errorProvider.SetError(txtConfirmPass, "Passwords should match!");
                 return false;
@@ -151,7 +171,7 @@ namespace StudAid.WinUI
             if (string.IsNullOrWhiteSpace(txtDescription.Text))
             {
 
-                txtFirstName.Focus();
+                txtDescription.Focus();
                 errorProvider.SetError(txtDescription, "Description should not be left blank!");
                 return false;
             }
@@ -159,6 +179,18 @@ namespace StudAid.WinUI
             {
                 
                 errorProvider.SetError(txtDescription, "");
+            }
+            if (string.IsNullOrWhiteSpace(txtRole.Text))
+            {
+
+                txtRole.Focus();
+                errorProvider.SetError(txtRole, "Role should not be left blank!");
+                return false;
+            }
+            else
+            {
+
+                errorProvider.SetError(txtRole, "");
             }
 
             return true;

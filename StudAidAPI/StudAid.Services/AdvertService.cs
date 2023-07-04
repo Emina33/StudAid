@@ -107,10 +107,10 @@ namespace StudAid.Services
                 predictionResult.Add(new Tuple<Advert, float>(advert, prediction.Score));
 
                 }
-                else
-                {
-                    predictionResult.Add(new Tuple<Advert, float>(advert, 0));
-                }
+                //else
+                //{
+                //    predictionResult.Add(new Tuple<Advert, float>(advert, 0));
+                //}
             }
 
             
@@ -139,11 +139,11 @@ namespace StudAid.Services
                     {
                         foreach (var reservation in reservations)
                         {
-                            if (advert.AdvertId == reservation.AdvertId && reservation.UserId == id && advert.Tutor != null && advert.SubjectId != null)
+                            if (advert.AdvertId == reservation.AdvertId && advert.Tutor != null && advert.SubjectId != null)
                             {
                                 data.Add(new ReservationEntry()
                                 {
-                                    UserID = (uint)id,
+                                    UserID = (uint)reservation.UserId,
                                     AdvertID = (uint)reservation.AdvertId,
                                     SubjectId = (uint)advert.SubjectId,
                                     TutorId = (uint)advert.Tutor,
