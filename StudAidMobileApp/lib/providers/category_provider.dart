@@ -1,5 +1,3 @@
-import 'package:stud_aid/utils/util.dart';
-
 import '../models/category.dart';
 import 'base_provider.dart';
 

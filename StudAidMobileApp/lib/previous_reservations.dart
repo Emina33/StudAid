@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:stud_aid/advert_details_ful.dart';
 import 'package:stud_aid/providers/advert_provider.dart';
 import 'package:stud_aid/providers/reservation_provider.dart';
-import 'package:stud_aid/providers/user_provider.dart';
 import 'package:stud_aid/utils/util.dart';
 
 import 'components/bottom_bar.dart';
@@ -12,7 +11,6 @@ import 'components/loadingScreen.dart';
 import 'components/top_bar.dart';
 import 'models/advert.dart';
 import 'models/reservation.dart';
-import 'models/user.dart';
 
 class PreviousReservations extends StatefulWidget {
   const PreviousReservations({super.key});
@@ -25,36 +23,20 @@ class _PreviousReservationsState extends State<PreviousReservations> {
   bool loading = true;
   AdvertProvider? _advertProvider = null;
   List<Advert> data = [];
-  UserProvider? _userProvider = null;
-  List<User> data2 = [];
   ReservationProvider? _reservationProvider = null;
   List<Reservation> data3 = [];
   List<int> reservationIds = [];
   @override
   void initState() {
-    // TODO: implement initState
+    super.initState();
 
     _advertProvider = context.read<AdvertProvider>();
-    _userProvider = context.read<UserProvider>();
     _reservationProvider = context.read<ReservationProvider>();
     loadData();
-    loadData2();
     loadData3();
   }
 
   Future loadData() async {
-    var tmpData = await _advertProvider?.get(null);
-    if (mounted && tmpData != null) {
-      setState(() {
-        data = tmpData;
-      });
-    }
-    setState(() {
-      loading = false;
-    });
-  }
-
-  Future loadData2() async {
     var tmpData = await _advertProvider?.get(null);
     if (mounted && tmpData != null) {
       setState(() {

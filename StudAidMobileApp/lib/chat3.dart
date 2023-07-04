@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stud_aid/providers/message_provider.dart';
-import 'package:grouped_list/grouped_list.dart';
 import 'package:stud_aid/providers/user_provider.dart';
 import 'package:stud_aid/utils/util.dart';
 import 'components/bottom_bar.dart';
@@ -31,7 +29,7 @@ class _ChatPage3State extends State<ChatPage3> {
   final TextEditingController messageController = new TextEditingController();
   @override
   void initState() {
-    // TODO: implement initState
+    super.initState();
 
     _messageProvider = context.read<MessageProvider>();
     _userProvider = context.read<UserProvider>();

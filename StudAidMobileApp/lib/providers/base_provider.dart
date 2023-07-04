@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
-import 'package:stud_aid/models/advert.dart';
 import 'package:stud_aid/utils/util.dart';
 import 'package:http/http.dart';
 import 'package:http/io_client.dart';
@@ -46,9 +45,9 @@ abstract class BaseProvider<T> with ChangeNotifier {
   Future<List<T>> getRecommended(int id) async {
     var uri = Uri.parse("$_baseUrl$_endpoint/$id/Recommend");
     Map<String, String> headers = createHeaders();
-    print("get me");
+
     var response = await http!.get(uri, headers: headers);
-    print("done $response");
+
     if (isValidResponseCode(response)) {
       var data = jsonDecode(response.body);
 
@@ -70,9 +69,9 @@ abstract class BaseProvider<T> with ChangeNotifier {
     var uri = Uri.parse(url);
 
     Map<String, String> headers = createHeaders();
-    print("get me");
+
     var response = await http!.get(uri, headers: headers);
-    print("done $response");
+
     if (isValidResponseCode(response)) {
       var data = jsonDecode(response.body);
       if (data != null && data != List.empty()) {
@@ -80,7 +79,7 @@ abstract class BaseProvider<T> with ChangeNotifier {
           Authorization.id = data[0]["userId"];
         }
       }
-      print(Authorization.id);
+
       return data.map((x) => fromJson(x)).cast<T>().toList();
     } else {
       throw Exception("Exception... handle this gracefully");

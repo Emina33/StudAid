@@ -36,6 +36,7 @@
             this.DocumentName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Author = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SubjectName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -86,7 +87,7 @@
             this.DocumentName,
             this.Author,
             this.SubjectName});
-            this.dataGridView1.Location = new System.Drawing.Point(49, 103);
+            this.dataGridView1.Location = new System.Drawing.Point(59, 128);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 29;
@@ -119,11 +120,25 @@
             this.SubjectName.Name = "SubjectName";
             this.SubjectName.Width = 200;
             // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Enabled = false;
+            this.textBox1.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.textBox1.Location = new System.Drawing.Point(59, 102);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(188, 20);
+            this.textBox1.TabIndex = 20;
+            this.textBox1.Text = "Click document to delete";
+            // 
             // frmDocumentsList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.txtAuthor);
             this.Controls.Add(this.txtDocumentName);
@@ -146,5 +161,6 @@
         private DataGridViewTextBoxColumn DocumentName;
         private DataGridViewTextBoxColumn Author;
         private DataGridViewTextBoxColumn SubjectName;
+        private TextBox textBox1;
     }
 }

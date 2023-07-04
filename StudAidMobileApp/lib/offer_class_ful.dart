@@ -96,6 +96,7 @@ class _OfferClassPage2State extends State<OfferClassPage2> {
 
   @override
   void initState() {
+    super.initState();
     // TODO: implement initState
     _categoryProvider = context.read<CategoryProvider>();
     _locationProvider = context.read<LocationProvider>();
@@ -283,8 +284,7 @@ class _OfferClassPage2State extends State<OfferClassPage2> {
                       child: TextButton(
                           onPressed: () async {
                             if (Validate()) {
-                              if (dataSubjects != null &&
-                                  dataSubjects.length > 0) {
+                              if (dataSubjects.length > 0) {
                                 int? num = dataSubjects
                                     .firstWhere((element) =>
                                         element.subjectName == selectedSubject)

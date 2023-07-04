@@ -1,8 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
-import 'package:http/io_client.dart';
 import 'package:stud_aid/providers/base_provider.dart';
 
 import '../models/advert.dart';

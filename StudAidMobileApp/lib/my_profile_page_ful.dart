@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:path_provider/path_provider.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +17,6 @@ import 'package:stud_aid/providers/reservation_provider.dart';
 import 'package:stud_aid/providers/review_provider.dart';
 import 'package:stud_aid/providers/user_provider.dart';
 import 'package:stud_aid/upload_file_ful.dart';
-import 'package:stud_aid/utils/fileStorage.dart';
 import 'package:stud_aid/utils/util.dart';
 
 import 'advert_details_ful.dart';
@@ -140,7 +138,6 @@ class _MyProfilePage2State extends State<MyProfilePage2> {
 
   Future pickImage() async {
     try {
-      final ImagePicker picker = ImagePicker();
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (image == null) return;
       final imageTemp = File(image.path);
@@ -164,6 +161,7 @@ class _MyProfilePage2State extends State<MyProfilePage2> {
   User? user = null;
   @override
   void initState() {
+    super.initState();
     // TODO: implement initState
     _userProvider = context.read<UserProvider>();
     _advertProvider = context.read<AdvertProvider>();

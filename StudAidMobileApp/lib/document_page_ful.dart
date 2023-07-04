@@ -1,15 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:stud_aid/providers/document_provider.dart';
-import 'package:stud_aid/utils/fileStorage.dart';
-import 'package:stud_aid/utils/util.dart';
-
 import 'components/alertDialog.dart';
 import 'components/bottom_bar.dart';
 import 'components/top_bar.dart';
@@ -28,7 +22,8 @@ class _DocumentPage2State extends State<DocumentPage2> {
   Document? document = null;
   @override
   void initState() {
-    // TODO: implement initState
+    super.initState();
+
     _advertProvider = context.read<DocumentProvider>();
     loadData();
   }

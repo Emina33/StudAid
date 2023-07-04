@@ -29,7 +29,7 @@ class _ChatList2State extends State<ChatList2> {
   bool loading = true;
   @override
   void initState() {
-    // TODO: implement initState
+    super.initState();
 
     _messageProvider = context.read<MessageProvider>();
     _userProvider = context.read<UserProvider>();

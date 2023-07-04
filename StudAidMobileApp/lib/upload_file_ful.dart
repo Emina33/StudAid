@@ -45,6 +45,7 @@ class _UploadPage2State extends State<UploadPage2> {
   List<Subject> data = [];
   @override
   void initState() {
+    super.initState();
     _documentProvider = context.read<DocumentProvider>();
     _subjectProvider = context.read<SubjectProvider>();
     loadData();

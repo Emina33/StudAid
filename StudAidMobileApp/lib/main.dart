@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:stud_aid/advert_details_ful.dart';
 import 'package:stud_aid/components/alertDialog.dart';
 import 'package:stud_aid/home_page_ful.dart';
 import 'package:stud_aid/providers/advert_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:stud_aid/providers/category_provider.dart';
 import 'package:stud_aid/providers/document_provider.dart';
 import 'package:stud_aid/providers/location_provider.dart';
@@ -15,8 +13,6 @@ import 'package:stud_aid/providers/subject_provider.dart';
 import 'package:stud_aid/providers/user_provider.dart';
 import 'package:stud_aid/register.dart';
 import 'package:stud_aid/utils/util.dart';
-
-import 'models/user.dart';
 
 void main() {
   runApp(MultiProvider(providers: [
@@ -154,14 +150,12 @@ class _RootPageState extends State<RootPage> {
                       Authorization.password = _passwordController.text;
                       await _userProvider.get();
 
-                      if (_userProvider.get() != null) {
-                        Navigator.of(context).pop();
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const HomePageNew()),
-                        );
-                      }
+                      Navigator.of(context).pop();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomePageNew()),
+                      );
                     }
                   } catch (e) {
                     showDialog(

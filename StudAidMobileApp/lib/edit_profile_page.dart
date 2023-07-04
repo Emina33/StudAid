@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -37,7 +35,6 @@ class _EditProfilePageState extends State<EditProfilePage>
   String? imageString = "";
   Future pickImage() async {
     try {
-      final ImagePicker picker = ImagePicker();
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (image == null) return;
       final imageTemp = File(image.path);
@@ -46,7 +43,7 @@ class _EditProfilePageState extends State<EditProfilePage>
       setState(() {
         imageString = imgBytes;
       });
-      setState(() => {this.image = imageTemp});
+      setState(() => this.image = imageTemp);
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }
@@ -73,14 +70,11 @@ class _EditProfilePageState extends State<EditProfilePage>
   String? locationSelected = cities.first;
   List<Location> data = [];
   List<String> dataStrings = [];
-  late AnimationController _controller;
-  late Animation _animation;
   final ScrollController _controllerScroll = ScrollController();
   void _scrollDown() {
     _controllerScroll.jumpTo(_controllerScroll.position.maxScrollExtent);
   }
 
-  FocusNode _focusNode = FocusNode();
   @override
   void initState() {
     super.initState();

@@ -5,7 +5,6 @@ import 'package:stud_aid/models/advert.dart';
 import 'package:stud_aid/models/reservation.dart';
 import 'package:stud_aid/providers/advert_provider.dart';
 import 'package:stud_aid/providers/reservation_provider.dart';
-import 'package:stud_aid/review_page.dart';
 import 'package:flutter_paypal/flutter_paypal.dart';
 import 'package:stud_aid/utils/util.dart';
 import 'components/alertDialog.dart';

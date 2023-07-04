@@ -8,17 +8,12 @@ import 'package:stud_aid/my_profile_page_ful.dart';
 import 'package:stud_aid/providers/advert_provider.dart';
 import 'package:stud_aid/providers/document_provider.dart';
 import 'package:stud_aid/providers/user_provider.dart';
-import 'package:stud_aid/register.dart';
-
 import 'package:provider/provider.dart';
 import 'package:stud_aid/review_list.dart';
 import 'package:stud_aid/search_page_ful.dart';
-
 import 'advert_details_ful.dart';
 import 'components/bottom_bar.dart';
-
 import 'models/document.dart';
-import 'main.dart';
 import 'models/advert.dart';
 import 'models/user.dart';
 import 'utils/util.dart';
@@ -44,7 +39,7 @@ class _HomePageNewState extends State<HomePageNew> {
   TextEditingController _searchController = TextEditingController();
   @override
   void initState() {
-    // TODO: implement initState
+    super.initState();
     _advertProvider = context.read<AdvertProvider>();
     _documentProvider = context.read<DocumentProvider>();
     _userProvider = context.read<UserProvider>();

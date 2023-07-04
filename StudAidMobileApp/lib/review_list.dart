@@ -2,16 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stud_aid/components/loadingScreen.dart';
-import 'package:stud_aid/providers/advert_provider.dart';
-import 'package:stud_aid/providers/reservation_provider.dart';
 import 'package:stud_aid/providers/user_provider.dart';
 import 'package:stud_aid/review_page.dart';
 import 'package:stud_aid/utils/util.dart';
-
 import 'components/bottom_bar.dart';
 import 'components/top_bar.dart';
-import 'models/advert.dart';
-import 'models/reservation.dart';
 import 'models/user.dart';
 
 class ReviewList extends StatefulWidget {
@@ -27,6 +22,7 @@ class _ReviewListState extends State<ReviewList> {
   bool loading = true;
   @override
   void initState() {
+    super.initState();
     userProvider = context.read<UserProvider>();
 
     loadData();

@@ -1,13 +1,9 @@
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:stud_aid/components/alertDialog.dart';
 import 'package:stud_aid/models/review.dart';
 import 'package:stud_aid/providers/review_provider.dart';
-import 'package:stud_aid/utils/util.dart';
 import 'components/bottom_bar.dart';
 import 'components/top_bar.dart';
 
@@ -28,6 +24,7 @@ class _ReviewPageState extends State<ReviewPage> {
   final TextEditingController reviewController = new TextEditingController();
   @override
   void initState() {
+    super.initState();
     _reviewProvider = context.read<ReviewProvider>();
   }
 

@@ -14,10 +14,7 @@ import 'package:stud_aid/utils/util.dart';
 import 'advert_details_ful.dart';
 import 'components/alertDialog.dart';
 import 'components/bottom_bar.dart';
-import 'components/slider.dart';
 import 'components/top_bar.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
-
 import 'document_page_ful.dart';
 import 'models/advert.dart';
 import 'models/document.dart';
@@ -91,6 +88,7 @@ class _SearchPage2State extends State<SearchPage2> {
   ];
   @override
   void initState() {
+    super.initState();
     // TODO: implement initState
     _categoryProvider = context.read<CategoryProvider>();
     _locationProvider = context.read<LocationProvider>();
