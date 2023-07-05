@@ -192,6 +192,18 @@ namespace StudAid.WinUI
 
                 errorProvider.SetError(txtRole, "");
             }
+            if (txtRole.Text != "admin" && txtRole.Text != "basic user")
+            {
+
+                txtRole.Focus();
+                errorProvider.SetError(txtRole, "Role has to be admin or basic user");
+                return false;
+            }
+            else
+            {
+
+                errorProvider.SetError(txtRole, "");
+            }
 
             return true;
         }
