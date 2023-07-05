@@ -31,6 +31,7 @@ class _AdvertDetailsFulState extends State<AdvertDetailsFul> {
   void initState() {
     super.initState();
     _advertProvider = context.read<AdvertProvider>();
+    _reservationProvider = context.read<ReservationProvider>();
     loadData();
   }
 

@@ -280,7 +280,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           "password": passwordController.text,
                           "role": "basic user",
                           "description": aboutController.text,
-                          "locationId": 1
+                          "locationId": 12
                         };
                         await _userProvider?.insert(newUser);
                         Authorization.username = usernameController.text;
