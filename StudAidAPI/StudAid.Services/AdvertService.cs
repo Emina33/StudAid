@@ -107,10 +107,10 @@ namespace StudAid.Services
                 predictionResult.Add(new Tuple<Advert, float>(advert, prediction.Score));
 
                 }
-                //else
-                //{
-                //    predictionResult.Add(new Tuple<Advert, float>(advert, 0));
-                //}
+                else
+                {
+                    predictionResult.Add(new Tuple<Advert, float>(advert, 0));
+                }
             }
 
             
