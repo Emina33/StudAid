@@ -208,10 +208,10 @@ class _AdvertDetailsFulState extends State<AdvertDetailsFul> {
 
                                         await _reservationProvider
                                             ?.insert(reservation2);
-                                        showAlertDialog(
-                                            context,
-                                            "You have successfully made a reservation!",
-                                            "Success");
+                                        // showAlertDialog(
+                                        //     context,
+                                        //     "You have successfully made a reservation!",
+                                        //     "Success");
                                         changeAvailableTime(widget.id);
                                       }
                                     },
