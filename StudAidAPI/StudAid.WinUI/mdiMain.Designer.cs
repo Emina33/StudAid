@@ -41,6 +41,7 @@
             this.locationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addNewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.categoriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
@@ -56,7 +57,8 @@
             this.documentsToolStripMenuItem,
             this.advertsToolStripMenuItem,
             this.subjectsToolStripMenuItem,
-            this.locationsToolStripMenuItem});
+            this.locationsToolStripMenuItem,
+            this.categoriesToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Padding = new System.Windows.Forms.Padding(8, 3, 0, 3);
@@ -138,16 +140,23 @@
             // addNewToolStripMenuItem
             // 
             this.addNewToolStripMenuItem.Name = "addNewToolStripMenuItem";
-            this.addNewToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.addNewToolStripMenuItem.Size = new System.Drawing.Size(151, 26);
             this.addNewToolStripMenuItem.Text = "Add new";
             this.addNewToolStripMenuItem.Click += new System.EventHandler(this.addNewToolStripMenuItem_Click);
             // 
             // searchToolStripMenuItem2
             // 
             this.searchToolStripMenuItem2.Name = "searchToolStripMenuItem2";
-            this.searchToolStripMenuItem2.Size = new System.Drawing.Size(224, 26);
+            this.searchToolStripMenuItem2.Size = new System.Drawing.Size(151, 26);
             this.searchToolStripMenuItem2.Text = "Search";
             this.searchToolStripMenuItem2.Click += new System.EventHandler(this.searchToolStripMenuItem2_Click);
+            // 
+            // categoriesToolStripMenuItem
+            // 
+            this.categoriesToolStripMenuItem.Name = "categoriesToolStripMenuItem";
+            this.categoriesToolStripMenuItem.Size = new System.Drawing.Size(94, 24);
+            this.categoriesToolStripMenuItem.Text = "Categories";
+            this.categoriesToolStripMenuItem.Click += new System.EventHandler(this.categoriesToolStripMenuItem_Click);
             // 
             // statusStrip
             // 
@@ -179,6 +188,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "mdiMain";
             this.Text = "MDIParent1";
+            this.Load += new System.EventHandler(this.mdiMain_Load);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.statusStrip.ResumeLayout(false);
@@ -205,6 +215,7 @@
         private ToolStripMenuItem addNewToolStripMenuItem;
         private ToolStripMenuItem searchToolStripMenuItem2;
         private ToolStripMenuItem subjectsToolStripMenuItem;
+        private ToolStripMenuItem categoriesToolStripMenuItem;
     }
 }
 

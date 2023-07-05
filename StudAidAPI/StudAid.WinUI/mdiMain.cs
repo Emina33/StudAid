@@ -176,5 +176,23 @@ namespace StudAid.WinUI
             childForm.WindowState = FormWindowState.Maximized;
             childForm.Show();
         }
+
+        private void categoriesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmCategories childForm = new frmCategories();
+            childForm.MdiParent = this;
+            childForm.Text = "Window " + childFormNumber++;
+            childForm.WindowState = FormWindowState.Maximized;
+            childForm.Show();
+        }
+
+        private void mdiMain_Load(object sender, EventArgs e)
+        {
+            frmWelcome childForm = new frmWelcome();
+            childForm.MdiParent = this;
+            childForm.Text = "Window " + childFormNumber++;
+            childForm.WindowState = FormWindowState.Maximized;
+            childForm.Show();
+        }
     }
 }

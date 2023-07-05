@@ -38,6 +38,7 @@
             this.txtLastName = new System.Windows.Forms.TextBox();
             this.txtUsername = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -134,11 +135,21 @@
             this.label1.TabIndex = 7;
             this.label1.Text = "User search:";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(48, 99);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(186, 20);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Click a user to update data";
+            // 
             // frmUsersList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtUsername);
             this.Controls.Add(this.txtLastName);
@@ -166,5 +177,6 @@
         private DataGridViewTextBoxColumn LastName;
         private DataGridViewTextBoxColumn Username;
         private DataGridViewTextBoxColumn Role;
+        private Label label2;
     }
 }
