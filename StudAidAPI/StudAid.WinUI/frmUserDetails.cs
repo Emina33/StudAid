@@ -29,6 +29,7 @@ namespace StudAid.WinUI
                 txtFirstName.Text = User.FirstName;
                 txtLastName.Text = User.LastName;
                 txtUsername.Text = User.Username;
+                txtUsername.Enabled = false;
                 txtRole.Text = User.Role;
                 txtDescription.Text = User.Description;
                 
@@ -37,8 +38,7 @@ namespace StudAid.WinUI
 
         private async void btnSave_Click(object sender, EventArgs e)
         {
-            if(ValidateChildren())
-            {
+            
                 if (User == null)
                 {
                     if(Validate())
@@ -98,7 +98,7 @@ namespace StudAid.WinUI
                     }
                     
                 }
-            }
+            
             
            
             
@@ -208,19 +208,6 @@ namespace StudAid.WinUI
             return true;
         }
 
-        private void txtFirstName_Validating(object sender, CancelEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtFirstName.Text))
-            {
-                e.Cancel = true;
-                txtFirstName.Focus();
-                errorProvider.SetError(txtFirstName, "Name should not be left blank!");
-            }
-            else
-            {
-                e.Cancel = false;
-                errorProvider.SetError(txtFirstName, "");
-            }
-        }
+       
     }
 }
