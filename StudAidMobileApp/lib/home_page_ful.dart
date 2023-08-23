@@ -184,12 +184,20 @@ class _HomePageNewState extends State<HomePageNew> {
                                     builder: (context) => ReviewList()),
                               );
                             },
-                            child: const Text(
-                              'Click here to review users',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  color: Color.fromRGBO(20, 30, 39, 1.0)),
-                            )),
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.reviews_outlined,
+                                    color: Color.fromRGBO(20, 30, 39, 1.0),
+                                  ),
+                                  const Text(
+                                    ' Click here to review users',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        color: Color.fromRGBO(20, 30, 39, 1.0)),
+                                  )
+                                ])),
                       ),
                       Container(
                         decoration: const BoxDecoration(
@@ -266,10 +274,19 @@ class _HomePageNewState extends State<HomePageNew> {
                                         MyProfilePage2(x.tutor!)),
                               );
                             },
-                            child: const Text('See profile',
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    color: Color.fromRGBO(20, 30, 39, 1.0)))),
+                            child: Row(
+                              children: [
+                                const Text('See profile',
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        color:
+                                            Color.fromRGBO(20, 30, 39, 1.0))),
+                                const Icon(
+                                  Icons.arrow_outward_sharp,
+                                  color: Color.fromRGBO(20, 30, 39, 1.0),
+                                )
+                              ],
+                            )),
                       ),
                     ],
                   ),
