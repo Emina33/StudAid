@@ -253,7 +253,68 @@ class _MyProfilePage2State extends State<MyProfilePage2> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Container(
-                          margin: const EdgeInsets.only(top: 15),
+                          margin: EdgeInsets.only(top: 15),
+                          child:
+                              user != null && Authorization.id == user?.userId
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          margin: const EdgeInsets.only(
+                                              left: 30, bottom: 20),
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const OfferClassPage2()),
+                                              );
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                                shape: const StadiumBorder(),
+                                                primary: const Color.fromRGBO(
+                                                    20, 30, 39, 1.0),
+                                                minimumSize: Size(130, 40)),
+                                            child: const Text(
+                                              'Offer class',
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w400),
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          margin: const EdgeInsets.only(
+                                              right: 30, bottom: 20),
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const UploadPage2()),
+                                              );
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                                shape: const StadiumBorder(),
+                                                primary: const Color.fromRGBO(
+                                                    20, 30, 39, 1.0),
+                                                minimumSize: Size(130, 40)),
+                                            child: const Text(
+                                              'Upload file',
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w400),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : const Text(""),
+                        ),
+                        Container(
                           child: user != null &&
                                   Authorization.id == user?.userId
                               ? TextButton(
@@ -265,11 +326,20 @@ class _MyProfilePage2State extends State<MyProfilePage2> {
                                               const EditProfilePage()),
                                     );
                                   },
-                                  child: const Text('Edit profile',
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          color:
-                                              Color.fromRGBO(32, 50, 57, 0.4))))
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.edit,
+                                        color: Color.fromRGBO(32, 50, 57, 1),
+                                      ),
+                                      const Text(' Click here to edit profile ',
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Color.fromRGBO(
+                                                  32, 50, 57, 1))),
+                                    ],
+                                  ))
                               : const Text(""),
                         ),
                         Container(
@@ -434,67 +504,6 @@ class _MyProfilePage2State extends State<MyProfilePage2> {
                             children: _buildAdvertCardList(),
                           ),
                         ),
-                        Container(
-                          child:
-                              user != null && Authorization.id == user?.userId
-                                  ? Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: const EdgeInsets.only(
-                                              left: 30, bottom: 20),
-                                          child: ElevatedButton(
-                                            onPressed: () {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        const OfferClassPage2()),
-                                              );
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                                shape: const StadiumBorder(),
-                                                primary: const Color.fromRGBO(
-                                                    20, 30, 39, 1.0),
-                                                minimumSize: Size(130, 40)),
-                                            child: const Text(
-                                              'Offer class',
-                                              style: TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w400),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: const EdgeInsets.only(
-                                              right: 30, bottom: 20),
-                                          child: ElevatedButton(
-                                            onPressed: () {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        const UploadPage2()),
-                                              );
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                                shape: const StadiumBorder(),
-                                                primary: const Color.fromRGBO(
-                                                    20, 30, 39, 1.0),
-                                                minimumSize: Size(130, 40)),
-                                            child: const Text(
-                                              'Upload file',
-                                              style: TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w400),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  : const Text(""),
-                        )
                       ]),
                 ),
           bottomNavigationBar: const BottomBar()),
@@ -645,6 +654,7 @@ class _MyProfilePage2State extends State<MyProfilePage2> {
                 margin: EdgeInsets.only(bottom: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       "${x.reviewStars} stars     ",
@@ -654,6 +664,7 @@ class _MyProfilePage2State extends State<MyProfilePage2> {
                           color: Color.fromRGBO(32, 50, 57, 0.8)),
                     ),
                     Container(
+                      alignment: Alignment.bottomLeft,
                       width: MediaQuery.of(context).size.width - 130,
                       child: Text(
                         "Review: ${x.reviewText}",

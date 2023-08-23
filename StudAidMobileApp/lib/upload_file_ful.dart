@@ -287,43 +287,62 @@ class _UploadPage2State extends State<UploadPage2> {
                             maxLines: null,
                           ),
                         )),
-                    Container(
-                      margin: const EdgeInsets.only(top: 15),
-                      child: TextButton(
-                          onPressed: () async {
-                            if (Validate()) {
-                              int? selected = data
-                                  .firstWhere((element) =>
-                                      element.subjectName == selectedSubject)
-                                  .subjectId;
-                              Object document = {
-                                "documentName": nameController.text,
-                                "subjectId": selected,
-                                "author": authorController.text,
-                                "description": descriptionController.text,
-                                "documentFile": fileString
-                              };
-                              await _documentProvider?.insert(document);
-                              showAlertDialog(
-                                  context,
-                                  "You have successfully added a document.",
-                                  "Success");
-                              nameController.clear();
-                              authorController.clear();
-                              descriptionController.clear();
-                              setState(() {
-                                file = null;
-                              });
-                            }
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(top: 15),
+                          child: TextButton(
+                              onPressed: () async {
+                                if (Validate()) {
+                                  int? selected = data
+                                      .firstWhere((element) =>
+                                          element.subjectName ==
+                                          selectedSubject)
+                                      .subjectId;
+                                  Object document = {
+                                    "documentName": nameController.text,
+                                    "subjectId": selected,
+                                    "author": authorController.text,
+                                    "description": descriptionController.text,
+                                    "documentFile": fileString
+                                  };
+                                  await _documentProvider?.insert(document);
+                                  showAlertDialog(
+                                      context,
+                                      "You have successfully added a document.",
+                                      "Success");
+                                  nameController.clear();
+                                  authorController.clear();
+                                  descriptionController.clear();
+                                  setState(() {
+                                    file = null;
+                                  });
+                                }
 
-                            //Navigator.pop(context);
-                          },
-                          child: const Text(
-                            'Done',
-                            style: TextStyle(
-                                fontSize: 20,
-                                color: Color.fromRGBO(20, 30, 39, 1.0)),
-                          )),
+                                //Navigator.pop(context);
+                              },
+                              child: const Text(
+                                'Done',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Color.fromRGBO(20, 30, 39, 1.0)),
+                              )),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 15),
+                          child: TextButton(
+                              onPressed: () async {
+                                Navigator.pop(context);
+                              },
+                              child: const Text(
+                                'Cancel',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Color.fromRGBO(20, 30, 39, 1.0)),
+                              )),
+                        ),
+                      ],
                     ),
                   ]),
             ),

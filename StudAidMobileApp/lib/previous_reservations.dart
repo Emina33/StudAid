@@ -108,7 +108,7 @@ class _PreviousReservationsState extends State<PreviousReservations> {
       return [Text("")];
     }
 
-    List<Widget> list = data
+    List<Widget> list = data3
         .map((x) => reservationIds.contains(x.advertId)
             ? InkWell(
                 onTap: () {
@@ -126,14 +126,14 @@ class _PreviousReservationsState extends State<PreviousReservations> {
                     height: 80,
                     width: 330,
                     padding: const EdgeInsets.all(10),
-                    margin: const EdgeInsets.only(bottom: 10),
+                    margin: const EdgeInsets.only(bottom: 10, top: 10),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Container(
-                            alignment: Alignment.center,
+                            alignment: Alignment.centerLeft,
                             child: Text(
-                              "${x.advertName}",
+                              "Reserved ${data.where((element) => element.advertId == x.advertId).first.advertName} at ${x.selectedTime}",
                               style: TextStyle(
                                   fontSize: 20,
                                   color: Color.fromRGBO(20, 30, 39, 1.0)),

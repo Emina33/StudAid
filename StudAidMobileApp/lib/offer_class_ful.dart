@@ -279,42 +279,61 @@ class _OfferClassPage2State extends State<OfferClassPage2> {
                             color: Color.fromRGBO(20, 30, 39, 1.0)),
                       ),
                     ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 50),
-                      child: TextButton(
-                          onPressed: () async {
-                            if (Validate()) {
-                              if (dataSubjects.length > 0) {
-                                int? num = dataSubjects
-                                    .firstWhere((element) =>
-                                        element.subjectName == selectedSubject)
-                                    .subjectId;
-                                ;
-                                Object advertNew = {
-                                  "advertName": nameController.text,
-                                  "availableTime": timeController.text,
-                                  "price": int.parse(priceController.text),
-                                  "tutor": Authorization.id,
-                                  "subjectId": num,
-                                  "date": 1
-                                };
-                                await _advertProvider?.insert(advertNew);
-                                showAlertDialog(
-                                    context,
-                                    "You have successfully added an advert",
-                                    "Success");
-                                nameController.clear();
-                                timeController.clear();
-                                priceController.clear();
-                              }
-                            }
-                          },
-                          child: const Text(
-                            'Done',
-                            style: TextStyle(
-                                fontSize: 20,
-                                color: Color.fromRGBO(20, 30, 39, 1.0)),
-                          )),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(top: 50),
+                          child: TextButton(
+                              onPressed: () async {
+                                if (Validate()) {
+                                  if (dataSubjects.length > 0) {
+                                    int? num = dataSubjects
+                                        .firstWhere((element) =>
+                                            element.subjectName ==
+                                            selectedSubject)
+                                        .subjectId;
+                                    ;
+                                    Object advertNew = {
+                                      "advertName": nameController.text,
+                                      "availableTime": timeController.text,
+                                      "price": int.parse(priceController.text),
+                                      "tutor": Authorization.id,
+                                      "subjectId": num,
+                                      "date": 1
+                                    };
+                                    await _advertProvider?.insert(advertNew);
+                                    showAlertDialog(
+                                        context,
+                                        "You have successfully added an advert",
+                                        "Success");
+                                    nameController.clear();
+                                    timeController.clear();
+                                    priceController.clear();
+                                  }
+                                }
+                              },
+                              child: const Text(
+                                'Done',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Color.fromRGBO(20, 30, 39, 1.0)),
+                              )),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 50),
+                          child: TextButton(
+                              onPressed: () async {
+                                Navigator.pop(context);
+                              },
+                              child: const Text(
+                                'Cancel',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Color.fromRGBO(20, 30, 39, 1.0)),
+                              )),
+                        )
+                      ],
                     ),
                   ]),
             ),

@@ -67,7 +67,7 @@ class _EditProfilePageState extends State<EditProfilePage>
   UserProvider? _userProvider = null;
   User? user = null;
   LocationProvider? _locationProvider = null;
-  String? locationSelected = cities.first;
+  String? locationSelected = cities[11];
   List<Location> data = [];
   List<String> dataStrings = [];
   final ScrollController _controllerScroll = ScrollController();
@@ -91,6 +91,7 @@ class _EditProfilePageState extends State<EditProfilePage>
         data = tmpData;
       }
     });
+
     for (var i = 0; i < data.length; i++) {
       dataStrings.add(data[i].city!);
     }
@@ -109,6 +110,9 @@ class _EditProfilePageState extends State<EditProfilePage>
       firstNameController.text = user!.firstName!;
       lastNameController.text = user!.lastName!;
       imageString = user!.profilePicture!;
+      locationSelected = data
+          .firstWhere((element) => element.locationId == user!.locationId)
+          .city;
     });
     setState(() {
       loading = false;
@@ -161,6 +165,7 @@ class _EditProfilePageState extends State<EditProfilePage>
                               pickImage();
                             },
                             child: Container(
+                                alignment: Alignment.center,
                                 height: 130,
                                 width: 100,
                                 margin: const EdgeInsets.only(top: 10),
@@ -192,13 +197,25 @@ class _EditProfilePageState extends State<EditProfilePage>
                                       )
                                     : (image != null
                                         ? Image.file(image!)
-                                        : Text(
-                                            "No image selected, click to select",
-                                            style: TextStyle(
-                                                fontSize: 20,
+                                        : Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.person_pin_outlined,
                                                 color: Color.fromRGBO(
-                                                    32, 50, 57, 1)),
-                                            textAlign: TextAlign.center,
+                                                    32, 50, 57, 1),
+                                              ),
+                                              Text(
+                                                "  No image selected, click to select",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20,
+                                                    color: Color.fromRGBO(
+                                                        32, 50, 57, 1)),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ],
                                           )))),
                         Container(
                           margin: const EdgeInsets.only(top: 20),
@@ -328,8 +345,17 @@ class _EditProfilePageState extends State<EditProfilePage>
                               ),
                             )),
                         Container(
+                          margin: const EdgeInsets.only(
+                              left: 30, right: 30, top: 20),
+                          child: const Text('Location',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  color: Color.fromRGBO(32, 50, 57, 0.8))),
+                        ),
+                        Container(
                           padding:
-                              EdgeInsets.only(right: 30, left: 30, top: 15),
+                              EdgeInsets.only(right: 30, left: 30, top: 10),
                           child: SizedBox(
                               width: 250.0,
                               height: 50.0,
@@ -453,41 +479,61 @@ class _EditProfilePageState extends State<EditProfilePage>
                                 obscureText: true,
                               ),
                             )),
-                        Container(
-                          margin: const EdgeInsets.only(top: 30),
-                          child: TextButton(
-                              onPressed: () async {
-                                if (Validate()) {
-                                  if (data.isNotEmpty) {
-                                    var locationId = data
-                                        .firstWhere((element) =>
-                                            element.city == locationSelected)
-                                        .locationId;
-                                    Object appUserUpdate = {
-                                      "firstName": firstNameController.text,
-                                      "lastName": lastNameController.text,
-                                      "role": "basic user",
-                                      "password": passwordController.text,
-                                      "description": aboutController.text,
-                                      "profilePicture": imageString,
-                                      "locationId": locationId,
-                                    };
-                                    if (_userProvider != null && user != null)
-                                      await _userProvider?.update(
-                                          user!.userId!, appUserUpdate);
-                                    showAlertDialog(
-                                        context,
-                                        "You have successfully updated your profile.",
-                                        "Success");
-                                  }
-                                }
-                              },
-                              child: const Text(
-                                'Save',
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: Color.fromRGBO(20, 30, 39, 1.0)),
-                              )),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(top: 30),
+                              child: TextButton(
+                                  onPressed: () async {
+                                    if (Validate()) {
+                                      if (data.isNotEmpty) {
+                                        var locationId = data
+                                            .firstWhere((element) =>
+                                                element.city ==
+                                                locationSelected)
+                                            .locationId;
+                                        Object appUserUpdate = {
+                                          "firstName": firstNameController.text,
+                                          "lastName": lastNameController.text,
+                                          "role": "basic user",
+                                          "password": passwordController.text,
+                                          "description": aboutController.text,
+                                          "profilePicture": imageString,
+                                          "locationId": locationId,
+                                        };
+                                        if (_userProvider != null &&
+                                            user != null)
+                                          await _userProvider?.update(
+                                              user!.userId!, appUserUpdate);
+                                        showAlertDialog(
+                                            context,
+                                            "You have successfully updated your profile.",
+                                            "Success");
+                                      }
+                                    }
+                                  },
+                                  child: const Text(
+                                    'Save',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        color: Color.fromRGBO(20, 30, 39, 1.0)),
+                                  )),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(top: 30),
+                              child: TextButton(
+                                  onPressed: () async {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text(
+                                    'Cancel',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        color: Color.fromRGBO(20, 30, 39, 1.0)),
+                                  )),
+                            ),
+                          ],
                         ),
                       ]),
                 ),

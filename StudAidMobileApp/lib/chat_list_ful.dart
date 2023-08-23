@@ -101,6 +101,7 @@ class _ChatList2State extends State<ChatList2> {
                         ),
                       ),
                       Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: _buildChatCardList(),
                       )
                     ],
@@ -165,7 +166,7 @@ class _ChatList2State extends State<ChatList2> {
                       ],
                     )),
               )
-            : Text(''))
+            : Container(width: 0, height: 0))
         .cast<Widget>()
         .toList();
 

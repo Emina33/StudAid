@@ -225,7 +225,7 @@ class _SearchPage2State extends State<SearchPage2> {
                                     "Filtering by categories, cities and price",
                                     style: TextStyle(
                                         fontSize: 18,
-                                        color: Color.fromRGBO(32, 50, 57, 0.4)),
+                                        color: Color.fromRGBO(32, 50, 57, 1)),
                                     textAlign: TextAlign.center,
                                   ))
                             ],
@@ -250,7 +250,7 @@ class _SearchPage2State extends State<SearchPage2> {
                           border: Border(
                               bottom: BorderSide(
                                   width: 1,
-                                  color: Color.fromRGBO(32, 50, 57, 0.4)))),
+                                  color: Color.fromRGBO(32, 50, 57, 1)))),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -260,7 +260,7 @@ class _SearchPage2State extends State<SearchPage2> {
                                 "Filtering by categories, cities and price",
                                 style: TextStyle(
                                     fontSize: 18,
-                                    color: Color.fromRGBO(32, 50, 57, 0.4)),
+                                    color: Color.fromRGBO(32, 50, 57, 1)),
                                 textAlign: TextAlign.center,
                               ))
                         ],
@@ -274,7 +274,7 @@ class _SearchPage2State extends State<SearchPage2> {
                               'Categories',
                               style: TextStyle(
                                   fontSize: 18,
-                                  color: Color.fromRGBO(32, 50, 57, 0.4)),
+                                  color: Color.fromRGBO(32, 50, 57, 1)),
                               textAlign: TextAlign.start,
                             ),
                             CheckboxListTile(
@@ -282,7 +282,7 @@ class _SearchPage2State extends State<SearchPage2> {
                               title: Text(categories[0],
                                   style: TextStyle(
                                       fontSize: 18,
-                                      color: Color.fromRGBO(32, 50, 57, 0.4))),
+                                      color: Color.fromRGBO(32, 50, 57, 1))),
                               value: boolCat[0],
                               onChanged: (newValue) {
                                 setState(() {
@@ -297,7 +297,7 @@ class _SearchPage2State extends State<SearchPage2> {
                               title: Text(categories[1],
                                   style: TextStyle(
                                       fontSize: 18,
-                                      color: Color.fromRGBO(32, 50, 57, 0.4))),
+                                      color: Color.fromRGBO(32, 50, 57, 1))),
                               value: boolCat[1],
                               onChanged: (newValue) {
                                 setState(() {
@@ -312,7 +312,7 @@ class _SearchPage2State extends State<SearchPage2> {
                               title: Text(categories[2],
                                   style: TextStyle(
                                       fontSize: 18,
-                                      color: Color.fromRGBO(32, 50, 57, 0.4))),
+                                      color: Color.fromRGBO(32, 50, 57, 1))),
                               value: boolCat[2],
                               onChanged: (newValue) {
                                 setState(() {
@@ -327,7 +327,7 @@ class _SearchPage2State extends State<SearchPage2> {
                               title: Text(categories[3],
                                   style: TextStyle(
                                       fontSize: 18,
-                                      color: Color.fromRGBO(32, 50, 57, 0.4))),
+                                      color: Color.fromRGBO(32, 50, 57, 1))),
                               value: boolCat[3],
                               onChanged: (newValue) {
                                 setState(() {
@@ -341,7 +341,7 @@ class _SearchPage2State extends State<SearchPage2> {
                               'Cities',
                               style: TextStyle(
                                   fontSize: 18,
-                                  color: Color.fromRGBO(32, 50, 57, 0.4)),
+                                  color: Color.fromRGBO(32, 50, 57, 1)),
                               textAlign: TextAlign.start,
                             ),
                             CheckboxListTile(
@@ -349,7 +349,7 @@ class _SearchPage2State extends State<SearchPage2> {
                               title: Text(cities[0],
                                   style: TextStyle(
                                       fontSize: 18,
-                                      color: Color.fromRGBO(32, 50, 57, 0.4))),
+                                      color: Color.fromRGBO(32, 50, 57, 1))),
                               value: boolCit[0],
                               onChanged: (newValue) {
                                 setState(() {
@@ -364,7 +364,7 @@ class _SearchPage2State extends State<SearchPage2> {
                               title: Text(cities[1],
                                   style: TextStyle(
                                       fontSize: 18,
-                                      color: Color.fromRGBO(32, 50, 57, 0.4))),
+                                      color: Color.fromRGBO(32, 50, 57, 1))),
                               value: boolCit[1],
                               onChanged: (newValue) {
                                 setState(() {
@@ -379,7 +379,7 @@ class _SearchPage2State extends State<SearchPage2> {
                               title: Text(cities[2],
                                   style: TextStyle(
                                       fontSize: 18,
-                                      color: Color.fromRGBO(32, 50, 57, 0.4))),
+                                      color: Color.fromRGBO(32, 50, 57, 1))),
                               value: boolCit[2],
                               onChanged: (newValue) {
                                 setState(() {
@@ -394,7 +394,7 @@ class _SearchPage2State extends State<SearchPage2> {
                               title: Text(cities[3],
                                   style: TextStyle(
                                       fontSize: 18,
-                                      color: Color.fromRGBO(32, 50, 57, 0.4))),
+                                      color: Color.fromRGBO(32, 50, 57, 1))),
                               value: boolCit[3],
                               onChanged: (newValue) {
                                 setState(() {
@@ -409,7 +409,7 @@ class _SearchPage2State extends State<SearchPage2> {
                               title: Text(cities[4],
                                   style: TextStyle(
                                       fontSize: 18,
-                                      color: Color.fromRGBO(32, 50, 57, 0.4))),
+                                      color: Color.fromRGBO(32, 50, 57, 1))),
                               value: boolCit[4],
                               onChanged: (newValue) {
                                 setState(() {
@@ -424,7 +424,7 @@ class _SearchPage2State extends State<SearchPage2> {
                               title: Text(cities[5],
                                   style: TextStyle(
                                       fontSize: 18,
-                                      color: Color.fromRGBO(32, 50, 57, 0.4))),
+                                      color: Color.fromRGBO(32, 50, 57, 1))),
                               value: boolCit[5],
                               onChanged: (newValue) {
                                 setState(() {
@@ -439,7 +439,7 @@ class _SearchPage2State extends State<SearchPage2> {
                               title: Text(cities[6],
                                   style: TextStyle(
                                       fontSize: 18,
-                                      color: Color.fromRGBO(32, 50, 57, 0.4))),
+                                      color: Color.fromRGBO(32, 50, 57, 1))),
                               value: boolCit[6],
                               onChanged: (newValue) {
                                 setState(() {
@@ -454,7 +454,7 @@ class _SearchPage2State extends State<SearchPage2> {
                               title: Text(cities[7],
                                   style: TextStyle(
                                       fontSize: 18,
-                                      color: Color.fromRGBO(32, 50, 57, 0.4))),
+                                      color: Color.fromRGBO(32, 50, 57, 1))),
                               value: boolCit[7],
                               onChanged: (newValue) {
                                 setState(() {
@@ -469,7 +469,7 @@ class _SearchPage2State extends State<SearchPage2> {
                               title: Text(cities[8],
                                   style: TextStyle(
                                       fontSize: 18,
-                                      color: Color.fromRGBO(32, 50, 57, 0.4))),
+                                      color: Color.fromRGBO(32, 50, 57, 1))),
                               value: boolCit[8],
                               onChanged: (newValue) {
                                 setState(() {
@@ -484,7 +484,7 @@ class _SearchPage2State extends State<SearchPage2> {
                               title: Text(cities[9],
                                   style: TextStyle(
                                       fontSize: 18,
-                                      color: Color.fromRGBO(32, 50, 57, 0.4))),
+                                      color: Color.fromRGBO(32, 50, 57, 1))),
                               value: boolCit[9],
                               onChanged: (newValue) {
                                 setState(() {
@@ -499,7 +499,7 @@ class _SearchPage2State extends State<SearchPage2> {
                               title: Text(cities[10],
                                   style: TextStyle(
                                       fontSize: 18,
-                                      color: Color.fromRGBO(32, 50, 57, 0.4))),
+                                      color: Color.fromRGBO(32, 50, 57, 1))),
                               value: boolCit[10],
                               onChanged: (newValue) {
                                 setState(() {
@@ -514,7 +514,7 @@ class _SearchPage2State extends State<SearchPage2> {
                               title: Text(cities[11],
                                   style: TextStyle(
                                       fontSize: 18,
-                                      color: Color.fromRGBO(32, 50, 57, 0.4))),
+                                      color: Color.fromRGBO(32, 50, 57, 1))),
                               value: boolCit[11],
                               onChanged: (newValue) {
                                 setState(() {
@@ -529,7 +529,7 @@ class _SearchPage2State extends State<SearchPage2> {
                               title: Text(cities[12],
                                   style: TextStyle(
                                       fontSize: 18,
-                                      color: Color.fromRGBO(32, 50, 57, 0.4))),
+                                      color: Color.fromRGBO(32, 50, 57, 1))),
                               value: boolCit[12],
                               onChanged: (newValue) {
                                 setState(() {
@@ -543,7 +543,7 @@ class _SearchPage2State extends State<SearchPage2> {
                               'Price',
                               style: TextStyle(
                                   fontSize: 18,
-                                  color: Color.fromRGBO(32, 50, 57, 0.4)),
+                                  color: Color.fromRGBO(32, 50, 57, 1)),
                               textAlign: TextAlign.start,
                             ),
                             RangeSlider(
