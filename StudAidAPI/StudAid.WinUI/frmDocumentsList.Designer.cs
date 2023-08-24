@@ -82,6 +82,8 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.DocumentName,
@@ -89,6 +91,7 @@
             this.SubjectName});
             this.dataGridView1.Location = new System.Drawing.Point(59, 128);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 29;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -102,6 +105,7 @@
             this.DocumentName.HeaderText = "Document name";
             this.DocumentName.MinimumWidth = 6;
             this.DocumentName.Name = "DocumentName";
+            this.DocumentName.ReadOnly = true;
             this.DocumentName.Width = 260;
             // 
             // Author
@@ -110,6 +114,7 @@
             this.Author.HeaderText = "Author";
             this.Author.MinimumWidth = 6;
             this.Author.Name = "Author";
+            this.Author.ReadOnly = true;
             this.Author.Width = 200;
             // 
             // SubjectName
@@ -118,6 +123,7 @@
             this.SubjectName.HeaderText = "Subject";
             this.SubjectName.MinimumWidth = 6;
             this.SubjectName.Name = "SubjectName";
+            this.SubjectName.ReadOnly = true;
             this.SubjectName.Width = 200;
             // 
             // textBox1
@@ -146,6 +152,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Name = "frmDocumentsList";
             this.Text = "frmDocumentsList";
+            this.Load += new System.EventHandler(this.frmDocumentsList_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

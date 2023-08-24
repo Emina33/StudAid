@@ -29,5 +29,11 @@ namespace StudAid.WinUI
             var list = await LocationService.Get<List<Location>>(searchObject);
             dataGridView1.DataSource = list;
         }
+
+        private async void frmLocationsList_Load(object sender, EventArgs e)
+        {
+            var list = await LocationService.Get<List<Location>>();
+            dataGridView1.DataSource = list;
+        }
     }
 }

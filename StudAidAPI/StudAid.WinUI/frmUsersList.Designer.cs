@@ -44,6 +44,8 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.FirstName,
@@ -52,6 +54,7 @@
             this.Role});
             this.dataGridView1.Location = new System.Drawing.Point(48, 120);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 29;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -66,6 +69,7 @@
             this.FirstName.HeaderText = "First name";
             this.FirstName.MinimumWidth = 6;
             this.FirstName.Name = "FirstName";
+            this.FirstName.ReadOnly = true;
             // 
             // LastName
             // 
@@ -74,6 +78,7 @@
             this.LastName.HeaderText = "Last name";
             this.LastName.MinimumWidth = 6;
             this.LastName.Name = "LastName";
+            this.LastName.ReadOnly = true;
             // 
             // Username
             // 
@@ -82,6 +87,7 @@
             this.Username.HeaderText = "Username";
             this.Username.MinimumWidth = 6;
             this.Username.Name = "Username";
+            this.Username.ReadOnly = true;
             // 
             // Role
             // 
@@ -90,6 +96,7 @@
             this.Role.HeaderText = "Role";
             this.Role.MinimumWidth = 6;
             this.Role.Name = "Role";
+            this.Role.ReadOnly = true;
             // 
             // btnShow
             // 
@@ -159,6 +166,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmUsersList";
             this.Text = "frmUsers";
+            this.Load += new System.EventHandler(this.frmUsersList_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

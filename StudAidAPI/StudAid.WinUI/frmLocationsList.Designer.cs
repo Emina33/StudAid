@@ -80,12 +80,15 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.City,
             this.Country});
             this.dataGridView1.Location = new System.Drawing.Point(41, 117);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 29;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -99,6 +102,7 @@
             this.City.HeaderText = "City";
             this.City.MinimumWidth = 6;
             this.City.Name = "City";
+            this.City.ReadOnly = true;
             // 
             // Country
             // 
@@ -107,6 +111,7 @@
             this.Country.HeaderText = "Country";
             this.Country.MinimumWidth = 6;
             this.Country.Name = "Country";
+            this.Country.ReadOnly = true;
             // 
             // frmLocationsList
             // 
@@ -120,6 +125,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Name = "frmLocationsList";
             this.Text = "frmLocationsList";
+            this.Load += new System.EventHandler(this.frmLocationsList_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

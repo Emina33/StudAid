@@ -41,5 +41,11 @@ namespace StudAid.WinUI
             frmUserDetails frm = new frmUserDetails(item);
             frm.ShowDialog();
         }
+
+        private async void frmUsersList_Load(object sender, EventArgs e)
+        {
+            var list = await AppUserService.Get<List<AppUser>>();
+            dataGridView1.DataSource = list;
+        }
     }
 }

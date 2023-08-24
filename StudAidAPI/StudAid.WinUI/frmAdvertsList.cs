@@ -33,5 +33,11 @@ namespace StudAid.WinUI
             var list = await AdvertService.Get<List<Advert>>(searchObject);
             dataGridView1.DataSource = list;
         }
+
+        private async void frmAdvertsList_Load(object sender, EventArgs e)
+        {
+            var list = await AdvertService.Get<List<Advert>>();
+            dataGridView1.DataSource = list;
+        }
     }
 }

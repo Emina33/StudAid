@@ -39,19 +39,10 @@ namespace StudAid.WinUI
             frm.ShowDialog();
         }
 
-        private void txtAuthor_TextChanged(object sender, EventArgs e)
+        private async void frmDocumentsList_Load(object sender, EventArgs e)
         {
-
-        }
-
-        private void txtDocumentName_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox4_TextChanged(object sender, EventArgs e)
-        {
-
+            var list = await DocumentService.Get<List<Document>>();
+            dataGridView1.DataSource = list;
         }
     }
 }

@@ -30,6 +30,10 @@ namespace StudAid.WinUI
             dataGridView1.DataSource = list;
         }
 
-        
+        private async void frmSubjectsList_Load(object sender, EventArgs e)
+        {
+            var list = await SubjectService.Get<List<Subject>>();
+            dataGridView1.DataSource = list;
+        }
     }
 }

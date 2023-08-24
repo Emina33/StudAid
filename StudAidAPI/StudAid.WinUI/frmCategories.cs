@@ -29,5 +29,11 @@ namespace StudAid.WinUI
             var list = await CategoryService.Get<List<Category>>(searchObject);
             dataGridView1.DataSource = list;
         }
+
+        private async void frmCategories_Load(object sender, EventArgs e)
+        {
+            var list = await CategoryService.Get<List<Category>>();
+            dataGridView1.DataSource = list;
+        }
     }
 }

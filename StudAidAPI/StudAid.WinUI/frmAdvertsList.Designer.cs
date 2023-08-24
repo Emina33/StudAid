@@ -81,6 +81,8 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.AdvertName,
@@ -88,6 +90,7 @@
             this.Price});
             this.dataGridView1.Location = new System.Drawing.Point(49, 129);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 29;
             this.dataGridView1.Size = new System.Drawing.Size(703, 283);
@@ -99,6 +102,7 @@
             this.AdvertName.HeaderText = "Advert name";
             this.AdvertName.MinimumWidth = 6;
             this.AdvertName.Name = "AdvertName";
+            this.AdvertName.ReadOnly = true;
             this.AdvertName.Width = 260;
             // 
             // AvailableTime
@@ -107,6 +111,7 @@
             this.AvailableTime.HeaderText = "Available time";
             this.AvailableTime.MinimumWidth = 6;
             this.AvailableTime.Name = "AvailableTime";
+            this.AvailableTime.ReadOnly = true;
             this.AvailableTime.Width = 200;
             // 
             // Price
@@ -115,6 +120,7 @@
             this.Price.HeaderText = "Price";
             this.Price.MinimumWidth = 6;
             this.Price.Name = "Price";
+            this.Price.ReadOnly = true;
             this.Price.Width = 200;
             // 
             // frmAdvertsList
@@ -129,6 +135,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Name = "frmAdvertsList";
             this.Text = "frmAdvertsList";
+            this.Load += new System.EventHandler(this.frmAdvertsList_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

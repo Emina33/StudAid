@@ -98,7 +98,7 @@ namespace StudAid.WinUI
                             {
                                 FirstName = txtFirstName.Text,
                                 LastName = txtLastName.Text,
-                                Role = cmbRole.DisplayMember,
+                                Role = cmbRole.SelectedItem as string,
                                 Password = txtPass.Text,
                                 LocationId = 11,
                                 Description = txtDescription.Text,

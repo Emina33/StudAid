@@ -70,11 +70,14 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.SubjectName});
             this.dataGridView1.Location = new System.Drawing.Point(49, 129);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 29;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -88,6 +91,7 @@
             this.SubjectName.HeaderText = "Subject name";
             this.SubjectName.MinimumWidth = 6;
             this.SubjectName.Name = "SubjectName";
+            this.SubjectName.ReadOnly = true;
             // 
             // frmSubjectsList
             // 
@@ -100,6 +104,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Name = "frmSubjectsList";
             this.Text = "frmSubjectsList";
+            this.Load += new System.EventHandler(this.frmSubjectsList_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
