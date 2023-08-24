@@ -24,13 +24,23 @@ namespace StudAid.WinUI
 
         private void frmUserDetails_Load(object sender, EventArgs e)
         {
-            if(User != null)
+            string[] items = {
+        "admin",
+        "basic user"
+    };
+            cmbRole.Items.AddRange(items);
+            cmbRole.SelectedIndex = 1;
+            if (User != null)
             {
                 txtFirstName.Text = User.FirstName;
                 txtLastName.Text = User.LastName;
                 txtUsername.Text = User.Username;
                 txtUsername.Enabled = false;
-                txtRole.Text = User.Role;
+
+                if (User.Role == "basic user")
+                    cmbRole.SelectedIndex = 1;
+                else
+                    cmbRole.SelectedIndex = 0;
                 txtDescription.Text = User.Description;
                 
             }
@@ -41,8 +51,9 @@ namespace StudAid.WinUI
             
                 if (User == null)
                 {
-                    if(Validate())
-                    {
+                
+                if (Validate())
+                    { 
                         try
                         {
                             AppUserInsertRequest insertRequest = new AppUserInsertRequest()
@@ -50,7 +61,7 @@ namespace StudAid.WinUI
                                 FirstName = txtFirstName.Text,
                                 LastName = txtLastName.Text,
                                 Username = txtUsername.Text,
-                                Role = txtRole.Text,
+                                Role = cmbRole.SelectedItem as string,
                                 Password = txtPass.Text,
                                 LocationId = 11,
                                 Description = txtDescription.Text,
@@ -58,7 +69,14 @@ namespace StudAid.WinUI
                             if (txtPass.Text == txtConfirmPass.Text)
                             {
                                 var user = await AppUserService.Post<AppUser>(insertRequest);
-                                MessageBox.Show("You have successfully added a user");
+                            txtFirstName.Clear();
+                            txtLastName.Clear();
+                            txtUsername.Clear();
+                            txtPass.Clear();
+                            txtConfirmPass.Clear();
+                            txtDescription.Clear();
+                            cmbRole.SelectedIndex = 1;
+                            MessageBox.Show("You have successfully added a user");
                             }
                         }
                         catch (Exception ex)
@@ -80,7 +98,7 @@ namespace StudAid.WinUI
                             {
                                 FirstName = txtFirstName.Text,
                                 LastName = txtLastName.Text,
-                                Role = txtRole.Text,
+                                Role = cmbRole.DisplayMember,
                                 Password = txtPass.Text,
                                 LocationId = 11,
                                 Description = txtDescription.Text,
@@ -180,34 +198,14 @@ namespace StudAid.WinUI
                 
                 errorProvider.SetError(txtDescription, "");
             }
-            if (string.IsNullOrWhiteSpace(txtRole.Text))
-            {
-
-                txtRole.Focus();
-                errorProvider.SetError(txtRole, "Role should not be left blank!");
-                return false;
-            }
-            else
-            {
-
-                errorProvider.SetError(txtRole, "");
-            }
-            if (txtRole.Text != "admin" && txtRole.Text != "basic user")
-            {
-
-                txtRole.Focus();
-                errorProvider.SetError(txtRole, "Role has to be admin or basic user");
-                return false;
-            }
-            else
-            {
-
-                errorProvider.SetError(txtRole, "");
-            }
+            
 
             return true;
         }
 
-       
+        private void cmbRole_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

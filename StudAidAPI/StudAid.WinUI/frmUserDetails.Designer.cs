@@ -37,7 +37,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.txtRole = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtPass = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -45,6 +44,7 @@
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.lblDescription = new System.Windows.Forms.Label();
+            this.cmbRole = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
@@ -115,13 +115,6 @@
             this.label4.TabIndex = 8;
             this.label4.Text = "Role (admin or basic user):";
             // 
-            // txtRole
-            // 
-            this.txtRole.Location = new System.Drawing.Point(38, 125);
-            this.txtRole.Name = "txtRole";
-            this.txtRole.Size = new System.Drawing.Size(185, 27);
-            this.txtRole.TabIndex = 7;
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -177,11 +170,21 @@
             this.lblDescription.TabIndex = 14;
             this.lblDescription.Text = "Description:";
             // 
+            // cmbRole
+            // 
+            this.cmbRole.FormattingEnabled = true;
+            this.cmbRole.Location = new System.Drawing.Point(38, 125);
+            this.cmbRole.Name = "cmbRole";
+            this.cmbRole.Size = new System.Drawing.Size(185, 28);
+            this.cmbRole.TabIndex = 15;
+            this.cmbRole.SelectedIndexChanged += new System.EventHandler(this.cmbRole_SelectedIndexChanged);
+            // 
             // frmUserDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(509, 400);
+            this.Controls.Add(this.cmbRole);
             this.Controls.Add(this.lblDescription);
             this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.label6);
@@ -189,7 +192,6 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txtPass);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.txtRole);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -216,7 +218,6 @@
         private Label label2;
         private Label label3;
         private Label label4;
-        private TextBox txtRole;
         private Label label5;
         private TextBox txtPass;
         private Label label6;
@@ -224,5 +225,6 @@
         private ErrorProvider errorProvider;
         private Label lblDescription;
         private TextBox txtDescription;
+        private ComboBox cmbRole;
     }
 }
