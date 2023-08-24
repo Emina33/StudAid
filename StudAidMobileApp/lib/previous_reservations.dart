@@ -123,22 +123,23 @@ class _PreviousReservationsState extends State<PreviousReservations> {
                       borderRadius: BorderRadius.circular(10),
                       color: const Color.fromRGBO(32, 50, 57, 0.1),
                     ),
-                    height: 80,
+                    height: 60,
                     width: 330,
-                    padding: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.only(left: 10),
                     margin: const EdgeInsets.only(bottom: 10, top: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Container(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "Reserved ${data.where((element) => element.advertId == x.advertId).first.advertName} at ${x.selectedTime}",
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  color: Color.fromRGBO(20, 30, 39, 1.0)),
-                              textAlign: TextAlign.center,
-                            ))
+                        Expanded(
+                          child: Text(
+                            "${data.where((element) => element.advertId == x.advertId).first.advertName} on ${x.selectedTime}",
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Color.fromRGBO(20, 30, 39, 1.0)),
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                          ),
+                        )
                       ],
                     )),
               )

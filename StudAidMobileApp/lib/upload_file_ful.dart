@@ -318,6 +318,7 @@ class _UploadPage2State extends State<UploadPage2> {
                                   setState(() {
                                     file = null;
                                   });
+                                  FocusManager.instance.primaryFocus?.unfocus();
                                 }
 
                                 //Navigator.pop(context);

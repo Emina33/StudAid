@@ -132,7 +132,10 @@ class _ReviewListState extends State<ReviewList> {
                       ],
                     )),
               )
-            : Text(''))
+            : Container(
+                height: 0,
+                width: 0,
+              ))
         .cast<Widget>()
         .toList();
 

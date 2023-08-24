@@ -61,14 +61,14 @@ class _DocumentPage2State extends State<DocumentPage2> {
                     child: const Text('Description',
                         style: TextStyle(
                             fontSize: 18,
-                            color: Color.fromRGBO(32, 50, 57, 0.4))),
+                            color: Color.fromRGBO(32, 50, 57, 1))),
                   ),
                   Container(
                     margin: const EdgeInsets.only(left: 30, right: 30),
                     child: Text(document?.description ?? " ",
                         style: TextStyle(
                             fontSize: 18,
-                            color: Color.fromRGBO(32, 50, 57, 0.4))),
+                            color: Color.fromRGBO(32, 50, 57, 1))),
                   ),
                   Container(
                     margin: const EdgeInsets.all(30),
@@ -76,11 +76,11 @@ class _DocumentPage2State extends State<DocumentPage2> {
                         border: Border(
                             bottom: BorderSide(
                                 width: 1,
-                                color: Color.fromRGBO(32, 50, 57, 0.4)))),
+                                color: Color.fromRGBO(32, 50, 57, 1)))),
                     child: Text('By: ${document?.author ?? " "}',
                         style: TextStyle(
                             fontSize: 18,
-                            color: Color.fromRGBO(32, 50, 57, 0.4))),
+                            color: Color.fromRGBO(32, 50, 57, 1))),
                   ),
                   Container(
                     width: 100,

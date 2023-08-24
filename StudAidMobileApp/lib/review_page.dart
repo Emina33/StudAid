@@ -148,7 +148,8 @@ class _ReviewPageState extends State<ReviewPage> {
                           };
                           await _reviewProvider?.insert(review);
                           showAlertDialog(
-                              context, "You have left a review", "Sucess");
+                              context, "You have left a review", "Success");
+                          FocusManager.instance.primaryFocus?.unfocus();
                         }
                       },
                       style: ElevatedButton.styleFrom(

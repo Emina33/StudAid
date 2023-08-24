@@ -23,6 +23,7 @@ class AdvertDetailsFul extends StatefulWidget {
 class _AdvertDetailsFulState extends State<AdvertDetailsFul> {
   AdvertProvider? _advertProvider = null;
   Advert? advert = null;
+  String? date = null;
   ReservationProvider? _reservationProvider = null;
   Reservation? reservation = null;
   String? selectedTime = 'unselected';
@@ -40,14 +41,24 @@ class _AdvertDetailsFulState extends State<AdvertDetailsFul> {
     setState(() {
       advert = tmpData!.firstWhere((element) => element.advertId == widget.id);
     });
+    if (advert != null) {
+      var timetable = advert!.availableTime!.split(',');
+      setState(() {
+        date = timetable[0];
+      });
+    }
   }
 
   Future changeAvailableTime(int id) async {
-    String? newTime = advert!.availableTime != null &&
-            advert!.availableTime!.lastIndexOf(',') ==
-                (advert!.availableTime!.length - 1)
-        ? advert!.availableTime?.replaceAll("$selectedTime,", "")
-        : advert!.availableTime?.replaceAll("$selectedTime", "");
+    // String? newTime = advert!.availableTime != null &&
+    //         advert!.availableTime!.lastIndexOf(',') ==
+    //             (advert!.availableTime!.length - 1)
+    //     ? advert!.availableTime?.replaceAll("$selectedTime,", "")
+    //     : advert!.availableTime?.replaceAll("$selectedTime", "");
+    String? newTime = '';
+    if (advert!.availableTime != null) {
+      newTime = advert!.availableTime?.replaceAll("$selectedTime,", "");
+    }
     if (advert != null) {
       Object advertNew = {
         "advertName": advert!.advertName,
@@ -98,6 +109,14 @@ class _AdvertDetailsFulState extends State<AdvertDetailsFul> {
                 child: Column(children: [
                   Container(
                     margin: const EdgeInsets.only(top: 30),
+                    child: Text(
+                      'Class on $date',
+                      style: TextStyle(
+                          fontSize: 20, color: Color.fromRGBO(20, 30, 39, 1.0)),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 30),
                     child: const Text(
                       'Select the time:',
                       style: TextStyle(
@@ -134,7 +153,7 @@ class _AdvertDetailsFulState extends State<AdvertDetailsFul> {
                           setState(() {
                             reservation?.advertId = widget.id;
                             reservation?.userId = 2;
-                            reservation?.selectedTime = selectedTime;
+                            reservation?.selectedTime = '$date, $selectedTime';
                           });
 
                           Navigator.push(
@@ -203,7 +222,7 @@ class _AdvertDetailsFulState extends State<AdvertDetailsFul> {
                                         Object reservation2 = {
                                           "advertId": widget.id,
                                           "userId": Authorization.id,
-                                          "selectedTime": selectedTime
+                                          "selectedTime": '$date, $selectedTime'
                                         };
 
                                         await _reservationProvider
@@ -244,12 +263,12 @@ class _AdvertDetailsFulState extends State<AdvertDetailsFul> {
                           setState(() {
                             reservation?.advertId = widget.id;
                             reservation?.userId = 2;
-                            reservation?.selectedTime = selectedTime;
+                            reservation?.selectedTime = '$date, $selectedTime';
                           });
                           Object reservation2 = {
                             "advertId": widget.id,
                             "userId": Authorization.id,
-                            "selectedTime": selectedTime
+                            "selectedTime": '$date, $selectedTime'
                           };
 
                           await _reservationProvider?.insert(reservation2);
@@ -284,6 +303,11 @@ class _AdvertDetailsFulState extends State<AdvertDetailsFul> {
       return [Text("")];
     }
     var timetable = item.availableTime!.split(',');
+    setState(() {
+      date = timetable[0];
+    });
+    timetable.removeAt(0);
+    timetable.removeLast();
     List<Widget> list = timetable
         .map(
           (e) => TextButton(

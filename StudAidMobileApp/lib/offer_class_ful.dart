@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:stud_aid/components/alertDialog.dart';
 import 'package:stud_aid/providers/advert_provider.dart';
@@ -7,7 +8,7 @@ import 'package:stud_aid/providers/category_provider.dart';
 import 'package:stud_aid/providers/location_provider.dart';
 import 'package:stud_aid/providers/subject_provider.dart';
 import 'package:stud_aid/utils/util.dart';
-
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'components/bottom_bar.dart';
 import 'components/top_bar.dart';
 import 'models/category.dart';
@@ -26,6 +27,7 @@ class _OfferClassPage2State extends State<OfferClassPage2> {
   List<Category> data = [];
   SubjectProvider? _subjectProvider = null;
   AdvertProvider? _advertProvider = null;
+  String? _selectedDate = '';
   List<Subject> dataSubjects = [];
   List<String> dataString = [];
   static const List<String> categories = [
@@ -69,6 +71,7 @@ class _OfferClassPage2State extends State<OfferClassPage2> {
   final TextEditingController authorController = new TextEditingController();
   final TextEditingController priceController = new TextEditingController();
   final TextEditingController timeController = new TextEditingController();
+  DateRangePickerController _datePickerController = DateRangePickerController();
   bool Validate() {
     if (nameController.text == "") {
       showAlertDialog(context, "Write the advert name", "Warning");
@@ -91,6 +94,10 @@ class _OfferClassPage2State extends State<OfferClassPage2> {
           context, "The acceptable format is e.g 10:00,11:00", "Warning");
       return false;
     }
+    if (_selectedDate == "") {
+      showAlertDialog(context, "Select a date", "Warning");
+      return false;
+    }
     return true;
   }
 
@@ -102,6 +109,7 @@ class _OfferClassPage2State extends State<OfferClassPage2> {
     _locationProvider = context.read<LocationProvider>();
     _subjectProvider = context.read<SubjectProvider>();
     _advertProvider = context.read<AdvertProvider>();
+    _datePickerController.view = DateRangePickerView.month;
     loadData();
     loadData2();
     loadData3();
@@ -134,6 +142,14 @@ class _OfferClassPage2State extends State<OfferClassPage2> {
     var tmpData = await _subjectProvider?.get(null);
     setState(() {
       dataSubjects = tmpData!;
+    });
+  }
+
+  void onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
+    setState(() {
+      if (args.value is DateTime) {
+        _selectedDate = DateFormat.yMd().format(args.value).toString();
+      }
     });
   }
 
@@ -279,11 +295,33 @@ class _OfferClassPage2State extends State<OfferClassPage2> {
                             color: Color.fromRGBO(20, 30, 39, 1.0)),
                       ),
                     ),
+                    Container(
+                      margin: EdgeInsets.only(top: 10),
+                      child: SfDateRangePicker(
+                        monthCellStyle: DateRangePickerMonthCellStyle(
+                            todayTextStyle: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12,
+                                color: Color.fromRGBO(20, 30, 39, 1.0))),
+                        yearCellStyle: DateRangePickerYearCellStyle(
+                            todayTextStyle: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12,
+                                color: Color.fromRGBO(20, 30, 39, 1.0))),
+                        controller: _datePickerController,
+                        view: DateRangePickerView.month,
+                        minDate: DateTime.now(),
+                        maxDate: DateTime(2024),
+                        todayHighlightColor: Color.fromRGBO(20, 30, 39, 1.0),
+                        selectionColor: Color.fromRGBO(20, 30, 39, 1.0),
+                        onSelectionChanged: onSelectionChanged,
+                      ),
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Container(
-                          margin: const EdgeInsets.only(top: 50),
+                          margin: const EdgeInsets.only(top: 0),
                           child: TextButton(
                               onPressed: () async {
                                 if (Validate()) {
@@ -296,7 +334,8 @@ class _OfferClassPage2State extends State<OfferClassPage2> {
                                     ;
                                     Object advertNew = {
                                       "advertName": nameController.text,
-                                      "availableTime": timeController.text,
+                                      "availableTime":
+                                          '${_selectedDate},${timeController.text},',
                                       "price": int.parse(priceController.text),
                                       "tutor": Authorization.id,
                                       "subjectId": num,
@@ -307,6 +346,8 @@ class _OfferClassPage2State extends State<OfferClassPage2> {
                                         context,
                                         "You have successfully added an advert",
                                         "Success");
+                                    FocusManager.instance.primaryFocus
+                                        ?.unfocus();
                                     nameController.clear();
                                     timeController.clear();
                                     priceController.clear();
@@ -321,7 +362,7 @@ class _OfferClassPage2State extends State<OfferClassPage2> {
                               )),
                         ),
                         Container(
-                          margin: const EdgeInsets.only(top: 50),
+                          margin: const EdgeInsets.only(top: 0),
                           child: TextButton(
                               onPressed: () async {
                                 Navigator.pop(context);

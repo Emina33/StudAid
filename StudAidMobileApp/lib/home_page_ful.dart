@@ -210,6 +210,20 @@ class _HomePageNewState extends State<HomePageNew> {
                         ),
                       ),
                       Container(
+                          margin: EdgeInsets.only(top: 15),
+                          padding: EdgeInsets.only(bottom: 10),
+                          decoration: const BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                                      width: 1,
+                                      color: Color.fromRGBO(32, 50, 57, 0.4)))),
+                          child: const Text(
+                            ' Documents',
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Color.fromRGBO(20, 30, 39, 1.0)),
+                          )),
+                      Container(
                         margin: const EdgeInsets.only(top: 20, bottom: 10),
                         child: Column(
                           children: _buildDocumentCardList(),

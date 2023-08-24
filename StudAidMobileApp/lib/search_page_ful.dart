@@ -152,8 +152,18 @@ class _SearchPage2State extends State<SearchPage2> {
     for (var i = 0; i < boolCat.length; i++) {
       if (boolCat[i]) selectedCategories.add(i + 1);
     }
+    if (selectedCategories.isEmpty) {
+      for (var i = 0; i < boolCat.length; i++) {
+        selectedCategories.add(i + 1);
+      }
+    }
     for (var i = 0; i < boolCit.length; i++) {
       if (boolCit[i]) selectedLocations.add(i + 1);
+    }
+    if (selectedLocations.isEmpty) {
+      for (var i = 0; i < boolCit.length; i++) {
+        selectedLocations.add(i + 1);
+      }
     }
     for (var i = 0; i < subjects.length; i++) {
       if (selectedCategories.contains(subjects[i].categoryId))

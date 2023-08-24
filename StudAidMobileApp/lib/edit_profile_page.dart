@@ -173,7 +173,7 @@ class _EditProfilePageState extends State<EditProfilePage>
                                         user!.profilePicture != "" &&
                                         image == null
                                     ? Container(
-                                        height: 100,
+                                        height: 120,
                                         child: Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
@@ -181,13 +181,13 @@ class _EditProfilePageState extends State<EditProfilePage>
                                             Text(
                                               "Click image to change",
                                               style: TextStyle(
-                                                  fontSize: 20,
+                                                  fontSize: 18,
                                                   color: Color.fromRGBO(
                                                       32, 50, 57, 1)),
                                               textAlign: TextAlign.center,
                                             ),
                                             Container(
-                                              height: 100,
+                                              height: 80,
                                               width: 70,
                                               child: imageFromBase64String(
                                                   user!.profilePicture!),
@@ -510,6 +510,8 @@ class _EditProfilePageState extends State<EditProfilePage>
                                             context,
                                             "You have successfully updated your profile.",
                                             "Success");
+                                        FocusManager.instance.primaryFocus
+                                            ?.unfocus();
                                       }
                                     }
                                   },
