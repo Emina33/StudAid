@@ -4,7 +4,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:stud_aid/providers/document_provider.dart';
 import 'package:stud_aid/providers/subject_provider.dart';
@@ -83,31 +82,15 @@ class _UploadPage2State extends State<UploadPage2> {
 
   Future pickFile() async {
     try {
-      var status = await Permission.manageExternalStorage.status;
-      if (!status.isGranted) {
-        await Permission.manageExternalStorage.request();
-        if (status.isGranted) {
-          FilePickerResult? result = await FilePicker.platform.pickFiles();
-          if (result == null) return;
+      FilePickerResult? result = await FilePicker.platform.pickFiles();
+      if (result == null) return;
 
-          setState(() => file = File(result.files.single.path!));
-          final temp = File(result.files.single.path!).readAsBytesSync();
-          String fileBytes = base64Encode(temp);
-          setState(() {
-            fileString = fileBytes;
-          });
-        }
-      } else if (status.isGranted) {
-        FilePickerResult? result = await FilePicker.platform.pickFiles();
-        if (result == null) return;
-
-        setState(() => file = File(result.files.single.path!));
-        final temp = File(result.files.single.path!).readAsBytesSync();
-        String fileBytes = base64Encode(temp);
-        setState(() {
-          fileString = fileBytes;
-        });
-      }
+      setState(() => file = File(result.files.single.path!));
+      final temp = File(result.files.single.path!).readAsBytesSync();
+      String fileBytes = base64Encode(temp);
+      setState(() {
+        fileString = fileBytes;
+      });
     } on PlatformException catch (e) {
       print('Failed to pick file: $e');
     }

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
+
 import 'package:provider/provider.dart';
 import 'package:stud_aid/components/alertDialog.dart';
 import 'package:stud_aid/providers/location_provider.dart';
@@ -36,33 +36,15 @@ class _EditProfilePageState extends State<EditProfilePage>
   String? imageString = "";
   Future pickImage() async {
     try {
-      var status = await Permission.manageExternalStorage.status;
-      if (!status.isGranted) {
-        await Permission.manageExternalStorage.request();
-        if (status.isGranted) {
-          final image =
-              await ImagePicker().pickImage(source: ImageSource.gallery);
-          if (image == null) return;
-          final imageTemp = File(image.path);
-          final imageTemp2 = File(image.path).readAsBytesSync();
-          String imgBytes = base64Encode(imageTemp2);
-          setState(() {
-            imageString = imgBytes;
-          });
-          setState(() => this.image = imageTemp);
-        }
-      } else if (status.isGranted) {
-        final image =
-            await ImagePicker().pickImage(source: ImageSource.gallery);
-        if (image == null) return;
-        final imageTemp = File(image.path);
-        final imageTemp2 = File(image.path).readAsBytesSync();
-        String imgBytes = base64Encode(imageTemp2);
-        setState(() {
-          imageString = imgBytes;
-        });
-        setState(() => this.image = imageTemp);
-      }
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image == null) return;
+      final imageTemp = File(image.path);
+      final imageTemp2 = File(image.path).readAsBytesSync();
+      String imgBytes = base64Encode(imageTemp2);
+      setState(() {
+        imageString = imgBytes;
+      });
+      setState(() => this.image = imageTemp);
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }
