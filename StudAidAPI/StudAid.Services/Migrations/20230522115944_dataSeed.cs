@@ -312,6 +312,10 @@ namespace StudAid.Services.Migrations
                 keyColumn: "ReservationID",
                 keyValue: 5);
             migrationBuilder.DeleteData(
+                table: "Reservation",
+                keyColumn: "ReservationID",
+                keyValue: 6);
+            migrationBuilder.DeleteData(
                 table: "Message",
                 keyColumn: "MessageID",
                 keyValue: 1);
