@@ -95,6 +95,7 @@ namespace StudAid.Services.Migrations
                     {2,"Algebra class", "10/13/2023, 13:00, 14:00, 15:00", 10,3,7,1,"draft" },
                     {3,"Animal cells", "10/12/2023, 13:00, 14:00, 15:00", 10,2,1,1,"draft" },
                     {4,"Portraits", "10/15/2023, 12:00, 14:00, 16:00", 20,4,4,1,"draft" },
+                    {5,"Human cells", "10/16/2023, 12:00, 14:00, 16:00", 15,2,1,1,"draft" },
                });
 
             migrationBuilder.InsertData(
@@ -108,6 +109,7 @@ namespace StudAid.Services.Migrations
                     {4,2,2,"10/13/2023, 10:00" },
                     {5,4,3,"10/15/2023, 13:00" },
                     {6,1,4,"10/10/2023, 14:00" },
+                    {7,3,4,"10/12/2023, 10:00" },
                });
             migrationBuilder.InsertData(
                table: "Message",
@@ -157,6 +159,10 @@ namespace StudAid.Services.Migrations
                 table: "Advert",
                 keyColumn: "AdvertID",
                 keyValue: 4);
+            migrationBuilder.DeleteData(
+               table: "Advert",
+               keyColumn: "AdvertID",
+               keyValue: 5);
 
             migrationBuilder.DeleteData(
                 table: "AppUser",
@@ -315,6 +321,10 @@ namespace StudAid.Services.Migrations
                 table: "Reservation",
                 keyColumn: "ReservationID",
                 keyValue: 6);
+            migrationBuilder.DeleteData(
+                table: "Reservation",
+                keyColumn: "ReservationID",
+                keyValue: 7);
             migrationBuilder.DeleteData(
                 table: "Message",
                 keyColumn: "MessageID",
