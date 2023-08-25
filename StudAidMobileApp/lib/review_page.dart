@@ -149,6 +149,11 @@ class _ReviewPageState extends State<ReviewPage> {
                           await _reviewProvider?.insert(review);
                           showAlertDialog(
                               context, "You have left a review", "Success");
+                          reviewController.clear();
+                          setState(() {
+                            _ratingValue = 0.0;
+                            stars = 0;
+                          });
                           FocusManager.instance.primaryFocus?.unfocus();
                         }
                       },
