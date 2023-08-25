@@ -91,11 +91,10 @@ class _DocumentPage2State extends State<DocumentPage2> {
                       onPressed: () async {
                         if (document != null &&
                             document?.documentFile != null) {
-                          var status =
-                              await Permission.manageExternalStorage.status;
+                          var status = await Permission.storage.status;
                           if (!status.isGranted) {
                             // If not we will ask for permission first
-                            await Permission.manageExternalStorage.request();
+                            await Permission.storage.request();
                             if (status.isGranted) {
                               var bytes = base64Decode(document!.documentFile!);
                               final file = File(

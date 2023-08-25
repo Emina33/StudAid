@@ -84,10 +84,10 @@ class _MyProfilePage2State extends State<MyProfilePage2> {
         ),
       ),
     );
-    var status = await Permission.manageExternalStorage.status;
+    var status = await Permission.storage.status;
     if (!status.isGranted) {
       // If not we will ask for permission first
-      await Permission.manageExternalStorage.request();
+      await Permission.storage.request();
       if (status.isGranted) {
         final file = File("/storage/emulated/0/Download/report.pdf");
         await file.writeAsBytes(await pdf.save());
