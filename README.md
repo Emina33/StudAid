@@ -16,5 +16,6 @@ To test the mobile app, open the **StudAidMobileApp** folder and run **flutter r
 You have two users you can test this app with:
 - John Doe (**username:johndoe**, **password:test**)
 - Jane Doe(**username:janedoe**, **password:test**)
+- John Smith(**username:johnsmith**, **password:test**)
   
 You can also make a new user and use the app normally.
