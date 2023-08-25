@@ -175,7 +175,7 @@ class _ChatPage3State extends State<ChatPage3> {
                     Object objectMessage = {
                       "content": text,
                       "sender": Authorization.id,
-                      "receiver": 1
+                      "receiver": widget.id
                     };
                     await _messageProvider?.insert(objectMessage);
                     messageController.clear();
