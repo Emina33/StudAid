@@ -36,7 +36,7 @@ class _EditProfilePageState extends State<EditProfilePage>
   String? imageString = "";
   Future pickImage() async {
     try {
-      var status = await Permission.storage.status;
+      var status = await Permission.manageExternalStorage.status;
       if (!status.isGranted) {
         await Permission.manageExternalStorage.request();
         if (status.isGranted) {

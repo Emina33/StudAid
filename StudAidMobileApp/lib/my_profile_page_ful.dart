@@ -84,7 +84,7 @@ class _MyProfilePage2State extends State<MyProfilePage2> {
         ),
       ),
     );
-    var status = await Permission.storage.status;
+    var status = await Permission.manageExternalStorage.status;
     if (!status.isGranted) {
       // If not we will ask for permission first
       await Permission.manageExternalStorage.request();

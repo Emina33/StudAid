@@ -83,7 +83,7 @@ class _UploadPage2State extends State<UploadPage2> {
 
   Future pickFile() async {
     try {
-      var status = await Permission.storage.status;
+      var status = await Permission.manageExternalStorage.status;
       if (!status.isGranted) {
         await Permission.manageExternalStorage.request();
         if (status.isGranted) {

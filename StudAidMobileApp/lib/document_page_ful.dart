@@ -91,7 +91,8 @@ class _DocumentPage2State extends State<DocumentPage2> {
                       onPressed: () async {
                         if (document != null &&
                             document?.documentFile != null) {
-                          var status = await Permission.storage.status;
+                          var status =
+                              await Permission.manageExternalStorage.status;
                           if (!status.isGranted) {
                             // If not we will ask for permission first
                             await Permission.manageExternalStorage.request();

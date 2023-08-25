@@ -6,10 +6,10 @@ import 'package:permission_handler/permission_handler.dart';
 class FileStorage {
   static Future<String> getExternalDocumentPath() async {
     // To check whether permission is given for this app or not.
-    var status = await Permission.storage.status;
+    var status = await Permission.manageExternalStorage.status;
     if (!status.isGranted) {
       // If not we will ask for permission first
-      await Permission.storage.request();
+      await Permission.manageExternalStorage.request();
     }
     Directory _directory = Directory("");
     if (Platform.isAndroid) {
