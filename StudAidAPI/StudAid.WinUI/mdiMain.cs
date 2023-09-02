@@ -150,14 +150,6 @@ namespace StudAid.WinUI
             childForm.Show();
         }
 
-        private void subjectsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmSubjectsList childForm = new frmSubjectsList();
-            childForm.MdiParent = this;
-            childForm.Text = "Window " + childFormNumber++;
-            childForm.WindowState = FormWindowState.Maximized;
-            childForm.Show();
-        }
 
         private void searchToolStripMenuItem2_Click(object sender, EventArgs e)
         {
@@ -177,7 +169,36 @@ namespace StudAid.WinUI
             childForm.Show();
         }
 
-        private void categoriesToolStripMenuItem_Click(object sender, EventArgs e)
+        
+
+        private void mdiMain_Load(object sender, EventArgs e)
+        {
+            frmWelcome childForm = new frmWelcome();
+            childForm.MdiParent = this;
+            childForm.Text = "Window " + childFormNumber++;
+            childForm.WindowState = FormWindowState.Maximized;
+            childForm.Show();
+        }
+
+        private void searchToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            frmSubjectsList childForm = new frmSubjectsList();
+            childForm.MdiParent = this;
+            childForm.Text = "Window " + childFormNumber++;
+            childForm.WindowState = FormWindowState.Maximized;
+            childForm.Show();
+        }
+
+        private void addNewSubjectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmNewSubject childForm = new frmNewSubject();
+            childForm.MdiParent = this;
+            childForm.Text = "Window " + childFormNumber++;
+            childForm.WindowState = FormWindowState.Maximized;
+            childForm.Show();
+        }
+
+        private void searchToolStripMenuItem4_Click(object sender, EventArgs e)
         {
             frmCategories childForm = new frmCategories();
             childForm.MdiParent = this;
@@ -186,9 +207,9 @@ namespace StudAid.WinUI
             childForm.Show();
         }
 
-        private void mdiMain_Load(object sender, EventArgs e)
+        private void addNewToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            frmWelcome childForm = new frmWelcome();
+            frmNewCategory childForm = new frmNewCategory();
             childForm.MdiParent = this;
             childForm.Text = "Window " + childFormNumber++;
             childForm.WindowState = FormWindowState.Maximized;

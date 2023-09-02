@@ -35,5 +35,12 @@ namespace StudAid.WinUI
             var list = await CategoryService.Get<List<Category>>();
             dataGridView1.DataSource = list;
         }
+
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var item = dataGridView1.SelectedRows[0].DataBoundItem as Category;
+            frmNewCategory frm = new frmNewCategory(item);
+            frm.ShowDialog();
+        }
     }
 }

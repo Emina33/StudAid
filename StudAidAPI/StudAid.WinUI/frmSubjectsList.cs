@@ -35,5 +35,12 @@ namespace StudAid.WinUI
             var list = await SubjectService.Get<List<Subject>>();
             dataGridView1.DataSource = list;
         }
+
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var item = dataGridView1.SelectedRows[0].DataBoundItem as Subject;
+            frmNewSubject frm = new frmNewSubject(item);
+            frm.ShowDialog();
+        }
     }
 }

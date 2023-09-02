@@ -35,5 +35,12 @@ namespace StudAid.WinUI
             var list = await LocationService.Get<List<Location>>();
             dataGridView1.DataSource = list;
         }
+
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var item = dataGridView1.SelectedRows[0].DataBoundItem as Location;
+            frmNewLocation frm = new frmNewLocation(item);
+            frm.ShowDialog();
+        }
     }
 }

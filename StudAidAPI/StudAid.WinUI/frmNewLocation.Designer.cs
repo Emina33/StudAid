@@ -36,6 +36,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnAdd = new System.Windows.Forms.Button();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.btnDelete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
@@ -47,6 +48,7 @@
             this.label3.Size = new System.Drawing.Size(63, 20);
             this.label3.TabIndex = 25;
             this.label3.Text = "Country:";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label2
             // 
@@ -56,6 +58,7 @@
             this.label2.Size = new System.Drawing.Size(37, 20);
             this.label2.TabIndex = 24;
             this.label2.Text = "City:";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // txtCountry
             // 
@@ -63,6 +66,7 @@
             this.txtCountry.Name = "txtCountry";
             this.txtCountry.Size = new System.Drawing.Size(185, 27);
             this.txtCountry.TabIndex = 23;
+            this.txtCountry.TextChanged += new System.EventHandler(this.txtCountry_TextChanged);
             // 
             // txtCity
             // 
@@ -70,6 +74,7 @@
             this.txtCity.Name = "txtCity";
             this.txtCity.Size = new System.Drawing.Size(185, 27);
             this.txtCity.TabIndex = 22;
+            this.txtCity.TextChanged += new System.EventHandler(this.txtCity_TextChanged);
             // 
             // label1
             // 
@@ -77,9 +82,10 @@
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label1.Location = new System.Drawing.Point(116, 38);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(127, 28);
+            this.label1.Size = new System.Drawing.Size(87, 28);
             this.label1.TabIndex = 26;
-            this.label1.Text = "New location";
+            this.label1.Text = "Location";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // btnAdd
             // 
@@ -87,7 +93,7 @@
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(94, 29);
             this.btnAdd.TabIndex = 27;
-            this.btnAdd.Text = "Add";
+            this.btnAdd.Text = "Done";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
@@ -95,11 +101,23 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
+            // btnDelete
+            // 
+            this.btnDelete.Enabled = false;
+            this.btnDelete.Location = new System.Drawing.Point(133, 306);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(94, 29);
+            this.btnDelete.TabIndex = 28;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
             // frmNewLocation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(365, 352);
+            this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label3);
@@ -108,6 +126,7 @@
             this.Controls.Add(this.txtCity);
             this.Name = "frmNewLocation";
             this.Text = "frmNewLocation";
+            this.Load += new System.EventHandler(this.frmNewLocation_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -123,5 +142,6 @@
         private Label label1;
         private Button btnAdd;
         private ErrorProvider errorProvider;
+        private Button btnDelete;
     }
 }

@@ -34,6 +34,7 @@
             this.btnShow = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.AdvertName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tutor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AvailableTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -86,6 +87,7 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.AdvertName,
+            this.Tutor,
             this.AvailableTime,
             this.Price});
             this.dataGridView1.Location = new System.Drawing.Point(49, 129);
@@ -104,6 +106,15 @@
             this.AdvertName.Name = "AdvertName";
             this.AdvertName.ReadOnly = true;
             this.AdvertName.Width = 260;
+            // 
+            // Tutor
+            // 
+            this.Tutor.DataPropertyName = "Tutor";
+            this.Tutor.HeaderText = "Tutor";
+            this.Tutor.MinimumWidth = 6;
+            this.Tutor.Name = "Tutor";
+            this.Tutor.ReadOnly = true;
+            this.Tutor.Width = 125;
             // 
             // AvailableTime
             // 
@@ -150,6 +161,7 @@
         private Button btnShow;
         private DataGridView dataGridView1;
         private DataGridViewTextBoxColumn AdvertName;
+        private DataGridViewTextBoxColumn Tutor;
         private DataGridViewTextBoxColumn AvailableTime;
         private DataGridViewTextBoxColumn Price;
     }

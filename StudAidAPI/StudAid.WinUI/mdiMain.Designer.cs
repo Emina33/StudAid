@@ -38,10 +38,14 @@
             this.advertsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.subjectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.addNewSubjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.locationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addNewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.categoriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addNewToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchToolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
@@ -123,10 +127,26 @@
             // 
             // subjectsToolStripMenuItem
             // 
+            this.subjectsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.searchToolStripMenuItem3,
+            this.addNewSubjectToolStripMenuItem});
             this.subjectsToolStripMenuItem.Name = "subjectsToolStripMenuItem";
             this.subjectsToolStripMenuItem.Size = new System.Drawing.Size(78, 24);
             this.subjectsToolStripMenuItem.Text = "Subjects";
-            this.subjectsToolStripMenuItem.Click += new System.EventHandler(this.subjectsToolStripMenuItem_Click);
+            // 
+            // searchToolStripMenuItem3
+            // 
+            this.searchToolStripMenuItem3.Name = "searchToolStripMenuItem3";
+            this.searchToolStripMenuItem3.Size = new System.Drawing.Size(202, 26);
+            this.searchToolStripMenuItem3.Text = "Search";
+            this.searchToolStripMenuItem3.Click += new System.EventHandler(this.searchToolStripMenuItem3_Click);
+            // 
+            // addNewSubjectToolStripMenuItem
+            // 
+            this.addNewSubjectToolStripMenuItem.Name = "addNewSubjectToolStripMenuItem";
+            this.addNewSubjectToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
+            this.addNewSubjectToolStripMenuItem.Text = "Add new subject";
+            this.addNewSubjectToolStripMenuItem.Click += new System.EventHandler(this.addNewSubjectToolStripMenuItem_Click);
             // 
             // locationsToolStripMenuItem
             // 
@@ -153,10 +173,26 @@
             // 
             // categoriesToolStripMenuItem
             // 
+            this.categoriesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addNewToolStripMenuItem1,
+            this.searchToolStripMenuItem4});
             this.categoriesToolStripMenuItem.Name = "categoriesToolStripMenuItem";
             this.categoriesToolStripMenuItem.Size = new System.Drawing.Size(94, 24);
             this.categoriesToolStripMenuItem.Text = "Categories";
-            this.categoriesToolStripMenuItem.Click += new System.EventHandler(this.categoriesToolStripMenuItem_Click);
+            // 
+            // addNewToolStripMenuItem1
+            // 
+            this.addNewToolStripMenuItem1.Name = "addNewToolStripMenuItem1";
+            this.addNewToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
+            this.addNewToolStripMenuItem1.Text = "Add new";
+            this.addNewToolStripMenuItem1.Click += new System.EventHandler(this.addNewToolStripMenuItem1_Click);
+            // 
+            // searchToolStripMenuItem4
+            // 
+            this.searchToolStripMenuItem4.Name = "searchToolStripMenuItem4";
+            this.searchToolStripMenuItem4.Size = new System.Drawing.Size(224, 26);
+            this.searchToolStripMenuItem4.Text = "Search";
+            this.searchToolStripMenuItem4.Click += new System.EventHandler(this.searchToolStripMenuItem4_Click);
             // 
             // statusStrip
             // 
@@ -216,6 +252,10 @@
         private ToolStripMenuItem searchToolStripMenuItem2;
         private ToolStripMenuItem subjectsToolStripMenuItem;
         private ToolStripMenuItem categoriesToolStripMenuItem;
+        private ToolStripMenuItem searchToolStripMenuItem3;
+        private ToolStripMenuItem addNewSubjectToolStripMenuItem;
+        private ToolStripMenuItem addNewToolStripMenuItem1;
+        private ToolStripMenuItem searchToolStripMenuItem4;
     }
 }
 

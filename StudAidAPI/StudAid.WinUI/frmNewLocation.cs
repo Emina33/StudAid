@@ -15,34 +15,67 @@ namespace StudAid.WinUI
     public partial class frmNewLocation : Form
     {
         public APIService LocationService { get; set; } = new APIService("Location");
-        public frmNewLocation()
+        public APIService AppUserService { get; set; } = new APIService("AppUser");
+        private Location Location = null;
+        public frmNewLocation(Location location = null)
         {
             InitializeComponent();
+            Location = location;
         }
 
         private async void btnAdd_Click(object sender, EventArgs e)
         {
-            if (Validate())
+            if(Location == null)
             {
-                try
+                if (Validate())
                 {
-                    LocationUpsertRequest insertRequest = new LocationUpsertRequest()
+                    try
                     {
-                        City = txtCity.Text,
-                        Country = txtCountry.Text,
-                    };
-                   
+                        LocationUpsertRequest insertRequest = new LocationUpsertRequest()
+                        {
+                            City = txtCity.Text,
+                            Country = txtCountry.Text,
+                        };
+
                         var user = await LocationService.Post<Location>(insertRequest);
                         MessageBox.Show("You have successfully added a location");
-                    
-                }
-                catch (Exception ex)
-                {
+                        txtCity.Clear();
+                        txtCountry.Clear();
 
-                    MessageBox.Show("Something went wrong");
-                }
+                    }
+                    catch (Exception ex)
+                    {
 
+                        MessageBox.Show("Something went wrong");
+                    }
+
+                }
             }
+            else
+            {
+                if (Validate())
+                {
+                    try
+                    {
+                        LocationUpsertRequest insertRequest = new LocationUpsertRequest()
+                        {
+                            City = txtCity.Text,
+                            Country = txtCountry.Text,
+                        };
+
+                        var user = await LocationService.Put<Location>(insertRequest, Location.LocationId);
+                        MessageBox.Show("You have successfully updated a location");
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                        MessageBox.Show("Something went wrong");
+                    }
+
+                }
+            }
+            
         }
         public bool Validate()
         {
@@ -62,7 +95,7 @@ namespace StudAid.WinUI
             {
 
                 txtCountry.Focus();
-                errorProvider.SetError(txtCountry, "Last name should not be left blank!");
+                errorProvider.SetError(txtCountry, "Country name should not be left blank!");
                 return false;
             }
             else
@@ -73,6 +106,66 @@ namespace StudAid.WinUI
             
 
             return true;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtCountry_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtCity_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void frmNewLocation_Load(object sender, EventArgs e)
+        {
+            if (Location != null)
+            {
+                btnDelete.Enabled = true;
+                txtCity.Text = Location.City;
+                txtCountry.Text=Location.Country;
+
+            }
+        }
+
+        private async void btnDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var list = await AppUserService.Get<List<AppUser>>();
+                foreach (var item in list)
+                {
+                    if(item.LocationId == Location.LocationId)
+                    {
+                        MessageBox.Show("You are not allowed to delete this location!");
+                        return;
+                    }
+                        
+                }
+                Location = await LocationService.Delete<Location>(Location.LocationId);
+                MessageBox.Show("You have successfully deleted this location!");
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Something went wrong!");
+            }
         }
     }
 }
