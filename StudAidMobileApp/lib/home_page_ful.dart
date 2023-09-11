@@ -36,6 +36,7 @@ class _HomePageNewState extends State<HomePageNew> {
   List<Document> data2 = [];
   List<Document> data2Show = [];
   List<User> data3 = [];
+  bool showYours = false;
   TextEditingController _searchController = TextEditingController();
   @override
   void initState() {
@@ -47,12 +48,26 @@ class _HomePageNewState extends State<HomePageNew> {
     loadData3();
   }
 
+  void showYourAdverts() {
+    setState(() {
+      dataShow = showYours
+          ? data
+          : data.where((element) => element.tutor != Authorization.id).toList();
+    });
+  }
+
   void filterData(String filter) {
     setState(() {
-      dataShow = data
-          .where(
-              (element) => element.advertName!.toLowerCase().contains(filter))
-          .toList();
+      dataShow = showYours
+          ? data
+              .where((element) =>
+                  element.advertName!.toLowerCase().contains(filter))
+              .toList()
+          : data
+              .where((element) =>
+                  element.advertName!.toLowerCase().contains(filter) &&
+                  element.tutor != Authorization.id)
+              .toList();
       data2Show = data2
           .where(
               (element) => element.documentName!.toLowerCase().contains(filter))
@@ -65,13 +80,21 @@ class _HomePageNewState extends State<HomePageNew> {
       var tmpData = await _advertProvider?.getRecommended(Authorization.id!);
       setState(() {
         data = tmpData!;
-        dataShow = tmpData;
+        dataShow = showYours
+            ? tmpData
+            : tmpData
+                .where((element) => element.tutor != Authorization.id)
+                .toList();
       });
     } else {
       var tmpData = await _advertProvider?.get(null);
       setState(() {
         data = tmpData!;
-        dataShow = tmpData;
+        dataShow = showYours
+            ? tmpData
+            : tmpData
+                .where((element) => element.tutor != Authorization.id)
+                .toList();
       });
     }
   }
@@ -198,6 +221,25 @@ class _HomePageNewState extends State<HomePageNew> {
                                         color: Color.fromRGBO(20, 30, 39, 1.0)),
                                   )
                                 ])),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(left: 5),
+                        child: CheckboxListTile(
+                          activeColor: Color.fromRGBO(32, 50, 57, 1),
+                          title: Text("Select to include your own adverts",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Color.fromRGBO(32, 50, 57, 1))),
+                          value: showYours,
+                          onChanged: (newValue) {
+                            setState(() {
+                              showYours = !showYours;
+                            });
+                            showYourAdverts();
+                          },
+                          controlAffinity: ListTileControlAffinity
+                              .leading, //  <-- leading Checkbox
+                        ),
                       ),
                       Container(
                         decoration: const BoxDecoration(

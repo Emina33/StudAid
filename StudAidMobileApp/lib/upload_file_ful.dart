@@ -23,18 +23,13 @@ class UploadPage2 extends StatefulWidget {
 }
 
 class _UploadPage2State extends State<UploadPage2> {
+  List<DropdownMenuItem<String>> list = [];
   File? file;
   String fileString = "";
-  static const List<String> subjects = [
-    "Biology",
-    "Chemistry",
-    "English language",
-    "Pencil drawing",
-    "Music",
-    "First aid",
-    "Algebra"
-  ];
-  String selectedSubject = subjects.first;
+  List subjects = [];
+
+  String selectedSubject = "";
+  int value = 1;
   final TextEditingController nameController = new TextEditingController();
   final TextEditingController authorController = new TextEditingController();
   final TextEditingController descriptionController =
@@ -54,7 +49,7 @@ class _UploadPage2State extends State<UploadPage2> {
   Future loadData() async {
     var tmpData = await _subjectProvider?.get(null);
     setState(() {
-      data = tmpData!;
+      subjects = tmpData!;
     });
   }
 
@@ -180,10 +175,10 @@ class _UploadPage2State extends State<UploadPage2> {
                     SizedBox(
                         width: 300.0,
                         height: 60.0,
-                        child: DropdownButton<String>(
+                        child: DropdownButton(
                           isExpanded: true,
                           hint: const Text("Subject"),
-                          value: selectedSubject,
+                          value: value,
                           icon: const Icon(Icons.arrow_drop_down),
                           elevation: 16,
                           style: const TextStyle(
@@ -194,17 +189,16 @@ class _UploadPage2State extends State<UploadPage2> {
                             height: 1,
                             color: Color.fromRGBO(20, 30, 39, 1.0),
                           ),
-                          onChanged: (String? value) {
+                          onChanged: (v) {
                             // This is called when the user selects an item.
                             setState(() {
-                              selectedSubject = value!;
+                              value = v as int;
                             });
                           },
-                          items: subjects
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
+                          items: subjects.map((e) {
+                            return DropdownMenuItem(
+                              value: e.subjectId,
+                              child: Text(e.subjectName),
                             );
                           }).toList(),
                         )),
@@ -294,14 +288,9 @@ class _UploadPage2State extends State<UploadPage2> {
                           child: TextButton(
                               onPressed: () async {
                                 if (Validate()) {
-                                  int? selected = data
-                                      .firstWhere((element) =>
-                                          element.subjectName ==
-                                          selectedSubject)
-                                      .subjectId;
                                   Object document = {
                                     "documentName": nameController.text,
-                                    "subjectId": selected,
+                                    "subjectId": value,
                                     "author": authorController.text,
                                     "description": descriptionController.text,
                                     "documentFile": fileString

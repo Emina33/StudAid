@@ -32,7 +32,7 @@ class SearchPage2 extends StatefulWidget {
 class _SearchPage2State extends State<SearchPage2> {
   CategoryProvider? _categoryProvider = null;
   List<Category> data = [];
-  List<bool> boolCat = [false, false, false, false];
+  List boolCat = [];
   AdvertProvider? _advertProvider = null;
   List<Advert> adverts = [];
   UserProvider? _userProvider = null;
@@ -47,21 +47,7 @@ class _SearchPage2State extends State<SearchPage2> {
   List<int> selectedCities = [];
   List<int> selectedSubjects = [];
   List<int> selectedLocations = [];
-  List<bool> boolCit = [
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false
-  ];
+  List boolCit = [];
   LocationProvider? _locationProvider = null;
   RangeValues _currentRangeValues = const RangeValues(0, 40);
   bool clicked = false;
@@ -124,6 +110,7 @@ class _SearchPage2State extends State<SearchPage2> {
     var tmpData = await _categoryProvider?.get(null);
     setState(() {
       data = tmpData!;
+      boolCat = List<bool>.filled(data.length + 2, false);
     });
   }
 
@@ -199,6 +186,8 @@ class _SearchPage2State extends State<SearchPage2> {
     var tmpData = await _locationProvider?.get(null);
     setState(() {
       data2 = tmpData!;
+
+      boolCit = List<bool>.filled(data2.length + 2, false);
     });
   }
 
@@ -287,65 +276,68 @@ class _SearchPage2State extends State<SearchPage2> {
                                   color: Color.fromRGBO(32, 50, 57, 1)),
                               textAlign: TextAlign.start,
                             ),
-                            CheckboxListTile(
-                              activeColor: Color.fromRGBO(32, 50, 57, 1),
-                              title: Text(categories[0],
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: Color.fromRGBO(32, 50, 57, 1))),
-                              value: boolCat[0],
-                              onChanged: (newValue) {
-                                setState(() {
-                                  boolCat[0] = !boolCat[0];
-                                });
-                              },
-                              controlAffinity: ListTileControlAffinity
-                                  .leading, //  <-- leading Checkbox
-                            ),
-                            CheckboxListTile(
-                              activeColor: Color.fromRGBO(32, 50, 57, 1),
-                              title: Text(categories[1],
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: Color.fromRGBO(32, 50, 57, 1))),
-                              value: boolCat[1],
-                              onChanged: (newValue) {
-                                setState(() {
-                                  boolCat[1] = !boolCat[1];
-                                });
-                              },
-                              controlAffinity: ListTileControlAffinity
-                                  .leading, //  <-- leading Checkbox
-                            ),
-                            CheckboxListTile(
-                              activeColor: Color.fromRGBO(32, 50, 57, 1),
-                              title: Text(categories[2],
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: Color.fromRGBO(32, 50, 57, 1))),
-                              value: boolCat[2],
-                              onChanged: (newValue) {
-                                setState(() {
-                                  boolCat[2] = !boolCat[2];
-                                });
-                              },
-                              controlAffinity: ListTileControlAffinity
-                                  .leading, //  <-- leading Checkbox
-                            ),
-                            CheckboxListTile(
-                              activeColor: Color.fromRGBO(32, 50, 57, 1),
-                              title: Text(categories[3],
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: Color.fromRGBO(32, 50, 57, 1))),
-                              value: boolCat[3],
-                              onChanged: (newValue) {
-                                setState(() {
-                                  boolCat[3] = !boolCat[3];
-                                });
-                              },
-                              controlAffinity: ListTileControlAffinity
-                                  .leading, //  <-- leading Checkbox
+                            // CheckboxListTile(
+                            //   activeColor: Color.fromRGBO(32, 50, 57, 1),
+                            //   title: Text(categories[0],
+                            //       style: TextStyle(
+                            //           fontSize: 18,
+                            //           color: Color.fromRGBO(32, 50, 57, 1))),
+                            //   value: boolCat[0],
+                            //   onChanged: (newValue) {
+                            //     setState(() {
+                            //       boolCat[0] = !boolCat[0];
+                            //     });
+                            //   },
+                            //   controlAffinity: ListTileControlAffinity
+                            //       .leading, //  <-- leading Checkbox
+                            // ),
+                            // CheckboxListTile(
+                            //   activeColor: Color.fromRGBO(32, 50, 57, 1),
+                            //   title: Text(categories[1],
+                            //       style: TextStyle(
+                            //           fontSize: 18,
+                            //           color: Color.fromRGBO(32, 50, 57, 1))),
+                            //   value: boolCat[1],
+                            //   onChanged: (newValue) {
+                            //     setState(() {
+                            //       boolCat[1] = !boolCat[1];
+                            //     });
+                            //   },
+                            //   controlAffinity: ListTileControlAffinity
+                            //       .leading, //  <-- leading Checkbox
+                            // ),
+                            // CheckboxListTile(
+                            //   activeColor: Color.fromRGBO(32, 50, 57, 1),
+                            //   title: Text(categories[2],
+                            //       style: TextStyle(
+                            //           fontSize: 18,
+                            //           color: Color.fromRGBO(32, 50, 57, 1))),
+                            //   value: boolCat[2],
+                            //   onChanged: (newValue) {
+                            //     setState(() {
+                            //       boolCat[2] = !boolCat[2];
+                            //     });
+                            //   },
+                            //   controlAffinity: ListTileControlAffinity
+                            //       .leading, //  <-- leading Checkbox
+                            // ),
+                            // CheckboxListTile(
+                            //   activeColor: Color.fromRGBO(32, 50, 57, 1),
+                            //   title: Text(categories[3],
+                            //       style: TextStyle(
+                            //           fontSize: 18,
+                            //           color: Color.fromRGBO(32, 50, 57, 1))),
+                            //   value: boolCat[3],
+                            //   onChanged: (newValue) {
+                            //     setState(() {
+                            //       boolCat[3] = !boolCat[3];
+                            //     });
+                            //   },
+                            //   controlAffinity: ListTileControlAffinity
+                            //       .leading, //  <-- leading Checkbox
+                            // ),
+                            Column(
+                              children: _buildCategoryList(),
                             ),
                             const Text(
                               'Cities',
@@ -354,200 +346,204 @@ class _SearchPage2State extends State<SearchPage2> {
                                   color: Color.fromRGBO(32, 50, 57, 1)),
                               textAlign: TextAlign.start,
                             ),
-                            CheckboxListTile(
-                              activeColor: Color.fromRGBO(32, 50, 57, 1),
-                              title: Text(cities[0],
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: Color.fromRGBO(32, 50, 57, 1))),
-                              value: boolCit[0],
-                              onChanged: (newValue) {
-                                setState(() {
-                                  boolCit[0] = !boolCit[0];
-                                });
-                              },
-                              controlAffinity: ListTileControlAffinity
-                                  .leading, //  <-- leading Checkbox
-                            ),
-                            CheckboxListTile(
-                              activeColor: Color.fromRGBO(32, 50, 57, 1),
-                              title: Text(cities[1],
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: Color.fromRGBO(32, 50, 57, 1))),
-                              value: boolCit[1],
-                              onChanged: (newValue) {
-                                setState(() {
-                                  boolCit[1] = !boolCit[1];
-                                });
-                              },
-                              controlAffinity: ListTileControlAffinity
-                                  .leading, //  <-- leading Checkbox
-                            ),
-                            CheckboxListTile(
-                              activeColor: Color.fromRGBO(32, 50, 57, 1),
-                              title: Text(cities[2],
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: Color.fromRGBO(32, 50, 57, 1))),
-                              value: boolCit[2],
-                              onChanged: (newValue) {
-                                setState(() {
-                                  boolCit[2] = !boolCit[2];
-                                });
-                              },
-                              controlAffinity: ListTileControlAffinity
-                                  .leading, //  <-- leading Checkbox
-                            ),
-                            CheckboxListTile(
-                              activeColor: Color.fromRGBO(32, 50, 57, 1),
-                              title: Text(cities[3],
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: Color.fromRGBO(32, 50, 57, 1))),
-                              value: boolCit[3],
-                              onChanged: (newValue) {
-                                setState(() {
-                                  boolCit[3] = !boolCit[3];
-                                });
-                              },
-                              controlAffinity: ListTileControlAffinity
-                                  .leading, //  <-- leading Checkbox
-                            ),
-                            CheckboxListTile(
-                              activeColor: Color.fromRGBO(32, 50, 57, 1),
-                              title: Text(cities[4],
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: Color.fromRGBO(32, 50, 57, 1))),
-                              value: boolCit[4],
-                              onChanged: (newValue) {
-                                setState(() {
-                                  boolCit[4] = !boolCit[4];
-                                });
-                              },
-                              controlAffinity: ListTileControlAffinity
-                                  .leading, //  <-- leading Checkbox
-                            ),
-                            CheckboxListTile(
-                              activeColor: Color.fromRGBO(32, 50, 57, 1),
-                              title: Text(cities[5],
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: Color.fromRGBO(32, 50, 57, 1))),
-                              value: boolCit[5],
-                              onChanged: (newValue) {
-                                setState(() {
-                                  boolCit[5] = !boolCit[5];
-                                });
-                              },
-                              controlAffinity: ListTileControlAffinity
-                                  .leading, //  <-- leading Checkbox
-                            ),
-                            CheckboxListTile(
-                              activeColor: Color.fromRGBO(32, 50, 57, 1),
-                              title: Text(cities[6],
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: Color.fromRGBO(32, 50, 57, 1))),
-                              value: boolCit[6],
-                              onChanged: (newValue) {
-                                setState(() {
-                                  boolCit[6] = !boolCit[6];
-                                });
-                              },
-                              controlAffinity: ListTileControlAffinity
-                                  .leading, //  <-- leading Checkbox
-                            ),
-                            CheckboxListTile(
-                              activeColor: Color.fromRGBO(32, 50, 57, 1),
-                              title: Text(cities[7],
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: Color.fromRGBO(32, 50, 57, 1))),
-                              value: boolCit[7],
-                              onChanged: (newValue) {
-                                setState(() {
-                                  boolCit[7] = !boolCit[7];
-                                });
-                              },
-                              controlAffinity: ListTileControlAffinity
-                                  .leading, //  <-- leading Checkbox
-                            ),
-                            CheckboxListTile(
-                              activeColor: Color.fromRGBO(32, 50, 57, 1),
-                              title: Text(cities[8],
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: Color.fromRGBO(32, 50, 57, 1))),
-                              value: boolCit[8],
-                              onChanged: (newValue) {
-                                setState(() {
-                                  boolCit[8] = !boolCit[8];
-                                });
-                              },
-                              controlAffinity: ListTileControlAffinity
-                                  .leading, //  <-- leading Checkbox
-                            ),
-                            CheckboxListTile(
-                              activeColor: Color.fromRGBO(32, 50, 57, 1),
-                              title: Text(cities[9],
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: Color.fromRGBO(32, 50, 57, 1))),
-                              value: boolCit[9],
-                              onChanged: (newValue) {
-                                setState(() {
-                                  boolCit[9] = !boolCit[9];
-                                });
-                              },
-                              controlAffinity: ListTileControlAffinity
-                                  .leading, //  <-- leading Checkbox
-                            ),
-                            CheckboxListTile(
-                              activeColor: Color.fromRGBO(32, 50, 57, 1),
-                              title: Text(cities[10],
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: Color.fromRGBO(32, 50, 57, 1))),
-                              value: boolCit[10],
-                              onChanged: (newValue) {
-                                setState(() {
-                                  boolCit[10] = !boolCit[10];
-                                });
-                              },
-                              controlAffinity: ListTileControlAffinity
-                                  .leading, //  <-- leading Checkbox
-                            ),
-                            CheckboxListTile(
-                              activeColor: Color.fromRGBO(32, 50, 57, 1),
-                              title: Text(cities[11],
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: Color.fromRGBO(32, 50, 57, 1))),
-                              value: boolCit[11],
-                              onChanged: (newValue) {
-                                setState(() {
-                                  boolCit[11] = !boolCit[11];
-                                });
-                              },
-                              controlAffinity: ListTileControlAffinity
-                                  .leading, //  <-- leading Checkbox
-                            ),
-                            CheckboxListTile(
-                              activeColor: Color.fromRGBO(32, 50, 57, 1),
-                              title: Text(cities[12],
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: Color.fromRGBO(32, 50, 57, 1))),
-                              value: boolCit[12],
-                              onChanged: (newValue) {
-                                setState(() {
-                                  boolCit[12] = !boolCit[12];
-                                });
-                              },
-                              controlAffinity: ListTileControlAffinity
-                                  .leading, //  <-- leading Checkbox
+                            // CheckboxListTile(
+                            //   activeColor: Color.fromRGBO(32, 50, 57, 1),
+                            //   title: Text(cities[0],
+                            //       style: TextStyle(
+                            //           fontSize: 18,
+                            //           color: Color.fromRGBO(32, 50, 57, 1))),
+                            //   value: boolCit[0],
+                            //   onChanged: (newValue) {
+                            //     setState(() {
+                            //       boolCit[0] = !boolCit[0];
+                            //     });
+                            //   },
+                            //   controlAffinity: ListTileControlAffinity
+                            //       .leading, //  <-- leading Checkbox
+                            // ),
+                            // CheckboxListTile(
+                            //   activeColor: Color.fromRGBO(32, 50, 57, 1),
+                            //   title: Text(cities[1],
+                            //       style: TextStyle(
+                            //           fontSize: 18,
+                            //           color: Color.fromRGBO(32, 50, 57, 1))),
+                            //   value: boolCit[1],
+                            //   onChanged: (newValue) {
+                            //     setState(() {
+                            //       boolCit[1] = !boolCit[1];
+                            //     });
+                            //   },
+                            //   controlAffinity: ListTileControlAffinity
+                            //       .leading, //  <-- leading Checkbox
+                            // ),
+                            // CheckboxListTile(
+                            //   activeColor: Color.fromRGBO(32, 50, 57, 1),
+                            //   title: Text(cities[2],
+                            //       style: TextStyle(
+                            //           fontSize: 18,
+                            //           color: Color.fromRGBO(32, 50, 57, 1))),
+                            //   value: boolCit[2],
+                            //   onChanged: (newValue) {
+                            //     setState(() {
+                            //       boolCit[2] = !boolCit[2];
+                            //     });
+                            //   },
+                            //   controlAffinity: ListTileControlAffinity
+                            //       .leading, //  <-- leading Checkbox
+                            // ),
+                            // CheckboxListTile(
+                            //   activeColor: Color.fromRGBO(32, 50, 57, 1),
+                            //   title: Text(cities[3],
+                            //       style: TextStyle(
+                            //           fontSize: 18,
+                            //           color: Color.fromRGBO(32, 50, 57, 1))),
+                            //   value: boolCit[3],
+                            //   onChanged: (newValue) {
+                            //     setState(() {
+                            //       boolCit[3] = !boolCit[3];
+                            //     });
+                            //   },
+                            //   controlAffinity: ListTileControlAffinity
+                            //       .leading, //  <-- leading Checkbox
+                            // ),
+                            // CheckboxListTile(
+                            //   activeColor: Color.fromRGBO(32, 50, 57, 1),
+                            //   title: Text(cities[4],
+                            //       style: TextStyle(
+                            //           fontSize: 18,
+                            //           color: Color.fromRGBO(32, 50, 57, 1))),
+                            //   value: boolCit[4],
+                            //   onChanged: (newValue) {
+                            //     setState(() {
+                            //       boolCit[4] = !boolCit[4];
+                            //     });
+                            //   },
+                            //   controlAffinity: ListTileControlAffinity
+                            //       .leading, //  <-- leading Checkbox
+                            // ),
+                            // CheckboxListTile(
+                            //   activeColor: Color.fromRGBO(32, 50, 57, 1),
+                            //   title: Text(cities[5],
+                            //       style: TextStyle(
+                            //           fontSize: 18,
+                            //           color: Color.fromRGBO(32, 50, 57, 1))),
+                            //   value: boolCit[5],
+                            //   onChanged: (newValue) {
+                            //     setState(() {
+                            //       boolCit[5] = !boolCit[5];
+                            //     });
+                            //   },
+                            //   controlAffinity: ListTileControlAffinity
+                            //       .leading, //  <-- leading Checkbox
+                            // ),
+                            // CheckboxListTile(
+                            //   activeColor: Color.fromRGBO(32, 50, 57, 1),
+                            //   title: Text(cities[6],
+                            //       style: TextStyle(
+                            //           fontSize: 18,
+                            //           color: Color.fromRGBO(32, 50, 57, 1))),
+                            //   value: boolCit[6],
+                            //   onChanged: (newValue) {
+                            //     setState(() {
+                            //       boolCit[6] = !boolCit[6];
+                            //     });
+                            //   },
+                            //   controlAffinity: ListTileControlAffinity
+                            //       .leading, //  <-- leading Checkbox
+                            // ),
+                            // CheckboxListTile(
+                            //   activeColor: Color.fromRGBO(32, 50, 57, 1),
+                            //   title: Text(cities[7],
+                            //       style: TextStyle(
+                            //           fontSize: 18,
+                            //           color: Color.fromRGBO(32, 50, 57, 1))),
+                            //   value: boolCit[7],
+                            //   onChanged: (newValue) {
+                            //     setState(() {
+                            //       boolCit[7] = !boolCit[7];
+                            //     });
+                            //   },
+                            //   controlAffinity: ListTileControlAffinity
+                            //       .leading, //  <-- leading Checkbox
+                            // ),
+                            // CheckboxListTile(
+                            //   activeColor: Color.fromRGBO(32, 50, 57, 1),
+                            //   title: Text(cities[8],
+                            //       style: TextStyle(
+                            //           fontSize: 18,
+                            //           color: Color.fromRGBO(32, 50, 57, 1))),
+                            //   value: boolCit[8],
+                            //   onChanged: (newValue) {
+                            //     setState(() {
+                            //       boolCit[8] = !boolCit[8];
+                            //     });
+                            //   },
+                            //   controlAffinity: ListTileControlAffinity
+                            //       .leading, //  <-- leading Checkbox
+                            // ),
+                            // CheckboxListTile(
+                            //   activeColor: Color.fromRGBO(32, 50, 57, 1),
+                            //   title: Text(cities[9],
+                            //       style: TextStyle(
+                            //           fontSize: 18,
+                            //           color: Color.fromRGBO(32, 50, 57, 1))),
+                            //   value: boolCit[9],
+                            //   onChanged: (newValue) {
+                            //     setState(() {
+                            //       boolCit[9] = !boolCit[9];
+                            //     });
+                            //   },
+                            //   controlAffinity: ListTileControlAffinity
+                            //       .leading, //  <-- leading Checkbox
+                            // ),
+                            // CheckboxListTile(
+                            //   activeColor: Color.fromRGBO(32, 50, 57, 1),
+                            //   title: Text(cities[10],
+                            //       style: TextStyle(
+                            //           fontSize: 18,
+                            //           color: Color.fromRGBO(32, 50, 57, 1))),
+                            //   value: boolCit[10],
+                            //   onChanged: (newValue) {
+                            //     setState(() {
+                            //       boolCit[10] = !boolCit[10];
+                            //     });
+                            //   },
+                            //   controlAffinity: ListTileControlAffinity
+                            //       .leading, //  <-- leading Checkbox
+                            // ),
+                            // CheckboxListTile(
+                            //   activeColor: Color.fromRGBO(32, 50, 57, 1),
+                            //   title: Text(cities[11],
+                            //       style: TextStyle(
+                            //           fontSize: 18,
+                            //           color: Color.fromRGBO(32, 50, 57, 1))),
+                            //   value: boolCit[11],
+                            //   onChanged: (newValue) {
+                            //     setState(() {
+                            //       boolCit[11] = !boolCit[11];
+                            //     });
+                            //   },
+                            //   controlAffinity: ListTileControlAffinity
+                            //       .leading, //  <-- leading Checkbox
+                            // ),
+                            // CheckboxListTile(
+                            //   activeColor: Color.fromRGBO(32, 50, 57, 1),
+                            //   title: Text(cities[12],
+                            // style: TextStyle(
+                            //     fontSize: 18,
+                            //     color: Color.fromRGBO(32, 50, 57, 1))),
+                            //   value: boolCit[12],
+                            //   onChanged: (newValue) {
+                            //     setState(() {
+                            //       boolCit[12] = !boolCit[12];
+                            //     });
+                            //   },
+                            //   controlAffinity: ListTileControlAffinity
+                            //       .leading, //  <-- leading Checkbox
+                            // ),
+
+                            Column(
+                              children: _buildLocationList(),
                             ),
                             const Text(
                               'Price',
@@ -609,9 +605,13 @@ class _SearchPage2State extends State<SearchPage2> {
           (x) => CheckboxListTile(
             title: Text(x.categoryName!,
                 style: TextStyle(
-                    fontSize: 18, color: Color.fromRGBO(32, 50, 57, 0.4))),
-            value: boolCat[0],
-            onChanged: (newValue) {},
+                    fontSize: 18, color: Color.fromRGBO(32, 50, 57, 1))),
+            value: boolCat[(x.categoryId! - 1)],
+            onChanged: (newValue) {
+              setState(() {
+                boolCat[x.categoryId! - 1] = !boolCat[x.categoryId! - 1];
+              });
+            },
             controlAffinity:
                 ListTileControlAffinity.leading, //  <-- leading Checkbox
           ),
@@ -632,9 +632,13 @@ class _SearchPage2State extends State<SearchPage2> {
           (x) => CheckboxListTile(
             title: Text(x.city!,
                 style: TextStyle(
-                    fontSize: 18, color: Color.fromRGBO(32, 50, 57, 0.4))),
-            value: false,
-            onChanged: (newValue) {},
+                    fontSize: 18, color: Color.fromRGBO(32, 50, 57, 1))),
+            value: boolCit[(x.locationId! - 1)],
+            onChanged: (newValue) {
+              setState(() {
+                boolCit[x.locationId! - 1] = !boolCit[x.locationId! - 1];
+              });
+            },
             controlAffinity:
                 ListTileControlAffinity.leading, //  <-- leading Checkbox
           ),

@@ -30,39 +30,12 @@ class _OfferClassPage2State extends State<OfferClassPage2> {
   String? _selectedDate = '';
   List<Subject> dataSubjects = [];
   List<String> dataString = [];
-  static const List<String> categories = [
-    "Science",
-    "Languages",
-    "Arts and humanities",
-    "Health oriented education"
-  ];
-  static const List<String> cities = [
-    "Živinice",
-    "Mostar",
-    "Visoko",
-    "Sarajevo",
-    "Zenica",
-    "Travnik",
-    "Tuzla",
-    "Ilijaš",
-    "Konjic",
-    "Jablanica",
-    "Banja Luka",
-    "Unselected",
-    "Livno",
-  ];
-  static const List<String> subjects = [
-    "Biology",
-    "Chemistry",
-    "English language",
-    "Pencil drawing",
-    "Music",
-    "First aid",
-    "Algebra"
-  ];
-  String selectedLocation = cities.first;
-  String selectedCategory = categories.first;
-  String selectedSubject = subjects.first;
+  List categories = [];
+  List cities = [];
+  List subjects = [];
+  int selectedLocation = 1;
+  int selectedCategory = 1;
+  int selectedSubject = 1;
   final timeRule = RegExp(r'(([01]?[0-9]|2[0-3]):[0-5][0-9],){1,8}');
   List<Location> data2 = [];
   List<String?> data2String = [];
@@ -118,10 +91,10 @@ class _OfferClassPage2State extends State<OfferClassPage2> {
   Future loadData() async {
     var tmpData = await _categoryProvider?.get(null);
     setState(() {
-      data = tmpData!;
+      categories = tmpData!;
     });
     setState(() {
-      data.forEach((element) {
+      categories.forEach((element) {
         dataString.add(element.categoryName!);
       });
     });
@@ -131,17 +104,14 @@ class _OfferClassPage2State extends State<OfferClassPage2> {
   Future loadData2() async {
     var tmpData = await _locationProvider?.get(null);
     setState(() {
-      data2 = tmpData!;
-    });
-    setState(() {
-      data2String = data2.map((e) => e.city).toList();
+      cities = tmpData!;
     });
   }
 
   Future loadData3() async {
     var tmpData = await _subjectProvider?.get(null);
     setState(() {
-      dataSubjects = tmpData!;
+      subjects = tmpData!;
     });
   }
 
@@ -212,7 +182,7 @@ class _OfferClassPage2State extends State<OfferClassPage2> {
                     SizedBox(
                         width: 300.0,
                         height: 50.0,
-                        child: DropdownButton<String>(
+                        child: DropdownButton(
                           isExpanded: true,
                           hint: const Text("Subject"),
                           value: selectedSubject,
@@ -225,17 +195,16 @@ class _OfferClassPage2State extends State<OfferClassPage2> {
                             height: 1,
                             color: Color.fromRGBO(20, 30, 39, 1.0),
                           ),
-                          onChanged: (String? value) {
+                          onChanged: (value) {
                             // This is called when the user selects an item.
                             setState(() {
-                              selectedSubject = value!;
+                              selectedSubject = value as int;
                             });
                           },
-                          items: subjects
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
+                          items: subjects.map((e) {
+                            return DropdownMenuItem(
+                              value: e.subjectId,
+                              child: Text(e.subjectName),
                             );
                           }).toList(),
                         )),
@@ -326,19 +295,13 @@ class _OfferClassPage2State extends State<OfferClassPage2> {
                               onPressed: () async {
                                 if (Validate()) {
                                   if (dataSubjects.length > 0) {
-                                    int? num = dataSubjects
-                                        .firstWhere((element) =>
-                                            element.subjectName ==
-                                            selectedSubject)
-                                        .subjectId;
-                                    ;
                                     Object advertNew = {
                                       "advertName": nameController.text,
                                       "availableTime":
                                           '${_selectedDate},${timeController.text},',
                                       "price": int.parse(priceController.text),
                                       "tutor": Authorization.id,
-                                      "subjectId": num,
+                                      "subjectId": selectedSubject,
                                       "date": 1
                                     };
                                     await _advertProvider?.insert(advertNew);

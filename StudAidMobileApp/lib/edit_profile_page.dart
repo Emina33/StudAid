@@ -50,25 +50,11 @@ class _EditProfilePageState extends State<EditProfilePage>
     }
   }
 
-  static const List<String> cities = [
-    "Živinice",
-    "Mostar",
-    "Visoko",
-    "Sarajevo",
-    "Zenica",
-    "Travnik",
-    "Tuzla",
-    "Ilijaš",
-    "Konjic",
-    "Jablanica",
-    "Banja Luka",
-    "Unselected",
-    "Livno"
-  ];
+  List cities = [];
   UserProvider? _userProvider = null;
   User? user = null;
   LocationProvider? _locationProvider = null;
-  String? locationSelected = cities[11];
+  int locationSelected = 11;
   List<Location> data = [];
   List<String> dataStrings = [];
   final ScrollController _controllerScroll = ScrollController();
@@ -89,7 +75,7 @@ class _EditProfilePageState extends State<EditProfilePage>
     var tmpData = await _locationProvider?.get(null);
     setState(() {
       if (tmpData != null) {
-        data = tmpData;
+        cities = tmpData;
       }
     });
 
@@ -111,9 +97,9 @@ class _EditProfilePageState extends State<EditProfilePage>
       firstNameController.text = user!.firstName!;
       lastNameController.text = user!.lastName!;
       imageString = user!.profilePicture!;
-      locationSelected = data
+      locationSelected = cities
           .firstWhere((element) => element.locationId == user!.locationId)
-          .city;
+          .locationId!;
     });
     setState(() {
       loading = false;
@@ -360,7 +346,7 @@ class _EditProfilePageState extends State<EditProfilePage>
                           child: SizedBox(
                               width: 250.0,
                               height: 50.0,
-                              child: DropdownButton<String>(
+                              child: DropdownButton(
                                 isExpanded: true,
                                 hint: const Text("Location",
                                     style: TextStyle(
@@ -368,9 +354,9 @@ class _EditProfilePageState extends State<EditProfilePage>
                                         fontSize: 18,
                                         color:
                                             Color.fromRGBO(32, 50, 57, 0.8))),
-                                value: locationSelected != null
+                                value: locationSelected != 11
                                     ? locationSelected
-                                    : "",
+                                    : 11,
                                 icon: const Icon(Icons.arrow_drop_down),
                                 elevation: 16,
                                 style: const TextStyle(
@@ -380,17 +366,16 @@ class _EditProfilePageState extends State<EditProfilePage>
                                   height: 1,
                                   color: Color.fromRGBO(20, 30, 39, 1.0),
                                 ),
-                                onChanged: (String? value) {
+                                onChanged: (value) {
                                   // This is called when the user selects an item.
                                   setState(() {
-                                    locationSelected = value!;
+                                    locationSelected = value as int;
                                   });
                                 },
-                                items: cities.map<DropdownMenuItem<String>>(
-                                    (String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(value),
+                                items: cities.map((e) {
+                                  return DropdownMenuItem(
+                                    value: e.locationId,
+                                    child: Text(e.city),
                                   );
                                 }).toList(),
                               )),
@@ -489,11 +474,6 @@ class _EditProfilePageState extends State<EditProfilePage>
                                   onPressed: () async {
                                     if (Validate()) {
                                       if (data.isNotEmpty) {
-                                        var locationId = data
-                                            .firstWhere((element) =>
-                                                element.city ==
-                                                locationSelected)
-                                            .locationId;
                                         Object appUserUpdate = {
                                           "firstName": firstNameController.text,
                                           "lastName": lastNameController.text,
@@ -501,7 +481,7 @@ class _EditProfilePageState extends State<EditProfilePage>
                                           "password": passwordController.text,
                                           "description": aboutController.text,
                                           "profilePicture": imageString,
-                                          "locationId": locationId,
+                                          "locationId": locationSelected,
                                         };
                                         if (_userProvider != null &&
                                             user != null)
