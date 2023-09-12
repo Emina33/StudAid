@@ -16,6 +16,8 @@ namespace StudAid.WinUI
     {
         public APIService CategoryService { get; set; } = new APIService("Category");
         public APIService SubjectService { get; set; } = new APIService("Subject");
+        public APIService AdvertService { get; set; } = new APIService("Advert");
+        public APIService DocumentService { get; set; } = new APIService("Document");
         private Subject Subject = null;
         public frmNewSubject(Subject subject = null)
         {
@@ -34,11 +36,12 @@ namespace StudAid.WinUI
                         SubjectUpsertRequest insertRequest = new SubjectUpsertRequest()
                         {
                             SubjectName = txtSubject.Text,
-                            CategoryId = cmbCategories.SelectedIndex,
+                            CategoryId = cmbCategories.SelectedIndex+1,
                         };
 
                         var user = await SubjectService.Post<Subject>(insertRequest);
                         MessageBox.Show("You have successfully added a subject");
+                        Close();
 
                     }
                     catch (Exception ex)
@@ -58,11 +61,12 @@ namespace StudAid.WinUI
                         SubjectUpsertRequest insertRequest = new SubjectUpsertRequest()
                         {
                             SubjectName = txtSubject.Text,
-                            CategoryId = cmbCategories.SelectedIndex,
+                            CategoryId = (int)cmbCategories.SelectedIndex+1,
                         };
 
                         var user = await SubjectService.Put<Subject>(insertRequest, Subject.SubjectId);
                         MessageBox.Show("You have successfully updated a subject");
+                        Close();
 
                     }
                     catch (Exception ex)
@@ -84,7 +88,8 @@ namespace StudAid.WinUI
             cmbCategories.ValueMember = "categoryId";
             if(Subject != null)
             {
-                cmbCategories.SelectedIndex = (int)Subject.CategoryId;
+                btnDelete.Enabled = true;
+                cmbCategories.SelectedIndex = (int)Subject.CategoryId-1;
                 txtSubject.Text = Subject.SubjectName;
             }
         }
@@ -105,6 +110,41 @@ namespace StudAid.WinUI
             
 
             return true;
+        }
+
+        private async void btnDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var documents = await DocumentService.Get<List<Document>>();
+                foreach (var item in documents)
+                {
+                    if (item.SubjectId == Subject.SubjectId)
+                    {
+                        MessageBox.Show("This subject is in use!");
+                        return;
+                    }
+
+                }
+                var adverts = await AdvertService.Get<List<Advert>>();
+                foreach (var item in adverts)
+                {
+                    if (item.SubjectId == Subject.SubjectId)
+                    {
+                        MessageBox.Show("This subject is in use!");
+                        return;
+                    }
+
+                }
+                Subject = await SubjectService.Delete<Subject>(Subject.SubjectId);
+                MessageBox.Show("You have successfully deleted this subject!");
+                Close();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Something went wrong!");
+            }
         }
     }
 }

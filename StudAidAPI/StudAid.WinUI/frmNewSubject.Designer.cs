@@ -36,6 +36,7 @@
             this.txtSubject = new System.Windows.Forms.TextBox();
             this.cmbCategories = new System.Windows.Forms.ComboBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.btnDelete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
@@ -96,11 +97,22 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
+            // btnDelete
+            // 
+            this.btnDelete.Location = new System.Drawing.Point(126, 332);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(94, 29);
+            this.btnDelete.TabIndex = 35;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
             // frmNewSubject
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(352, 400);
+            this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.cmbCategories);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.label1);
@@ -125,5 +137,6 @@
         private TextBox txtSubject;
         private ComboBox cmbCategories;
         private ErrorProvider errorProvider;
+        private Button btnDelete;
     }
 }

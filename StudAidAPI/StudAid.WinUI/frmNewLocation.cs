@@ -41,6 +41,7 @@ namespace StudAid.WinUI
                         MessageBox.Show("You have successfully added a location");
                         txtCity.Clear();
                         txtCountry.Clear();
+                        Close();
 
                     }
                     catch (Exception ex)
@@ -65,6 +66,7 @@ namespace StudAid.WinUI
 
                         var user = await LocationService.Put<Location>(insertRequest, Location.LocationId);
                         MessageBox.Show("You have successfully updated a location");
+                        Close();
 
                     }
                     catch (Exception ex)
@@ -160,6 +162,7 @@ namespace StudAid.WinUI
                 }
                 Location = await LocationService.Delete<Location>(Location.LocationId);
                 MessageBox.Show("You have successfully deleted this location!");
+                Close();
             }
             catch (Exception ex)
             {
