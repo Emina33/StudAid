@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
@@ -94,7 +95,7 @@ class _DocumentPage2State extends State<DocumentPage2> {
                           var status = await Permission.storage.status;
                           if (!status.isGranted) {
                             // If not we will ask for permission first
-                            await Permission.storage.request();
+                            status = await Permission.storage.request();
                             if (status.isGranted) {
                               var bytes = base64Decode(document!.documentFile!);
                               final file = File(
@@ -109,17 +110,7 @@ class _DocumentPage2State extends State<DocumentPage2> {
                           } else if (status.isGranted) {
                             var bytes = base64Decode(document!.documentFile!);
                             final file = File(
-                                "/storage/emulated/0/Download/${document!.documentName!}.pdf");
-                            await file.writeAsBytes(bytes.buffer.asUint8List());
-                            showAlertDialog(
-                                context,
-                                "You have successfully downloaded this document",
-                                "Success");
-                          }
-                          if (status.isGranted) {
-                            var bytes = base64Decode(document!.documentFile!);
-                            final file = File(
-                                "/storage/emulated/0/Download/${document!.documentName!}.pdf");
+                                "/storage/emulated/0/Download/${document!.documentName!}${Random().nextInt(10)}.pdf");
                             await file.writeAsBytes(bytes.buffer.asUint8List());
                             showAlertDialog(
                                 context,
