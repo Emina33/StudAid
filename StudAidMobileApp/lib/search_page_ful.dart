@@ -603,6 +603,7 @@ class _SearchPage2State extends State<SearchPage2> {
     List<Widget> list = data
         .map(
           (x) => CheckboxListTile(
+            activeColor: Color.fromRGBO(32, 50, 57, 1),
             title: Text(x.categoryName!,
                 style: TextStyle(
                     fontSize: 18, color: Color.fromRGBO(32, 50, 57, 1))),
@@ -630,6 +631,7 @@ class _SearchPage2State extends State<SearchPage2> {
     List<Widget> list = data2
         .map(
           (x) => CheckboxListTile(
+            activeColor: Color.fromRGBO(32, 50, 57, 1),
             title: Text(x.city!,
                 style: TextStyle(
                     fontSize: 18, color: Color.fromRGBO(32, 50, 57, 1))),

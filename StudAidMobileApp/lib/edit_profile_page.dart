@@ -473,29 +473,26 @@ class _EditProfilePageState extends State<EditProfilePage>
                               child: TextButton(
                                   onPressed: () async {
                                     if (Validate()) {
-                                      if (data.isNotEmpty) {
-                                        Object appUserUpdate = {
-                                          "firstName": firstNameController.text,
-                                          "lastName": lastNameController.text,
-                                          "role": "basic user",
-                                          "password": passwordController.text,
-                                          "description": aboutController.text,
-                                          "profilePicture": imageString,
-                                          "locationId": locationSelected,
-                                        };
-                                        if (_userProvider != null &&
-                                            user != null)
-                                          await _userProvider?.update(
-                                              user!.userId!, appUserUpdate);
-                                        Authorization.password =
-                                            passwordController.text;
-                                        showAlertDialog(
-                                            context,
-                                            "You have successfully updated your profile.",
-                                            "Success");
-                                        FocusManager.instance.primaryFocus
-                                            ?.unfocus();
-                                      }
+                                      Object appUserUpdate = {
+                                        "firstName": firstNameController.text,
+                                        "lastName": lastNameController.text,
+                                        "role": "basic user",
+                                        "password": passwordController.text,
+                                        "description": aboutController.text,
+                                        "profilePicture": imageString,
+                                        "locationId": locationSelected,
+                                      };
+                                      if (_userProvider != null && user != null)
+                                        await _userProvider?.update(
+                                            user!.userId!, appUserUpdate);
+                                      Authorization.password =
+                                          passwordController.text;
+                                      showAlertDialog(
+                                          context,
+                                          "You have successfully updated your profile.",
+                                          "Success");
+                                      FocusManager.instance.primaryFocus
+                                          ?.unfocus();
                                     }
                                   },
                                   child: const Text(

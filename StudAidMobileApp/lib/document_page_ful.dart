@@ -116,6 +116,16 @@ class _DocumentPage2State extends State<DocumentPage2> {
                                 "You have successfully downloaded this document",
                                 "Success");
                           }
+                          if (status.isGranted) {
+                            var bytes = base64Decode(document!.documentFile!);
+                            final file = File(
+                                "/storage/emulated/0/Download/${document!.documentName!}.pdf");
+                            await file.writeAsBytes(bytes.buffer.asUint8List());
+                            showAlertDialog(
+                                context,
+                                "You have successfully downloaded this document",
+                                "Success");
+                          }
                         }
                       },
                       style: ElevatedButton.styleFrom(

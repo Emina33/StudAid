@@ -58,6 +58,7 @@ dependencies:
   loading_indicator: ^3.1.0
   dropdown_button2: ^2.1.3
   syncfusion_flutter_datepicker: ^22.2.10
+  flutter_braintree: ^3.0.0
 
 dev_dependencies:
   flutter_test:
