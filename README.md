@@ -18,6 +18,7 @@ Add --dart-define clientId=yourNewClientId and --dart-define secretKey=yourNewSe
 If you choose not to change the credentials, default values will be used and the Paypal account email and password are:
 - email: sb-9s2tu26233819@personal.example.com
 - password: 78>;5I.z
+  
 Additional information:
 - credit card number: 4102132325125292
 - expiration date: 07/2028
