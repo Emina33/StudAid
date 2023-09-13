@@ -561,22 +561,30 @@ class _MyProfilePage2State extends State<MyProfilePage2> {
                             child: x.tutor == Authorization.id
                                 ? TextButton(
                                     onPressed: () async {
-                                      for (var i = 0; i < data3.length; i++) {
-                                        if (data3[i].advertId == x.advertId) {
-                                          showAlertDialog(
-                                              context,
-                                              "This advert has reservations!",
-                                              "Error");
-                                          return;
+                                      try {
+                                        for (var i = 0; i < data3.length; i++) {
+                                          if (data3[i].advertId == x.advertId) {
+                                            showAlertDialog(
+                                                context,
+                                                "This advert has reservations!",
+                                                "Error");
+                                            return;
+                                          }
                                         }
-                                      }
 
-                                      await _advertProvider
-                                          ?.delete(x.advertId!);
-                                      showAlertDialog(
-                                          context,
-                                          "You successfully deleted the advert!",
-                                          "Success");
+                                        await _advertProvider
+                                            ?.delete(x.advertId!);
+                                        showAlertDialog(
+                                            context,
+                                            "You successfully deleted the advert!",
+                                            "Success");
+                                      } catch (e) {
+                                        showAlertDialog(
+                                            context,
+                                            "This advert has reservations!",
+                                            "Error");
+                                        return;
+                                      }
                                     },
                                     child: const Text('Delete advert',
                                         style: TextStyle(
