@@ -91,7 +91,7 @@ class _AdvertDetailsFulState extends State<AdvertDetailsFul> {
 
   bool Validate() {
     if (selectedTime == "unselected") {
-      showAlertDialog(context, "Please select a time", "Warning");
+      showAlertDialog(context, "Please select a time", "");
       return false;
     }
     return true;

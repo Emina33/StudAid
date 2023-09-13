@@ -566,7 +566,7 @@ class _MyProfilePage2State extends State<MyProfilePage2> {
                                           showAlertDialog(
                                               context,
                                               "This advert has reservations!",
-                                              "Warning");
+                                              "Error");
                                           return;
                                         }
                                       }
@@ -628,7 +628,7 @@ class _MyProfilePage2State extends State<MyProfilePage2> {
                                       showAlertDialog(
                                           context,
                                           "You can't book your own class!",
-                                          "Warning");
+                                          "Error");
                                     }
                                     if (x.tutor != Authorization.id)
                                       Navigator.push(

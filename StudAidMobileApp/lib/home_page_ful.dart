@@ -369,10 +369,8 @@ class _HomePageNewState extends State<HomePageNew> {
                             child: ElevatedButton(
                               onPressed: () {
                                 if (x.tutor == Authorization.id) {
-                                  showAlertDialog(
-                                      context,
-                                      "You can't book your own class!",
-                                      "Warning");
+                                  showAlertDialog(context,
+                                      "You can't book your own class!", "");
                                 }
 
                                 if (x.tutor != Authorization.id)

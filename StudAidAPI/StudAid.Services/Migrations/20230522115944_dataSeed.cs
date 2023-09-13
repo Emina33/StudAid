@@ -84,6 +84,8 @@ namespace StudAid.Services.Migrations
                     {2,"John", "Doe", "johndoe", "oN7EnB9RJfFoHXP5MvO5KaMS4Gc=","AAAAAAAAAAAAAAAAAAAAAA==", 3,"basic user","As a biology teacher, I aim to inspire curiosity and critical thinking in my students. Through hands-on activities, inquiry-based investigations, and technology, I facilitate learning of biological concepts and processes. I prioritize the development of important skills, challenge students to think critically, and foster a safe and inclusive learning environment."},
                     {3,"Jane", "Doe", "janedoe", "oN7EnB9RJfFoHXP5MvO5KaMS4Gc=","AAAAAAAAAAAAAAAAAAAAAA==", 9, "basic user","Passionate math teacher inspiring students with clear explanations, engaging activities, and a focus on critical thinking."},
                     {4,"John", "Smith", "johnsmith", "oN7EnB9RJfFoHXP5MvO5KaMS4Gc=","AAAAAAAAAAAAAAAAAAAAAA==", 5, "basic user","Passionate art educator inspiring creativity through diverse techniques. Fostering imagination, skills, and a lifelong love for artistic expression."},
+                    {5,"Herman", "Glynn", "hermanglynn", "oN7EnB9RJfFoHXP5MvO5KaMS4Gc=","AAAAAAAAAAAAAAAAAAAAAA==", 7, "basic user","I'm a dedicated chemistry teacher with a master's degree and a passion for making chemistry accessible. I create engaging lessons, prioritize hands-on experiments, and foster a supportive learning environment. My goal is to inspire students to excel in chemistry and appreciate its significance."},
+                    {6,"David", "Nelson", "davidnelson", "oN7EnB9RJfFoHXP5MvO5KaMS4Gc=","AAAAAAAAAAAAAAAAAAAAAA==", 8, "basic user","I'm a devoted English teacher, inspiring a love for language and literature, fostering critical thinking, and empowering effective communication."},
               });
 
             migrationBuilder.InsertData(
@@ -91,11 +93,14 @@ namespace StudAid.Services.Migrations
                columns: new[] { "AdvertID", "AdvertName", "AvailableTime", "Price", "Tutor", "SubjectID", "Date", "StateMachine" },
                values: new object[,]
                {
-                    {1,"Anatomy class", "10/10/2023, 10:00, 11:00, 12:00", 15,2,1,1,"draft" },
-                    {2,"Algebra class", "10/13/2023, 13:00, 14:00, 15:00", 10,3,7,1,"draft" },
-                    {3,"Animal cells", "10/12/2023, 13:00, 14:00, 15:00", 10,2,1,1,"draft" },
-                    {4,"Portraits", "10/15/2023, 12:00, 14:00, 16:00", 20,4,4,1,"draft" },
-                    {5,"Human cells", "10/16/2023, 12:00, 14:00, 16:00", 15,2,1,1,"draft" },
+                    {1,"Anatomy class", "10/10/2023, 10:00, 11:00, 12:00, 13:00", 15,2,1,1,"draft" },
+                    {2,"Algebra class", "10/13/2023, 13:00, 14:00, 15:00, 16:00", 10,3,7,1,"draft" },
+                    {3,"Animal cells", "10/12/2023, 13:00, 14:00, 15:00, 16:00", 10,2,1,1,"draft" },
+                    {4,"Portraits", "10/15/2023, 12:00, 14:00, 16:00, 17:00", 20,4,4,1,"draft" },
+                    {5,"Human cells", "10/16/2023, 12:00, 14:00, 16:00, 18:00", 15,2,1,1,"draft" },
+                    {6,"Vowels", "10/17/2023, 12:00, 14:00, 16:00, 18:00", 15,6,3,1,"draft" },
+                    {7,"Consonants", "10/14/2023, 12:00, 14:00, 16:00, 18:00", 15,6,3,1,"draft" },
+                    {8,"Molecules", "10/11/2023, 12:00, 14:00, 16:00, 18:00", 15,5,2,1,"draft" },
                });
 
             migrationBuilder.InsertData(
@@ -110,6 +115,10 @@ namespace StudAid.Services.Migrations
                     {5,4,3,"10/15/2023, 13:00" },
                     {6,1,4,"10/10/2023, 14:00" },
                     {7,3,4,"10/12/2023, 10:00" },
+                    {8,6,3,"10/17/2023, 10:00" },
+                    {9,8,3,"10/14/2023, 11:00"},
+                    {10,7,5,"10/14/2023, 11:00" },
+                    {11,6,5,"10/17/2023, 19:00" },
                });
             migrationBuilder.InsertData(
                table: "Message",
@@ -163,6 +172,18 @@ namespace StudAid.Services.Migrations
                table: "Advert",
                keyColumn: "AdvertID",
                keyValue: 5);
+            migrationBuilder.DeleteData(
+               table: "Advert",
+               keyColumn: "AdvertID",
+               keyValue: 6);
+            migrationBuilder.DeleteData(
+               table: "Advert",
+               keyColumn: "AdvertID",
+               keyValue: 7);
+            migrationBuilder.DeleteData(
+               table: "Advert",
+               keyColumn: "AdvertID",
+               keyValue: 8);
 
             migrationBuilder.DeleteData(
                 table: "AppUser",
@@ -181,6 +202,14 @@ namespace StudAid.Services.Migrations
                table: "AppUser",
                keyColumn: "AppUserID",
                keyValue: 4);
+            migrationBuilder.DeleteData(
+               table: "AppUser",
+               keyColumn: "AppUserID",
+               keyValue: 5);
+            migrationBuilder.DeleteData(
+               table: "AppUser",
+               keyColumn: "AppUserID",
+               keyValue: 6);
             migrationBuilder.DeleteData(
                 table: "Category",
                 keyColumn: "CategoryID",
@@ -325,6 +354,22 @@ namespace StudAid.Services.Migrations
                 table: "Reservation",
                 keyColumn: "ReservationID",
                 keyValue: 7);
+            migrationBuilder.DeleteData(
+                table: "Reservation",
+                keyColumn: "ReservationID",
+                keyValue: 8);
+            migrationBuilder.DeleteData(
+                table: "Reservation",
+                keyColumn: "ReservationID",
+                keyValue: 9);
+            migrationBuilder.DeleteData(
+                table: "Reservation",
+                keyColumn: "ReservationID",
+                keyValue: 10);
+            migrationBuilder.DeleteData(
+                table: "Reservation",
+                keyColumn: "ReservationID",
+                keyValue: 11);
             migrationBuilder.DeleteData(
                 table: "Message",
                 keyColumn: "MessageID",

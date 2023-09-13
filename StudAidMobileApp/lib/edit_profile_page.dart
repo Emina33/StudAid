@@ -108,23 +108,26 @@ class _EditProfilePageState extends State<EditProfilePage>
 
   bool Validate() {
     if (aboutController.text == "") {
-      showAlertDialog(context, "Description can't be empty", "Warning");
+      showAlertDialog(
+          context, "Description can't be empty", "Validation error");
       return false;
     }
     if (firstNameController.text == "") {
-      showAlertDialog(context, "First name field can't be empty", "Warning");
+      showAlertDialog(
+          context, "First name field can't be empty", "Validation error");
       return false;
     }
     if (lastNameController.text == "") {
-      showAlertDialog(context, "Last name field can't be empty", "Warning");
+      showAlertDialog(
+          context, "Last name field can't be empty", "Validation error");
       return false;
     }
     if (passwordController.text == "") {
-      showAlertDialog(context, "Password can't be empty", "Warning");
+      showAlertDialog(context, "Password can't be empty", "Validation error");
       return false;
     }
     if (passwordController.text != confirmPassController.text) {
-      showAlertDialog(context, "Passwords don't match", "Warning");
+      showAlertDialog(context, "Passwords don't match", "Validation error");
       return false;
     }
 

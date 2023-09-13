@@ -51,46 +51,48 @@ class _RegisterPageState extends State<RegisterPage> {
 
   bool Validate() {
     if (firstNameController.text == "") {
-      showAlertDialog(context, "Fill first name field", "Warning");
+      showAlertDialog(context, "Fill first name field", "Validation error");
       return false;
     }
     if (lastNameController.text == "") {
-      showAlertDialog(context, "Fill last name field", "Warning");
+      showAlertDialog(context, "Fill last name field", "Validation error");
       return false;
     }
     if (usernameController.text == "") {
-      showAlertDialog(context, "Fill username field", "Warning");
+      showAlertDialog(context, "Fill username field", "Validation error");
       return false;
     }
     if (!regexUsername.hasMatch(usernameController.text)) {
       showAlertDialog(
           context,
           "Username must start with a letter, has minimum 5 characters and can't contain any special characters",
-          "Warning");
+          "Validation error");
       return false;
     }
     if (dataStrings.contains(usernameController.text)) {
-      showAlertDialog(context, "Username already exists", "Warning");
+      showAlertDialog(context, "Username already exists", "Validation error");
       return false;
     }
     if (passwordController.text == "") {
-      showAlertDialog(context, "Write your chosen password", "Warning");
+      showAlertDialog(
+          context, "Write your chosen password", "Validation error");
       return false;
     }
     if (!regexPass.hasMatch(passwordController.text)) {
       showAlertDialog(
           context,
           "Password must contain minimum eight characters, at least one letter, one number and one special character",
-          "Warning");
+          "Validation error");
       return false;
     }
     if (passwordController.text != confirmPassController.text) {
       showAlertDialog(
-          context, "Confirmation password doesn't match", "Warning");
+          context, "Confirmation password doesn't match", "Validation error");
       return false;
     }
     if (aboutController.text == "") {
-      showAlertDialog(context, "Fill out the description field", "Warning");
+      showAlertDialog(
+          context, "Fill out the description field", "Validation error");
       return false;
     }
 

@@ -55,20 +55,23 @@ class _UploadPage2State extends State<UploadPage2> {
 
   bool Validate() {
     if (nameController.text == "") {
-      showAlertDialog(context, "Write the document name", "Warning");
+      showAlertDialog(context, "Write the document name", "Validation error");
       return false;
     }
     if (authorController.text == "") {
-      showAlertDialog(context, "Write the name of the author", "Warning");
+      showAlertDialog(
+          context, "Write the name of the author", "Validation error");
       return false;
     }
     if (descriptionController.text == "") {
-      showAlertDialog(context,
-          "Write a short content description of the document", "Warning");
+      showAlertDialog(
+          context,
+          "Write a short content description of the document",
+          "Validation error");
       return false;
     }
     if (fileString == "") {
-      showAlertDialog(context, "Select a document", "Warning");
+      showAlertDialog(context, "Select a document", "Validation error");
       return false;
     }
 

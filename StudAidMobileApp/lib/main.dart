@@ -60,11 +60,11 @@ class _RootPageState extends State<RootPage> {
   Widget build(BuildContext context) {
     bool Validate() {
       if (_usernameController.text == "") {
-        showAlertDialog(context, "Fill the username field", "Warning");
+        showAlertDialog(context, "Fill the username field", "Validation error");
         return false;
       }
       if (_passwordController.text == "") {
-        showAlertDialog(context, "Write the password", "Warning");
+        showAlertDialog(context, "Write the password", "Validation error");
         return false;
       }
       return true;

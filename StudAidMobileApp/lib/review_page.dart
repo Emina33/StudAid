@@ -30,11 +30,11 @@ class _ReviewPageState extends State<ReviewPage> {
 
   bool Validate() {
     if (stars == 0) {
-      showAlertDialog(context, "The minimum is one star", "Warning");
+      showAlertDialog(context, "The minimum is one star", "Validation error");
       return false;
     }
     if (reviewController.text == "") {
-      showAlertDialog(context, "Fill the review field", "Warning");
+      showAlertDialog(context, "Fill the review field", "Validation error");
       return false;
     }
     return true;

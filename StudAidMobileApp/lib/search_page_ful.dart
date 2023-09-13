@@ -741,7 +741,7 @@ class _SearchPage2State extends State<SearchPage2> {
                                   showAlertDialog(
                                       context,
                                       "You can't book your own class!",
-                                      "Warning");
+                                      "Error");
                                 }
                                 // var pic = data3.firstWhere(
                                 //     (element) => element.userId == x.tutor,

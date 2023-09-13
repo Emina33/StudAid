@@ -47,28 +47,30 @@ class _OfferClassPage2State extends State<OfferClassPage2> {
   DateRangePickerController _datePickerController = DateRangePickerController();
   bool Validate() {
     if (nameController.text == "") {
-      showAlertDialog(context, "Write the advert name", "Warning");
+      showAlertDialog(context, "Write the advert name", "Validation error");
       return false;
     }
     if (priceController.text == "") {
-      showAlertDialog(context, "Write the price of a class", "Warning");
+      showAlertDialog(
+          context, "Write the price of a class", "Validation error");
       return false;
     }
     if (int.tryParse(priceController.text) == null) {
-      showAlertDialog(context, "Price must be a number", "Warning");
+      showAlertDialog(context, "Price must be a number", "Validation error");
       return false;
     }
     if (timeController.text == "") {
-      showAlertDialog(context, "Write the time you are available", "Warning");
+      showAlertDialog(
+          context, "Write the time you are available", "Validation error");
       return false;
     }
     if (!timeRule.hasMatch("${timeController.text},")) {
-      showAlertDialog(
-          context, "The acceptable format is e.g 10:00,11:00", "Warning");
+      showAlertDialog(context, "The acceptable format is e.g 10:00,11:00",
+          "Validation error");
       return false;
     }
     if (_selectedDate == "") {
-      showAlertDialog(context, "Select a date", "Warning");
+      showAlertDialog(context, "Select a date", "Validation error");
       return false;
     }
     return true;
