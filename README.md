@@ -17,7 +17,7 @@ You can also add --dart-define baseUrl=yourNewUrl if you want to change the base
 Add --dart-define clientId=yourNewClientId and --dart-define secretKey=yourNewSecretKey if you wish to change the payment credentials for Paypal.
 If you choose not to change the credentials, default values will be used and the Paypal account email and password are:
 - email: sb-9s2tu26233819@personal.example.com
-- password: 78>;5I.z
+- password: 78>;5I.z <br>
   
 Additional information:
 - credit card number: 4102132325125292
