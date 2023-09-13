@@ -558,20 +558,45 @@ class _MyProfilePage2State extends State<MyProfilePage2> {
                                   ),
                           ),
                           Container(
-                            child: TextButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            MyProfilePage2(x.tutor!)),
-                                  );
-                                },
-                                child: const Text('See profile',
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        color:
-                                            Color.fromRGBO(20, 30, 39, 1.0)))),
+                            child: x.tutor == Authorization.id
+                                ? TextButton(
+                                    onPressed: () async {
+                                      for (var i = 0; i < data3.length; i++) {
+                                        if (data3[i].advertId == x.advertId) {
+                                          showAlertDialog(
+                                              context,
+                                              "This advert has reservations!",
+                                              "Warning");
+                                          return;
+                                        }
+                                      }
+
+                                      await _advertProvider
+                                          ?.delete(x.advertId!);
+                                      showAlertDialog(
+                                          context,
+                                          "You successfully deleted the advert!",
+                                          "Success");
+                                    },
+                                    child: const Text('Delete advert',
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            color: Color.fromRGBO(
+                                                20, 30, 39, 1.0))))
+                                : TextButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                MyProfilePage2(x.tutor!)),
+                                      );
+                                    },
+                                    child: const Text('See profile',
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            color: Color.fromRGBO(
+                                                20, 30, 39, 1.0)))),
                           ),
                         ],
                       ),
