@@ -120,6 +120,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtSubject);
             this.Name = "frmNewSubject";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmNewSubject";
             this.Load += new System.EventHandler(this.frmNewSubject_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();

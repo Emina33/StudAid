@@ -183,14 +183,14 @@
             // addNewToolStripMenuItem1
             // 
             this.addNewToolStripMenuItem1.Name = "addNewToolStripMenuItem1";
-            this.addNewToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
+            this.addNewToolStripMenuItem1.Size = new System.Drawing.Size(151, 26);
             this.addNewToolStripMenuItem1.Text = "Add new";
             this.addNewToolStripMenuItem1.Click += new System.EventHandler(this.addNewToolStripMenuItem1_Click);
             // 
             // searchToolStripMenuItem4
             // 
             this.searchToolStripMenuItem4.Name = "searchToolStripMenuItem4";
-            this.searchToolStripMenuItem4.Size = new System.Drawing.Size(224, 26);
+            this.searchToolStripMenuItem4.Size = new System.Drawing.Size(151, 26);
             this.searchToolStripMenuItem4.Text = "Search";
             this.searchToolStripMenuItem4.Click += new System.EventHandler(this.searchToolStripMenuItem4_Click);
             // 
@@ -223,6 +223,7 @@
             this.MainMenuStrip = this.menuStrip;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "mdiMain";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MDIParent1";
             this.Load += new System.EventHandler(this.mdiMain_Load);
             this.menuStrip.ResumeLayout(false);

@@ -99,6 +99,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtCategory);
             this.Name = "frmNewCategory";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmNewCategory";
             this.Load += new System.EventHandler(this.frmNewCategory_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();

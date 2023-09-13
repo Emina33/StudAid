@@ -125,6 +125,7 @@
             this.Controls.Add(this.txtCountry);
             this.Controls.Add(this.txtCity);
             this.Name = "frmNewLocation";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmNewLocation";
             this.Load += new System.EventHandler(this.frmNewLocation_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
